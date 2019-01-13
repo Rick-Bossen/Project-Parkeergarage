@@ -23,5 +23,20 @@ public class Clock {
         }
 
     }
+
+    public int getDay()
+    {
+        return day;
+    }
+
+    public int getHour()
+    {
+        return  hour;
+    }
+
+    public int getMinute()
+    {
+        return minute;
+    }
 }
 

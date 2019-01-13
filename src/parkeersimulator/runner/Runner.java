@@ -8,6 +8,7 @@ public class Runner {
     {
         Main main = new Main();
         main.testLayout();
+        main.testSim();
     }
 
 }
