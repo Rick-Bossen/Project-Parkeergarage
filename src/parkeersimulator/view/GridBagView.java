@@ -25,7 +25,6 @@ abstract public class GridBagView extends JPanel {
     }
 
     protected void setGridWidth(int gridWidth) {
-        System.out.println(constraints);
         constraints.gridwidth = gridWidth;
     }
 
