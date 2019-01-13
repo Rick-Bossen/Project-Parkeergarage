@@ -4,21 +4,36 @@ import java.util.Random;
 
 public class CarPark {
 
+    private static final String AD_HOC = "1";
+    private static final String PASS = "2";
+
     private CarQueue entranceCarQueue;
     private CarQueue entrancePassQueue;
     private CarQueue paymentCarQueue;
     private CarQueue exitCarQueue;
 
-    int weekDayArrivals= 100; // average number of arriving cars per hour
-    int weekendArrivals = 200; // average number of arriving cars per hour
-    int weekDayPassArrivals= 50; // average number of arriving cars per hour
-    int weekendPassArrivals = 5; // average number of arriving cars per hour
+    private int numberOfFloors;
+    private int numberOfRows;
+    private int numberOfPlaces;
+    private int numberOfOpenSpots;
+    private Car[][][] cars;
 
-    int enterSpeed = 3; // number of cars that can enter per minute
-    int paymentSpeed = 7; // number of cars that can pay per minute
-    int exitSpeed = 5; // number of cars that can leave per minute
+    private int weekDayArrivals= 100; // average number of arriving cars per hour
+    private int weekendArrivals = 200; // average number of arriving cars per hour
+    private int weekDayPassArrivals= 50; // average number of arriving cars per hour
+    private int weekendPassArrivals = 5; // average number of arriving cars per hour
 
-    public CarPark() {
+    private int enterSpeed = 3; // number of cars that can enter per minute
+    private int paymentSpeed = 7; // number of cars that can pay per minute
+    private int exitSpeed = 5; // number of cars that can leave per minute
+
+    public CarPark(int numberOfFloors, int numberOfRows, int numberOfPlaces) {
+
+        this.numberOfFloors = numberOfFloors;
+        this.numberOfRows = numberOfRows;
+        this.numberOfPlaces = numberOfPlaces;
+        this.numberOfOpenSpots =numberOfFloors*numberOfRows*numberOfPlaces;
+        cars = new Car[numberOfFloors][numberOfRows][numberOfPlaces];
 
         entranceCarQueue = new CarQueue();
         entrancePassQueue = new CarQueue();
@@ -26,8 +41,24 @@ public class CarPark {
         exitCarQueue = new CarQueue();
     }
 
-    public void handleEntrance(){
-        carsArriving();
+    public int getNumberOfFloors() {
+        return numberOfFloors;
+    }
+
+    public int getNumberOfRows() {
+        return numberOfRows;
+    }
+
+    public int getNumberOfPlaces() {
+        return numberOfPlaces;
+    }
+
+    public int getNumberOfOpenSpots(){
+        return numberOfOpenSpots;
+    }
+
+    public void handleEntrance(int day){
+        carsArriving(day);
         carsEntering(entrancePassQueue);
         carsEntering(entranceCarQueue);
     }
@@ -38,10 +69,10 @@ public class CarPark {
         carsLeaving();
     }
 
-    public void carsArriving(){
-        int numberOfCars=getNumberOfCars(weekDayArrivals, weekendArrivals);
+    public void carsArriving(int day){
+        int numberOfCars=getNumberOfCars(weekDayArrivals, weekendArrivals, day);
         addArrivingCars(numberOfCars, AD_HOC);
-        numberOfCars=getNumberOfCars(weekDayPassArrivals, weekendPassArrivals);
+        numberOfCars=getNumberOfCars(weekDayPassArrivals, weekendPassArrivals, day);
         addArrivingCars(numberOfCars, PASS);
     }
 
@@ -49,18 +80,18 @@ public class CarPark {
         int i=0;
         // Remove car from the front of the queue and assign to a parking space.
         while (queue.carsInQueue()>0 &&
-                simulatorView.getNumberOfOpenSpots()>0 &&
+                getNumberOfOpenSpots()>0 &&
                 i<enterSpeed) {
             Car car = queue.removeCar();
-            Location freeLocation = simulatorView.getFirstFreeLocation();
-            simulatorView.setCarAt(freeLocation, car);
+            Location freeLocation = getFirstFreeLocation();
+            setCarAt(freeLocation, car);
             i++;
         }
     }
 
     private void carsReadyToLeave(){
         // Add leaving cars to the payment queue.
-        Car car = simulatorView.getFirstLeavingCar();
+        Car car = getFirstLeavingCar();
         while (car!=null) {
             if (car.getHasToPay()){
                 car.setIsPaying(true);
@@ -69,7 +100,7 @@ public class CarPark {
             else {
                 carLeavesSpot(car);
             }
-            car = simulatorView.getFirstLeavingCar();
+            car = getFirstLeavingCar();
         }
     }
 
@@ -93,7 +124,7 @@ public class CarPark {
         }
     }
 
-    private int getNumberOfCars(int weekDay, int weekend){
+    private int getNumberOfCars(int weekDay, int weekend, int day){
         Random random = new Random();
 
         // Get the average number of cars that arrive per hour.
@@ -124,7 +155,95 @@ public class CarPark {
     }
 
     private void carLeavesSpot(Car car){
-        simulatorView.removeCarAt(car.getLocation());
+        removeCarAt(car.getLocation());
         exitCarQueue.addCar(car);
+    }
+
+    public Car getCarAt(Location location) {
+        if (!locationIsValid(location)) {
+            return null;
+        }
+        return cars[location.getFloor()][location.getRow()][location.getPlace()];
+    }
+
+    public boolean setCarAt(Location location, Car car) {
+        if (!locationIsValid(location)) {
+            return false;
+        }
+        Car oldCar = getCarAt(location);
+        if (oldCar == null) {
+            cars[location.getFloor()][location.getRow()][location.getPlace()] = car;
+            car.setLocation(location);
+            numberOfOpenSpots--;
+            return true;
+        }
+        return false;
+    }
+
+    public Car removeCarAt(Location location) {
+        if (!locationIsValid(location)) {
+            return null;
+        }
+        Car car = getCarAt(location);
+        if (car == null) {
+            return null;
+        }
+        cars[location.getFloor()][location.getRow()][location.getPlace()] = null;
+        car.setLocation(null);
+        numberOfOpenSpots++;
+        return car;
+    }
+
+    public Location getFirstFreeLocation() {
+        for (int floor = 0; floor < getNumberOfFloors(); floor++) {
+            for (int row = 0; row < getNumberOfRows(); row++) {
+                for (int place = 0; place < getNumberOfPlaces(); place++) {
+                    Location location = new Location(floor, row, place);
+                    if (getCarAt(location) == null) {
+                        return location;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    public Car getFirstLeavingCar() {
+        for (int floor = 0; floor < getNumberOfFloors(); floor++) {
+            for (int row = 0; row < getNumberOfRows(); row++) {
+                for (int place = 0; place < getNumberOfPlaces(); place++) {
+                    Location location = new Location(floor, row, place);
+                    Car car = getCarAt(location);
+                    if (car != null && car.getMinutesLeft() <= 0 && !car.getIsPaying()) {
+                        return car;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    public void tick() {
+        for (int floor = 0; floor < getNumberOfFloors(); floor++) {
+            for (int row = 0; row < getNumberOfRows(); row++) {
+                for (int place = 0; place < getNumberOfPlaces(); place++) {
+                    Location location = new Location(floor, row, place);
+                    Car car = getCarAt(location);
+                    if (car != null) {
+                        car.tick();
+                    }
+                }
+            }
+        }
+    }
+
+    private boolean locationIsValid(Location location) {
+        int floor = location.getFloor();
+        int row = location.getRow();
+        int place = location.getPlace();
+        if (floor < 0 || floor >= numberOfFloors || row < 0 || row > numberOfRows || place < 0 || place > numberOfPlaces) {
+            return false;
+        }
+        return true;
     }
 }
