@@ -14,6 +14,7 @@ public class Simulator {
     private Statistics stats;
     private SimulatorModel sim;
     private CarPark carPark;
+    private TopBar topBar;
     private ArrayList<CarParkFloor> floors;
 
     public Simulator(Clock clock, Statistics stats, SimulatorModel sim, CarPark carPark) {
@@ -58,7 +59,7 @@ public class Simulator {
         mainFrame.setContentPane(mainLayout);
         mainFrame.setLocation((Toolkit.getDefaultToolkit().getScreenSize().width - 800) / 2, (Toolkit.getDefaultToolkit().getScreenSize().height - 500) / 2);
 
-        TopBar topBar = new TopBar();
+        topBar = new TopBar();
         mainLayout.add(topBar, topBar.getConstraints());
 
         SideBar sideBar = new SideBar();
@@ -82,6 +83,7 @@ public class Simulator {
 
     private void updateViews(){
         carPark.tick();
+        topBar.setDateTimeLabelText(clock.toString());
 
         // Update the car park views.
         for (CarParkFloor floor : floors){
