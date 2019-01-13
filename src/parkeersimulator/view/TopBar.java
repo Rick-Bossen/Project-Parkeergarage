@@ -4,9 +4,9 @@ import java.awt.*;
 
 public class TopBar extends GridBagView {
 
-    public TopBar(int numberOfFloors) {
+    public TopBar() {
         super();
-        setGridWidth(1 + numberOfFloors);
+        setGridWidth(2);
         setBackground(new Color(45, 52, 54));
 
         setUIComponents();
