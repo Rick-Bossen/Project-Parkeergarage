@@ -11,16 +11,14 @@ import java.util.ArrayList;
 public class Simulator {
 
     private Clock clock;
-    private Statistics stats;
     private SimulatorModel sim;
     private CarPark carPark;
     private TopBar topBar;
     private ArrayList<CarParkFloor> floors;
 
-    public Simulator(Clock clock, Statistics stats, SimulatorModel sim, CarPark carPark) {
+    public Simulator(Clock clock, SimulatorModel sim, CarPark carPark) {
 
         this.clock = clock;
-        this.stats = stats;
         this.sim = sim;
         this.carPark = carPark;
 
@@ -46,7 +44,6 @@ public class Simulator {
             e.printStackTrace();
         }
         carPark.handleEntrance(clock.getDay());
-        stats.incrementTick();
     }
 
     private void bootstrapFrame()
