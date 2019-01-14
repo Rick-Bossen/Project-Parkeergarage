@@ -49,7 +49,7 @@ public class Simulator {
     private void bootstrapFrame()
     {
         floors = new ArrayList<>();
-        JFrame mainFrame = new JFrame("Parkeersimulator");
+        JFrame mainFrame = new JFrame("Parking Simulator");
         JPanel mainLayout = new JPanel();
         mainLayout.setLayout(new GridBagLayout());
         mainLayout.setPreferredSize(new Dimension(800, 500));
