@@ -1,14 +1,9 @@
 package parkeersimulator.model;
 
-import java.util.Random;
+import java.util.ArrayList;
 
 public class CarPark {
 
-    private static final String AD_HOC = "1";
-    private static final String PASS = "2";
-
-    private CarQueue entranceCarQueue;
-    private CarQueue entrancePassQueue;
     private CarQueue paymentCarQueue;
     private CarQueue exitCarQueue;
 
@@ -18,14 +13,7 @@ public class CarPark {
     private int numberOfOpenSpots;
     private Car[][][] cars;
 
-    private int weekDayArrivals= 100; // average number of arriving cars per hour
-    private int weekendArrivals = 200; // average number of arriving cars per hour
-    private int weekDayPassArrivals= 50; // average number of arriving cars per hour
-    private int weekendPassArrivals = 5; // average number of arriving cars per hour
-
-    private int enterSpeed = 3; // number of cars that can enter per minute
-    private int paymentSpeed = 7; // number of cars that can pay per minute
-    private int exitSpeed = 5; // number of cars that can leave per minute
+    private ArrayList<CustomerGroup> customerGroups;
 
     public CarPark(int numberOfFloors, int numberOfRows, int numberOfPlaces) {
 
@@ -35,10 +23,22 @@ public class CarPark {
         this.numberOfOpenSpots =numberOfFloors*numberOfRows*numberOfPlaces;
         cars = new Car[numberOfFloors][numberOfRows][numberOfPlaces];
 
-        entranceCarQueue = new CarQueue();
-        entrancePassQueue = new CarQueue();
-        paymentCarQueue = new CarQueue();
-        exitCarQueue = new CarQueue();
+        paymentCarQueue = new CarQueue(5);
+        exitCarQueue = new CarQueue(5);
+        createGroups();
+    }
+
+    private void createGroups()
+    {
+        this.customerGroups = new ArrayList<>();
+
+        CustomerGroup adHoc = new CustomerGroup(AdHocCar.class, 100, 200);
+        adHoc.setEntranceCarQueue(new CarQueue(3));
+        customerGroups.add(adHoc);
+
+        CustomerGroup parkingPass = new CustomerGroup(ParkingPassCar.class, 50, 5);
+        parkingPass.setEntranceCarQueue(new CarQueue(3));
+        customerGroups.add(parkingPass);
     }
 
     public int getNumberOfFloors() {
@@ -59,8 +59,9 @@ public class CarPark {
 
     public void handleEntrance(int day){
         carsArriving(day);
-        carsEntering(entrancePassQueue);
-        carsEntering(entranceCarQueue);
+        for (CustomerGroup group : customerGroups) {
+            carsEntering(group.getEntranceCarQueue());
+        }
     }
 
     public void handleExit(){
@@ -70,18 +71,17 @@ public class CarPark {
     }
 
     public void carsArriving(int day){
-        int numberOfCars=getNumberOfCars(weekDayArrivals, weekendArrivals, day);
-        addArrivingCars(numberOfCars, AD_HOC);
-        numberOfCars=getNumberOfCars(weekDayPassArrivals, weekendPassArrivals, day);
-        addArrivingCars(numberOfCars, PASS);
+        for (CustomerGroup group : customerGroups) {
+            for (int i = 0; i < group.getNumberOfCars(day); i++) {
+                group.getEntranceCarQueue().addCar(group.getNewCar());
+            }
+        }
     }
 
     public void carsEntering(CarQueue queue){
         int i=0;
         // Remove car from the front of the queue and assign to a parking space.
-        while (queue.carsInQueue()>0 &&
-                getNumberOfOpenSpots()>0 &&
-                i<enterSpeed) {
+        while (queue.carsInQueue()>0 && getNumberOfOpenSpots()>0 && i <queue.getSpeed()) {
             Car car = queue.removeCar();
             Location freeLocation = getFirstFreeLocation();
             setCarAt(freeLocation, car);
@@ -107,7 +107,7 @@ public class CarPark {
     private void carsPaying(){
         // Let cars pay.
         int i=0;
-        while (paymentCarQueue.carsInQueue()>0 && i < paymentSpeed){
+        while (paymentCarQueue.carsInQueue()>0 && i < paymentCarQueue.getSpeed()){
             Car car = paymentCarQueue.removeCar();
             // TODO Handle payment.
             carLeavesSpot(car);
@@ -118,39 +118,9 @@ public class CarPark {
     private void carsLeaving(){
         // Let cars leave.
         int i=0;
-        while (exitCarQueue.carsInQueue()>0 && i < exitSpeed){
+        while (exitCarQueue.carsInQueue()>0 && i < exitCarQueue.getSpeed()){
             exitCarQueue.removeCar();
             i++;
-        }
-    }
-
-    private int getNumberOfCars(int weekDay, int weekend, int day){
-        Random random = new Random();
-
-        // Get the average number of cars that arrive per hour.
-        int averageNumberOfCarsPerHour = day < 5
-                ? weekDay
-                : weekend;
-
-        // Calculate the number of cars that arrive this minute.
-        double standardDeviation = averageNumberOfCarsPerHour * 0.3;
-        double numberOfCarsPerHour = averageNumberOfCarsPerHour + random.nextGaussian() * standardDeviation;
-        return (int)Math.round(numberOfCarsPerHour / 60);
-    }
-
-    private void addArrivingCars(int numberOfCars, String type){
-        // Add the cars to the back of the queue.
-        switch(type) {
-            case AD_HOC:
-                for (int i = 0; i < numberOfCars; i++) {
-                    entranceCarQueue.addCar(new AdHocCar());
-                }
-                break;
-            case PASS:
-                for (int i = 0; i < numberOfCars; i++) {
-                    entrancePassQueue.addCar(new ParkingPassCar());
-                }
-                break;
         }
     }
 
