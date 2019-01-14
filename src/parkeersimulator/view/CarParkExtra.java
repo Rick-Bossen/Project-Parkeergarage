@@ -27,7 +27,7 @@ public class CarParkExtra extends GridBagView {
         JButton oneTickButton = new JButton();
         oneTickButton.setFont(new Font("Dubai Light", -1, 14));
         oneTickButton.setForeground(Color.white);
-        oneTickButton.setBackground(new Color(-9127425));
+        oneTickButton.setBackground(new Color(116, 185, 255));
         oneTickButton.setBorderPainted(false);
         oneTickButton.setFocusPainted(false);
         oneTickButton.setText("1");
@@ -39,7 +39,7 @@ public class CarParkExtra extends GridBagView {
         JButton thousandTickButton = new JButton();
         thousandTickButton.setFont(new Font("Dubai Light", -1, 14));
         thousandTickButton.setForeground(Color.white);
-        thousandTickButton.setBackground(new Color(-9127425));
+        thousandTickButton.setBackground(new Color(116, 185, 255));
         thousandTickButton.setBorderPainted(false);
         thousandTickButton.setFocusPainted(false);
         thousandTickButton.setText("1000");
@@ -59,7 +59,7 @@ public class CarParkExtra extends GridBagView {
 //        JButton resetButton = new JButton();
 //        resetButton.setFont(new Font("Dubai Light", -1, 14));
 //        resetButton.setForeground(Color.white);
-//        resetButton.setBackground(new Color(-9127425));
+//        resetButton.setBackground(new Color(116, 185, 255));
 //        resetButton.setBorderPainted(false);
 //        resetButton.setFocusPainted(false);
 //        resetButton.setText("Reset simulation");
