@@ -1,38 +1,47 @@
-package Parkeersimulator;
+package parkeersimulator.model;
 
-import javax.swing.*;
-import java.awt.*;
+import java.util.ArrayList;
 
-public class SimulatorView extends JFrame {
-    private CarParkView carParkView;
+public class CarPark {
+
+    private CarQueue paymentCarQueue;
+    private CarQueue exitCarQueue;
+
     private int numberOfFloors;
     private int numberOfRows;
     private int numberOfPlaces;
     private int numberOfOpenSpots;
     private Car[][][] cars;
 
-    public SimulatorView(int numberOfFloors, int numberOfRows, int numberOfPlaces) {
+    private ArrayList<CustomerGroup> customerGroups;
+
+    public CarPark(int numberOfFloors, int numberOfRows, int numberOfPlaces) {
+
         this.numberOfFloors = numberOfFloors;
         this.numberOfRows = numberOfRows;
         this.numberOfPlaces = numberOfPlaces;
         this.numberOfOpenSpots =numberOfFloors*numberOfRows*numberOfPlaces;
         cars = new Car[numberOfFloors][numberOfRows][numberOfPlaces];
-        
-        carParkView = new CarParkView();
 
-        Container contentPane = getContentPane();
-        contentPane.add(carParkView, BorderLayout.CENTER);
-        pack();
-        setVisible(true);
-
-        updateView();
+        paymentCarQueue = new CarQueue(5);
+        exitCarQueue = new CarQueue(5);
+        createGroups();
     }
 
-    public void updateView() {
-        carParkView.updateView();
+    private void createGroups()
+    {
+        this.customerGroups = new ArrayList<>();
+
+        CustomerGroup adHoc = new CustomerGroup(AdHocCar.class, 100, 200);
+        adHoc.setEntranceCarQueue(new CarQueue(3));
+        customerGroups.add(adHoc);
+
+        CustomerGroup parkingPass = new CustomerGroup(ParkingPassCar.class, 50, 5);
+        parkingPass.setEntranceCarQueue(new CarQueue(3));
+        customerGroups.add(parkingPass);
     }
-    
-	public int getNumberOfFloors() {
+
+    public int getNumberOfFloors() {
         return numberOfFloors;
     }
 
@@ -45,9 +54,81 @@ public class SimulatorView extends JFrame {
     }
 
     public int getNumberOfOpenSpots(){
-    	return numberOfOpenSpots;
+        return numberOfOpenSpots;
     }
-    
+
+    public void handleEntrance(int day){
+        carsArriving(day);
+        for (CustomerGroup group : customerGroups) {
+            carsEntering(group.getEntranceCarQueue());
+        }
+    }
+
+    public void handleExit(){
+        carsReadyToLeave();
+        carsPaying();
+        carsLeaving();
+    }
+
+    public void carsArriving(int day){
+        for (CustomerGroup group : customerGroups) {
+            for (int i = 0; i < group.getNumberOfCars(day); i++) {
+                group.getEntranceCarQueue().addCar(group.getNewCar());
+            }
+        }
+    }
+
+    public void carsEntering(CarQueue queue){
+        int i=0;
+        // Remove car from the front of the queue and assign to a parking space.
+        while (queue.carsInQueue()>0 && getNumberOfOpenSpots()>0 && i <queue.getSpeed()) {
+            Car car = queue.removeCar();
+            Location freeLocation = getFirstFreeLocation();
+            setCarAt(freeLocation, car);
+            i++;
+        }
+    }
+
+    private void carsReadyToLeave(){
+        // Add leaving cars to the payment queue.
+        Car car = getFirstLeavingCar();
+        while (car!=null) {
+            if (car.getHasToPay()){
+                car.setIsPaying(true);
+                paymentCarQueue.addCar(car);
+            }
+            else {
+                carLeavesSpot(car);
+            }
+            car = getFirstLeavingCar();
+        }
+    }
+
+    private void carsPaying(){
+        // Let cars pay.
+        int i=0;
+        while (paymentCarQueue.carsInQueue()>0 && i < paymentCarQueue.getSpeed()){
+            Car car = paymentCarQueue.removeCar();
+            // TODO Handle payment.
+            carLeavesSpot(car);
+            i++;
+        }
+    }
+
+    private void carsLeaving(){
+        // Let cars leave.
+        int i=0;
+        while (exitCarQueue.carsInQueue()>0 && i < exitCarQueue.getSpeed()){
+            exitCarQueue.removeCar();
+            i++;
+        }
+    }
+
+    private void carLeavesSpot(Car car){
+        removeCarAt(car.getLocation());
+        exitCarQueue.addCar(car);
+    }
+
     public Car getCarAt(Location location) {
         if (!locationIsValid(location)) {
             return null;
@@ -135,76 +216,4 @@ public class SimulatorView extends JFrame {
         }
         return true;
     }
-    
-    private class CarParkView extends JPanel {
-        
-        private Dimension size;
-        private Image carParkImage;    
-    
-        /**
-         * Constructor for objects of class CarPark
-         */
-        public CarParkView() {
-            size = new Dimension(0, 0);
-        }
-    
-        /**
-         * Overridden. Tell the GUI manager how big we would like to be.
-         */
-        public Dimension getPreferredSize() {
-            return new Dimension(800, 500);
-        }
-    
-        /**
-         * Overriden. The car park view component needs to be redisplayed. Copy the
-         * internal image to screen.
-         */
-        public void paintComponent(Graphics g) {
-            if (carParkImage == null) {
-                return;
-            }
-    
-            Dimension currentSize = getSize();
-            if (size.equals(currentSize)) {
-                g.drawImage(carParkImage, 0, 0, null);
-            }
-            else {
-                // Rescale the previous image.
-                g.drawImage(carParkImage, 0, 0, currentSize.width, currentSize.height, null);
-            }
-        }
-    
-        public void updateView() {
-            // Create a new car park image if the size has changed.
-            if (!size.equals(getSize())) {
-                size = getSize();
-                carParkImage = createImage(size.width, size.height);
-            }
-            Graphics graphics = carParkImage.getGraphics();
-            for(int floor = 0; floor < getNumberOfFloors(); floor++) {
-                for(int row = 0; row < getNumberOfRows(); row++) {
-                    for(int place = 0; place < getNumberOfPlaces(); place++) {
-                        Location location = new Location(floor, row, place);
-                        Car car = getCarAt(location);
-                        Color color = car == null ? Color.white : car.getColor();
-                        drawPlace(graphics, location, color);
-                    }
-                }
-            }
-            repaint();
-        }
-    
-        /**
-         * Paint a place on this car park view in a given color.
-         */
-        private void drawPlace(Graphics graphics, Location location, Color color) {
-            graphics.setColor(color);
-            graphics.fillRect(
-                    location.getFloor() * 260 + (1 + (int)Math.floor(location.getRow() * 0.5)) * 75 + (location.getRow() % 2) * 20,
-                    60 + location.getPlace() * 10,
-                    20 - 1,
-                    10 - 1); // TODO use dynamic size or constants
-        }
-    }
-
 }
