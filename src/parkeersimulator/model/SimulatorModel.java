@@ -2,7 +2,7 @@ package parkeersimulator.model;
 
 public class SimulatorModel {
 
-    public int tickPause = 100;
+    private int tickPause = 100;
 
     public int getTickPause() {
         return tickPause;
