@@ -1,12 +1,17 @@
 package parkeersimulator.view;
 
+import parkeersimulator.controller.Simulator;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class CarParkExtra extends GridBagView {
 
-    public CarParkExtra() {
+    private Simulator simulator;
+
+    public CarParkExtra(Simulator simulator) {
         super();
+        this.simulator = simulator;
         setPosition(1, 2);
         setBackground(new Color(45, 52, 54));
         setLayout(new GridBagLayout());
@@ -35,6 +40,7 @@ public class CarParkExtra extends GridBagView {
         constraints.gridx = 1;
         constraints.insets = new Insets(10, 10, 10, 10);
         add(oneTickButton, constraints);
+        oneTickButton.addActionListener(e -> simulator.run(1));
 
         JButton thousandTickButton = new JButton();
         thousandTickButton.setFont(new Font("Dubai Light", -1, 14));
@@ -47,6 +53,7 @@ public class CarParkExtra extends GridBagView {
         constraints.gridx = 2;
         constraints.insets = new Insets(10, 10, 10, 10);
         add(thousandTickButton, constraints);
+//        thousandTickButton.addActionListener(e -> simulator.run(1000));
 
         JPanel spacer = new JPanel();
         spacer.setOpaque(false);
