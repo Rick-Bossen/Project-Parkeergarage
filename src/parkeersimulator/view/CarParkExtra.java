@@ -53,7 +53,7 @@ public class CarParkExtra extends GridBagView {
         constraints.gridx = 2;
         constraints.insets = new Insets(10, 10, 10, 10);
         add(thousandTickButton, constraints);
-//        thousandTickButton.addActionListener(e -> simulator.run(1000));
+        thousandTickButton.addActionListener(e -> simulator.run(1000));
 
         JPanel spacer = new JPanel();
         spacer.setOpaque(false);

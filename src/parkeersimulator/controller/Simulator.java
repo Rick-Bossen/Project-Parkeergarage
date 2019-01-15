@@ -5,6 +5,8 @@ import parkeersimulator.view.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 
@@ -27,22 +29,23 @@ public class Simulator {
     }
 
     public void run(int ticks) {
-        for (int i = 0; i < ticks; i++) {
-            tick();
-        }
+        new Timer(100, new ActionListener() {
+            private int counter;
+
+            public void actionPerformed(ActionEvent e) {
+                tick();
+                counter++;
+                if (counter >= ticks) {
+                    ((Timer)e.getSource()).stop();
+                }
+            }
+        }).start();
     }
 
-    public void tick() {
-
+    private void tick() {
         clock.advanceTime();
         carPark.handleExit();
         updateViews();
-
-        try {
-            Thread.sleep(sim.getTickPause());
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         carPark.handleEntrance(clock.getDay());
     }
 
@@ -55,7 +58,7 @@ public class Simulator {
         mainLayout.setPreferredSize(new Dimension(800, 500));
         mainFrame.setContentPane(mainLayout);
         mainFrame.setLocation((Toolkit.getDefaultToolkit().getScreenSize().width - 800) / 2, (Toolkit.getDefaultToolkit().getScreenSize().height - 500) / 2);
-
+        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         topBar = new TopBar();
         mainLayout.add(topBar, topBar.getConstraints());
 

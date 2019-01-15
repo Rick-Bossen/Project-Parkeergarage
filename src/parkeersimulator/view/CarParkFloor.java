@@ -155,7 +155,7 @@ public class CarParkFloor extends JPanel {
         int baseWidth = getX(new Location(0, carPark.getNumberOfRows() - 1 , 0)) + useFactor(CAR_WIDTH) + 30;
         int baseHeight = getY(new Location(0, 0, carPark.getNumberOfPlaces() - 1)) + useFactor(CAR_HEIGHT) + 30;
 
-        graphics.setColor(new Color(225, 225, 225));
+        graphics.setColor(new Color(195, 195, 195));
         graphics.fillRect(
                 getOffsetX() - 15,
                 getOffsetY() - 15,
