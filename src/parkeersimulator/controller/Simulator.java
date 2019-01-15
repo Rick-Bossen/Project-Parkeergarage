@@ -71,7 +71,7 @@ public class Simulator {
             carParkView.add(carParkFloor);
         }
 
-        CarParkExtra carParkExtra = new CarParkExtra();
+        CarParkExtra carParkExtra = new CarParkExtra(this);
         mainLayout.add(carParkExtra, carParkExtra.getConstraints());
 
         mainFrame.pack();
