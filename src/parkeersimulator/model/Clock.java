@@ -45,7 +45,7 @@ public class Clock {
 
     public String toString()
     {
-        String dayOfWeek = DayOfWeek.of(day % 7).getDisplayName(TextStyle.FULL, Locale.getDefault());
+        String dayOfWeek = DayOfWeek.of(day % 7).getDisplayName(TextStyle.FULL, Locale.ENGLISH);
         return String.format("%s, day %o - %02d:%02d", dayOfWeek, getDay(), getHour(), getMinute());
     }
 }
