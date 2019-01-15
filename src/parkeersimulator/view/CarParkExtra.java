@@ -8,6 +8,8 @@ import java.awt.*;
 public class CarParkExtra extends GridBagView {
 
     private Simulator simulator;
+    private JButton oneTickButton;
+    private JButton thousandTickButton;
 
     public CarParkExtra(Simulator simulator) {
         super();
@@ -29,7 +31,7 @@ public class CarParkExtra extends GridBagView {
         constraints.insets = new Insets(10, 20, 10, 10);
         add(minutesLabel, constraints);
 
-        JButton oneTickButton = new JButton();
+        oneTickButton = new JButton();
         oneTickButton.setFont(new Font("Dubai Light", -1, 14));
         oneTickButton.setForeground(Color.white);
         oneTickButton.setBackground(new Color(116, 185, 255));
@@ -42,7 +44,7 @@ public class CarParkExtra extends GridBagView {
         add(oneTickButton, constraints);
         oneTickButton.addActionListener(e -> simulator.run(1));
 
-        JButton thousandTickButton = new JButton();
+        thousandTickButton = new JButton();
         thousandTickButton.setFont(new Font("Dubai Light", -1, 14));
         thousandTickButton.setForeground(Color.white);
         thousandTickButton.setBackground(new Color(116, 185, 255));
@@ -63,18 +65,24 @@ public class CarParkExtra extends GridBagView {
         constraints.fill = GridBagConstraints.HORIZONTAL;
         add(spacer, constraints);
 
-//        JButton resetButton = new JButton();
-//        resetButton.setFont(new Font("Dubai Light", -1, 14));
-//        resetButton.setForeground(Color.white);
-//        resetButton.setBackground(new Color(116, 185, 255));
-//        resetButton.setBorderPainted(false);
-//        resetButton.setFocusPainted(false);
-//        resetButton.setText("Reset simulation");
-//        resetButton.setEnabled(false);
-//        constraints = new GridBagConstraints();
-//        constraints.gridx = 4;
-//        constraints.insets = new Insets(10, 10, 10, 10);
-//        add(resetButton, constraints);
+        JButton resetButton = new JButton();
+        resetButton.setFont(new Font("Dubai Light", -1, 14));
+        resetButton.setForeground(Color.white);
+        resetButton.setBackground(new Color(116, 185, 255));
+        resetButton.setBorderPainted(false);
+        resetButton.setFocusPainted(false);
+        resetButton.setText("Reset simulation");
+        resetButton.setEnabled(false);
+        constraints = new GridBagConstraints();
+        constraints.gridx = 4;
+        constraints.insets = new Insets(10, 10, 10, 10);
+        add(resetButton, constraints);
+    }
+
+    public void setButtonsEnabled(boolean bool)
+    {
+        oneTickButton.setEnabled(bool);
+        thousandTickButton.setEnabled(bool);
     }
 
 }

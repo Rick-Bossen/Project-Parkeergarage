@@ -17,6 +17,7 @@ public class Simulator {
     private CarPark carPark;
     private TopBar topBar;
     private ArrayList<CarParkFloor> floors;
+    private CarParkExtra carParkExtra;
 
     public Simulator(Clock clock, SimulatorModel sim, CarPark carPark) {
 
@@ -29,14 +30,16 @@ public class Simulator {
     }
 
     public void run(int ticks) {
+        carParkExtra.setButtonsEnabled(false);
         new Timer(100, new ActionListener() {
-            private int counter;
+            private int counter = 0;
 
             public void actionPerformed(ActionEvent e) {
                 tick();
                 counter++;
                 if (counter >= ticks) {
                     ((Timer)e.getSource()).stop();
+                    carParkExtra.setButtonsEnabled(true);
                 }
             }
         }).start();
@@ -74,7 +77,7 @@ public class Simulator {
             carParkView.add(carParkFloor);
         }
 
-        CarParkExtra carParkExtra = new CarParkExtra(this);
+        carParkExtra = new CarParkExtra(this);
         mainLayout.add(carParkExtra, carParkExtra.getConstraints());
 
         mainFrame.pack();
