@@ -28,8 +28,8 @@ public class CarPark {
         this.numberOfOpenSpots = numberOfFloors * numberOfRows * numberOfPlaces;
         cars = new Car[numberOfFloors][numberOfRows][numberOfPlaces];
 
-        paymentCarQueue = new CarQueue(5);
-        exitCarQueue = new CarQueue(5);
+        paymentCarQueue = new CarQueue(Settings.get("queue.payment.speed"));
+        exitCarQueue = new CarQueue(Settings.get("queue.exit.speed"));
         createGroups();
     }
 
@@ -39,12 +39,12 @@ public class CarPark {
     private void createGroups() {
         this.customerGroups = new ArrayList<>();
 
-        CustomerGroup adHoc = new CustomerGroup(AdHocCar.class, 100, 200);
-        adHoc.setEntranceCarQueue(new CarQueue(3));
+        CustomerGroup adHoc = new CustomerGroup(AdHocCar.class, Settings.get("adhoc.arrivals.weekday"), Settings.get("adhoc.arrivals.weekend"));
+        adHoc.setEntranceCarQueue(new CarQueue(Settings.get("queue.adhoc.speed")));
         customerGroups.add(adHoc);
 
-        CustomerGroup parkingPass = new CustomerGroup(ParkingPassCar.class, 50, 5);
-        parkingPass.setEntranceCarQueue(new CarQueue(3));
+        CustomerGroup parkingPass = new CustomerGroup(ParkingPassCar.class, Settings.get("pass.arrivals.weekday"), Settings.get("pass.arrivals.weekend"));
+        parkingPass.setEntranceCarQueue(new CarQueue(Settings.get("queue.pass.speed")));
         customerGroups.add(parkingPass);
     }
 
