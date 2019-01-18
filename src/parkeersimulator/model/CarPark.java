@@ -51,15 +51,14 @@ public class CarPark {
     /**
      * Handle all cars that are ready to leave and sent them to either the payment or exit queue.
      */
-    private void carsReadyToLeave(){
+    private void carsReadyToLeave() {
         // Add leaving cars to the payment queue.
         Car car = getFirstLeavingCar();
-        while (car!=null) {
-            if (car.getHasToPay()){
+        while (car != null) {
+            if (car.getHasToPay()) {
                 car.setIsPaying(true);
                 paymentCarQueue.addCar(car);
-            }
-            else {
+            } else {
                 carLeavesSpot(car);
             }
             car = getFirstLeavingCar();
@@ -69,10 +68,10 @@ public class CarPark {
     /**
      * Handle all cars currently in the payment queue and let them leave once paid.
      */
-    private void carsPaying(){
+    private void carsPaying() {
         // Let cars pay.
-        int i=0;
-        while (paymentCarQueue.carsInQueue()>0 && i < paymentCarQueue.getSpeed()){
+        int i = 0;
+        while (paymentCarQueue.carsInQueue() > 0 && i < paymentCarQueue.getSpeed()) {
             Car car = paymentCarQueue.removeCar();
             // TODO Handle payment.
             carLeavesSpot(car);
@@ -83,10 +82,10 @@ public class CarPark {
     /**
      * Let the cars leave the car park.
      */
-    private void carsLeaving(){
+    private void carsLeaving() {
         // Let cars leave.
-        int i=0;
-        while (exitCarQueue.carsInQueue()>0 && i < exitCarQueue.getSpeed()){
+        int i = 0;
+        while (exitCarQueue.carsInQueue() > 0 && i < exitCarQueue.getSpeed()) {
             exitCarQueue.removeCar();
             i++;
         }
@@ -94,9 +93,10 @@ public class CarPark {
 
     /**
      * Remove a car from it's current spot.
+     *
      * @param car Car that leaves the car park.
      */
-    private void carLeavesSpot(Car car){
+    private void carLeavesSpot(Car car) {
         removeCarAt(car.getLocation());
         exitCarQueue.addCar(car);
     }
@@ -111,10 +111,7 @@ public class CarPark {
         int floor = location.getFloor();
         int row = location.getRow();
         int place = location.getPlace();
-        if (floor < 0 || floor >= numberOfFloors || row < 0 || row > numberOfRows || place < 0 || place > numberOfPlaces) {
-            return false;
-        }
-        return true;
+        return floor >= 0 && floor < numberOfFloors && row >= 0 && row <= numberOfRows && place >= 0 && place <= numberOfPlaces;
     }
 
     /**
@@ -124,7 +121,7 @@ public class CarPark {
         cars = new Car[numberOfFloors][numberOfRows][numberOfPlaces];
         paymentCarQueue.reset();
         exitCarQueue.reset();
-        for(CustomerGroup group : customerGroups){
+        for (CustomerGroup group : customerGroups) {
             group.getEntranceCarQueue().reset();
         }
     }
@@ -161,7 +158,7 @@ public class CarPark {
      *
      * @return Integer of the number of open spots.
      */
-    public int getNumberOfOpenSpots(){
+    public int getNumberOfOpenSpots() {
         return numberOfOpenSpots;
     }
 
@@ -170,7 +167,7 @@ public class CarPark {
      *
      * @param day Integer the current day.
      */
-    public void handleEntrance(int day){
+    public void handleEntrance(int day) {
         carsArriving(day);
         for (CustomerGroup group : customerGroups) {
             carsEntering(group.getEntranceCarQueue());
@@ -180,7 +177,7 @@ public class CarPark {
     /**
      * Handle the exit of cars in the car park.
      */
-    public void handleExit(){
+    public void handleExit() {
         carsReadyToLeave();
         carsPaying();
         carsLeaving();
@@ -188,9 +185,10 @@ public class CarPark {
 
     /**
      * Handle all arriving cars and add them to the entrance queue
+     *
      * @param day Integer of the current day
      */
-    public void carsArriving(int day){
+    public void carsArriving(int day) {
         for (CustomerGroup group : customerGroups) {
             for (int i = 0; i < group.getNumberOfCars(day); i++) {
                 group.getEntranceCarQueue().addCar(group.getNewCar());
@@ -200,12 +198,13 @@ public class CarPark {
 
     /**
      * Handle all cars entering the current queue and direct them to the correct parking spot.
+     *
      * @param queue Car queue which has cars entering
      */
-    public void carsEntering(CarQueue queue){
-        int i=0;
+    public void carsEntering(CarQueue queue) {
+        int i = 0;
         // Remove car from the front of the queue and assign to a parking space.
-        while (queue.carsInQueue()>0 && getNumberOfOpenSpots()>0 && i <queue.getSpeed()) {
+        while (queue.carsInQueue() > 0 && getNumberOfOpenSpots() > 0 && i < queue.getSpeed()) {
             Car car = queue.removeCar();
             Location freeLocation = getFirstFreeLocation();
             setCarAt(freeLocation, car);
@@ -231,7 +230,7 @@ public class CarPark {
      * Add a car in the car park if the location is available.
      *
      * @param location New Location of the car
-     * @param car Car that is currently entering the car park.
+     * @param car      Car that is currently entering the car park.
      * @return Boolean if the car could successfully enter.
      */
     public boolean setCarAt(Location location, Car car) {

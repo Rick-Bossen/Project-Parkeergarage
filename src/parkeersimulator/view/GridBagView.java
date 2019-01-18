@@ -10,7 +10,7 @@ abstract public class GridBagView extends JPanel {
 
     private GridBagConstraints constraints;
 
-    public GridBagView(){
+    public GridBagView() {
         constraints = new GridBagConstraints();
         constraints.fill = GridBagConstraints.BOTH;
         constraints.gridx = 0;
@@ -23,8 +23,7 @@ abstract public class GridBagView extends JPanel {
      * @param x Horizontal position
      * @param y Vertical position
      */
-    protected void setPosition(int x, int y)
-    {
+    protected void setPosition(int x, int y) {
         constraints.gridx = x;
         constraints.gridy = y;
     }
@@ -52,8 +51,7 @@ abstract public class GridBagView extends JPanel {
      *
      * @param priority Double representing the priority
      */
-    protected void setHorizontalPriority(double priority)
-    {
+    protected void setHorizontalPriority(double priority) {
         constraints.weightx = priority;
     }
 
@@ -62,16 +60,16 @@ abstract public class GridBagView extends JPanel {
      *
      * @param priority Double representing the priority
      */
-    protected void setVerticalPriority(double priority)
-    {
+    protected void setVerticalPriority(double priority) {
         constraints.weighty = priority;
     }
 
     /**
      * Return the constraints used by this element.
+     *
      * @return Grid bag constraints of this element.
      */
-    public GridBagConstraints getConstraints(){
+    public GridBagConstraints getConstraints() {
         return constraints;
     }
 

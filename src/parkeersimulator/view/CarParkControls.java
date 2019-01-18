@@ -28,8 +28,7 @@ public class CarParkControls extends GridBagView {
     /**
      * Create the UI components used in the current view
      */
-    private void setUIComponents()
-    {
+    private void setUIComponents() {
         GridBagConstraints constraints = new GridBagConstraints();
         JLabel minutesLabel = new JLabel();
         minutesLabel.setFont(new Font("Dubai", -1, 12));
@@ -74,10 +73,10 @@ public class CarParkControls extends GridBagView {
 
     /**
      * Generate a new [basic] button
-     * @return
+     *
+     * @return new button
      */
-    private JButton generateNewButton()
-    {
+    private JButton generateNewButton() {
         JButton button = new JButton();
         button.setFont(new Font("Dubai Light", -1, 14));
         button.setForeground(Color.white);
@@ -89,10 +88,10 @@ public class CarParkControls extends GridBagView {
 
     /**
      * Set all buttons to enabled or disabled.
+     *
      * @param bool Boolean if the button should be enabled or not.
      */
-    public void setButtonsEnabled(boolean bool)
-    {
+    public void setButtonsEnabled(boolean bool) {
         oneTickButton.setEnabled(bool);
         thousandTickButton.setEnabled(bool);
     }

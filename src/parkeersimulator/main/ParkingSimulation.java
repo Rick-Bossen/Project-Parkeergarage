@@ -1,7 +1,8 @@
 package parkeersimulator.main;
 
-import parkeersimulator.controller.*;
-import parkeersimulator.model.*;
+import parkeersimulator.controller.Simulator;
+import parkeersimulator.model.CarPark;
+import parkeersimulator.model.Clock;
 
 /**
  * This class represents the full parking simulation

@@ -14,8 +14,7 @@ public class ParkingSimulationRunner {
      *
      * @param args String[] containing all running arguments
      */
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         new ParkingSimulation();
     }
 
