@@ -18,7 +18,7 @@ public class Clock {
     /**
      * Advance the clock by 1 minute.
      */
-    public void advanceTime(){
+    public void advanceTime() {
         minute++;
         if (minute > 59) {
             minute -= 60;
@@ -49,7 +49,7 @@ public class Clock {
      * @return Integer of the current hour.
      */
     public int getHour() {
-        return  hour;
+        return hour;
     }
 
     /**

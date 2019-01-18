@@ -21,8 +21,7 @@ public class SideBar extends GridBagView {
     /**
      * Create the menu items of the sidebar
      */
-    private void setUIComponents()
-    {
+    private void setUIComponents() {
         // @TODO Fill with the sidebar items
     }
 

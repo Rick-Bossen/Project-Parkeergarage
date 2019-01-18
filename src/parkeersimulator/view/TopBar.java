@@ -24,8 +24,7 @@ public class TopBar extends GridBagView {
     /**
      * Create labels contained in the top bar.
      */
-    private void setUIComponents()
-    {
+    private void setUIComponents() {
         JLabel titleLabel = new JLabel();
         titleLabel.setFont(new Font("Dubai", Font.BOLD, 14));
         titleLabel.setForeground(Color.white);
@@ -51,10 +50,10 @@ public class TopBar extends GridBagView {
 
     /**
      * Set the text of the date/time label
+     *
      * @param text Text of the label
      */
-    public void setDateTimeLabelText(String text)
-    {
+    public void setDateTimeLabelText(String text) {
         dateTimeLabel.setText(text);
     }
 

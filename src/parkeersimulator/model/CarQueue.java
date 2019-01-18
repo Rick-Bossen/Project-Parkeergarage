@@ -17,7 +17,7 @@ public class CarQueue {
      *
      * @param speed Speed of the queue.
      */
-    public CarQueue(int speed){
+    public CarQueue(int speed) {
         this.speed = speed;
     }
 
@@ -52,7 +52,7 @@ public class CarQueue {
      *
      * @return The amount of cars.
      */
-    public int carsInQueue(){
+    public int carsInQueue() {
         return queue.size();
     }
 

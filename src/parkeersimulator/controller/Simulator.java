@@ -1,6 +1,7 @@
 package parkeersimulator.controller;
 
-import parkeersimulator.model.*;
+import parkeersimulator.model.CarPark;
+import parkeersimulator.model.Clock;
 import parkeersimulator.view.*;
 
 import javax.swing.*;
@@ -13,10 +14,10 @@ import java.util.ArrayList;
 
 /**
  * This class represents the simulation itself.
- *
+ * <p>
  * It contains the models: Clock
  * It contains the views: CarPark, TopBar, CarParkFloor and CarParkView
- *
+ * <p>
  * This class also handles if the simulation is currently running or is halted.
  *
  * @version 18.01.2019
@@ -45,6 +46,7 @@ public class Simulator {
 
     /**
      * Runs the simulation for the specified amount of ticks
+     *
      * @param ticks the total amount of ticks for the simulation to run
      */
     public void run(int ticks) {
@@ -56,13 +58,14 @@ public class Simulator {
             public void actionPerformed(ActionEvent e) {
                 if (halt) {
                     halt = false;
-                    ((Timer)e.getSource()).stop();
-                    return;}
+                    ((Timer) e.getSource()).stop();
+                    return;
+                }
 
                 tick();
                 counter++;
                 if (counter >= ticks) {
-                    ((Timer)e.getSource()).stop();
+                    ((Timer) e.getSource()).stop();
                     carParkControls.setButtonsEnabled(true);
                     isRunning = false;
                 }
@@ -84,8 +87,7 @@ public class Simulator {
     /**
      * Generates a new JFrame containing all the GUI elements and a graphic of every parking floor
      */
-    private void bootstrapFrame()
-    {
+    private void bootstrapFrame() {
         floors = new ArrayList<>();
         mainFrame = new JFrame("Parking Simulator");
         mainLayout = new JPanel();
@@ -103,13 +105,12 @@ public class Simulator {
         carParkView = new CarParkView();
         mainLayout.add(carParkView, carParkView.getConstraints());
 
-        for (int floor = 0; floor < carPark.getNumberOfFloors(); floor++){
+        for (int floor = 0; floor < carPark.getNumberOfFloors(); floor++) {
             CarParkFloor carParkFloor = new CarParkFloor(carPark, floor);
             // Fix for redrawing on resize.
-            carParkFloor.addComponentListener(new ComponentAdapter()
-            {
+            carParkFloor.addComponentListener(new ComponentAdapter() {
                 public void componentResized(ComponentEvent evt) {
-                    Component floor = (Component)evt.getSource();
+                    Component floor = (Component) evt.getSource();
                     ((CarParkFloor) floor).updateView();
 
                 }
@@ -128,12 +129,12 @@ public class Simulator {
     /**
      * Updates the GUI to match the data in the simulation
      */
-    public void updateViews(){
+    public void updateViews() {
         carPark.tick();
         topBar.setDateTimeLabelText(clock.toString());
 
         // Update the car park views.
-        for (CarParkFloor floor : floors){
+        for (CarParkFloor floor : floors) {
             floor.updateView();
         }
     }
@@ -141,8 +142,7 @@ public class Simulator {
     /**
      * Resets the entire simulation and initializes a new simulation in the same window
      */
-    public void resetSimulation()
-    {
+    public void resetSimulation() {
         if (isRunning) {
             isRunning = false;
             halt = true;

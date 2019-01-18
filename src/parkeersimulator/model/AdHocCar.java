@@ -1,7 +1,7 @@
 package parkeersimulator.model;
 
-import java.util.Random;
 import java.awt.*;
+import java.util.Random;
 
 /**
  * This class represents a car which contains a customer that pays ad hoc.
@@ -11,20 +11,21 @@ import java.awt.*;
  */
 public class AdHocCar extends Car {
 
-	private static final Color COLOR=Color.red;
+    private static final Color COLOR = Color.red;
 
     public AdHocCar() {
-    	Random random = new Random();
-    	int stayMinutes = (int) (15 + random.nextFloat() * 3 * 60);
+        Random random = new Random();
+        int stayMinutes = (int) (15 + random.nextFloat() * 3 * 60);
         this.setMinutesLeft(stayMinutes);
         this.setHasToPay(true);
     }
 
     /**
      * Return the color of the car
+     *
      * @return Color the color of the car
      */
-    public Color getColor(){
-    	return COLOR;
+    public Color getColor() {
+        return COLOR;
     }
 }
