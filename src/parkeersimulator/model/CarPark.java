@@ -20,12 +20,22 @@ public class CarPark {
         this.numberOfFloors = numberOfFloors;
         this.numberOfRows = numberOfRows;
         this.numberOfPlaces = numberOfPlaces;
-        this.numberOfOpenSpots =numberOfFloors*numberOfRows*numberOfPlaces;
+        this.numberOfOpenSpots = numberOfFloors * numberOfRows * numberOfPlaces;
         cars = new Car[numberOfFloors][numberOfRows][numberOfPlaces];
 
         paymentCarQueue = new CarQueue(5);
         exitCarQueue = new CarQueue(5);
         createGroups();
+    }
+
+    public void reset()
+    {
+        cars = new Car[numberOfFloors][numberOfRows][numberOfPlaces];
+        paymentCarQueue.reset();
+        exitCarQueue.reset();
+        for(CustomerGroup group : customerGroups){
+            group.getEntranceCarQueue().reset();
+        }
     }
 
     private void createGroups()

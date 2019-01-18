@@ -16,6 +16,11 @@ public class CarQueue {
         return queue.add(car);
     }
 
+    public void reset()
+    {
+        queue.clear();
+    }
+
     public Car removeCar() {
         return queue.poll();
     }
