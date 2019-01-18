@@ -2,6 +2,7 @@ package parkeersimulator.controller;
 
 import parkeersimulator.model.CarPark;
 import parkeersimulator.model.Clock;
+import parkeersimulator.model.Settings;
 import parkeersimulator.view.*;
 
 import javax.swing.*;
@@ -36,7 +37,6 @@ public class Simulator {
     private boolean isRunning = false;
 
     public Simulator(Clock clock, CarPark carPark) {
-
         this.clock = clock;
         this.carPark = carPark;
 
@@ -52,7 +52,7 @@ public class Simulator {
     public void run(int ticks) {
         carParkControls.setButtonsEnabled(false);
         isRunning = true;
-        new Timer(100, new ActionListener() {
+        new Timer(Settings.get("tickspeed"), new ActionListener() {
             private int counter = 0;
 
             public void actionPerformed(ActionEvent e) {
