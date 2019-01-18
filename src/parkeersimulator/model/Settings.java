@@ -10,14 +10,19 @@ import java.util.Properties;
  *
  * @version 18.01.2019
  */
-public class SettingsManager {
+public class Settings {
 
     private final String defaultFile = "default.properties";
     private final String userFile = "user-config.properties";
 
     private Properties properties;
 
-    public SettingsManager(){
+    private static Settings instance = new Settings();
+
+    /**
+     * Create a new settings manager whilst load default and user config.
+     */
+    private Settings(){
         properties = new Properties();
         loadDefaultConfig();
         loadUserConfig();
@@ -86,20 +91,21 @@ public class SettingsManager {
 
     /**
      * Get the integer value of a setting.
+     * If the key is not found return 0.
      *
      * @param key name of the setting.
      * @return value of the setting
      */
-    public Integer getValue(String key){
-        String value = properties.getProperty(key);
+    public static int get(String key){
+        String value = instance.properties.getProperty(key);
         if(value != null){
             try{
                 return Integer.parseInt(value);
             }catch (NumberFormatException e){
-                return null;
+                return 0;
             }
         }
-        return null;
+        return 0;
     }
 
 
@@ -110,9 +116,9 @@ public class SettingsManager {
      * @param value Value of the configuration.
      * @return if the value was successfully saved.
      */
-    public boolean setValue(String key, int value){
-        if(properties.getProperty(key) != null){
-            properties.setProperty(key, Integer.toString(value));
+    public static boolean set(String key, int value){
+        if(instance.properties.getProperty(key) != null){
+            instance.properties.setProperty(key, Integer.toString(value));
             return true;
         }
         return false;
