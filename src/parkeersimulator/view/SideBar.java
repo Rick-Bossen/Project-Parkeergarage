@@ -2,6 +2,11 @@ package parkeersimulator.view;
 
 import java.awt.*;
 
+/**
+ * Sidebar used to navigate the different views
+ *
+ * @version 13.01.2019
+ */
 public class SideBar extends GridBagView {
 
     public SideBar() {
@@ -13,6 +18,9 @@ public class SideBar extends GridBagView {
         setUIComponents();
     }
 
+    /**
+     * Create the menu items of the sidebar
+     */
     private void setUIComponents()
     {
         // @TODO Fill with the sidebar items

@@ -5,13 +5,18 @@ import parkeersimulator.controller.Simulator;
 import javax.swing.*;
 import java.awt.*;
 
-public class CarParkExtra extends GridBagView {
+/**
+ * This class represents the view containing the controls to control the car park.
+ *
+ * @version 18.01.2019
+ */
+public class CarParkControls extends GridBagView {
 
     private Simulator simulator;
     private JButton oneTickButton;
     private JButton thousandTickButton;
 
-    public CarParkExtra(Simulator simulator) {
+    public CarParkControls(Simulator simulator) {
         super();
         this.simulator = simulator;
         setPosition(1, 2);
@@ -20,6 +25,9 @@ public class CarParkExtra extends GridBagView {
         setUIComponents();
     }
 
+    /**
+     * Create the UI components used in the current view
+     */
     private void setUIComponents()
     {
         GridBagConstraints constraints = new GridBagConstraints();
@@ -64,6 +72,10 @@ public class CarParkExtra extends GridBagView {
         resetButton.addActionListener(e -> simulator.resetSimulation());
     }
 
+    /**
+     * Generate a new [basic] button
+     * @return
+     */
     private JButton generateNewButton()
     {
         JButton button = new JButton();
@@ -75,6 +87,10 @@ public class CarParkExtra extends GridBagView {
         return button;
     }
 
+    /**
+     * Set all buttons to enabled or disabled.
+     * @param bool Boolean if the button should be enabled or not.
+     */
     public void setButtonsEnabled(boolean bool)
     {
         oneTickButton.setEnabled(bool);

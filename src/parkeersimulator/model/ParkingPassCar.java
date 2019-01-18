@@ -3,7 +3,14 @@ package parkeersimulator.model;
 import java.util.Random;
 import java.awt.*;
 
+/**
+ * This class represents a car which contains a customer that has a parking pass.
+ * Contains the color of the car.
+ *
+ * @version 13.01.2019
+ */
 public class ParkingPassCar extends Car {
+
 	private static final Color COLOR=Color.blue;
 	
     public ParkingPassCar() {
@@ -12,7 +19,11 @@ public class ParkingPassCar extends Car {
         this.setMinutesLeft(stayMinutes);
         this.setHasToPay(false);
     }
-    
+
+    /**
+     * Return the color of the car
+     * @return Color the color of the car
+     */
     public Color getColor(){
     	return COLOR;
     }
