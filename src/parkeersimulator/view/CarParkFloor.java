@@ -40,13 +40,6 @@ public class CarParkFloor extends JPanel {
     }
 
     /**
-     * Overridden. Tell the GUI manager how big we would like to be.
-     */
-    public Dimension getPreferredSize() {
-        return new Dimension(800, 500);
-    }
-
-    /**
      * Get the calculated horizontal starting point of the object
      * @param location Location of the car/place
      * @return x starting point
@@ -96,54 +89,6 @@ public class CarParkFloor extends JPanel {
      */
     private int useFactor(int original) {
         return (int)(original * factor);
-    }
-
-    /**
-     * Draws the image on resize.
-     * @param graphics image graphics used to draw the image
-     */
-    protected void paintComponent(Graphics graphics) {
-        if (carParkImage == null) {
-            return;
-        }
-
-        Dimension currentSize = getSize();
-        if (size.equals(currentSize)) {
-            graphics.drawImage(carParkImage, 0, 0, null);
-        }
-        else {
-            // Rescale the previous image.
-            graphics.drawImage(carParkImage, 0, 0, currentSize.width, currentSize.height, null);
-        }
-    }
-
-    /**
-     * Update the view.
-     * Draws the base floor, parking spots and cars.
-     */
-    public void updateView()
-    {
-        // Create a new car park image if the size has changed.
-        if (!size.equals(getSize())) {
-            size = getSize();
-            setFactor();
-            carParkImage = createImage(size.width, size.height);
-        }
-        Graphics graphics = carParkImage.getGraphics();
-
-        drawBase(graphics);
-
-        for(int row = 0; row < carPark.getNumberOfRows(); row++) {
-            for(int place = 0; place < carPark.getNumberOfPlaces(); place++) {
-                Location location = new Location(floor, row, place);
-                Car car = carPark.getCarAt(location);
-                drawPlace(graphics, location);
-                if(car != null){
-                    drawCar(graphics, location, car.getColor());
-                }
-            }
-        }
-        repaint();
     }
 
     /**
@@ -266,6 +211,61 @@ public class CarParkFloor extends JPanel {
                 }
             }
         }
+    }
+
+    /**
+     * Draws the image on resize.
+     * @param graphics image graphics used to draw the image
+     */
+    protected void paintComponent(Graphics graphics) {
+        if (carParkImage == null) {
+            return;
+        }
+
+        Dimension currentSize = getSize();
+        if (size.equals(currentSize)) {
+            graphics.drawImage(carParkImage, 0, 0, null);
+        }
+        else {
+            // Rescale the previous image.
+            graphics.drawImage(carParkImage, 0, 0, currentSize.width, currentSize.height, null);
+        }
+    }
+
+    /**
+     * Overridden. Tell the GUI manager how big we would like to be.
+     */
+    public Dimension getPreferredSize() {
+        return new Dimension(800, 500);
+    }
+
+    /**
+     * Update the view.
+     * Draws the base floor, parking spots and cars.
+     */
+    public void updateView()
+    {
+        // Create a new car park image if the size has changed.
+        if (!size.equals(getSize())) {
+            size = getSize();
+            setFactor();
+            carParkImage = createImage(size.width, size.height);
+        }
+        Graphics graphics = carParkImage.getGraphics();
+
+        drawBase(graphics);
+
+        for(int row = 0; row < carPark.getNumberOfRows(); row++) {
+            for(int place = 0; place < carPark.getNumberOfPlaces(); place++) {
+                Location location = new Location(floor, row, place);
+                Car car = carPark.getCarAt(location);
+                drawPlace(graphics, location);
+                if(car != null){
+                    drawCar(graphics, location, car.getColor());
+                }
+            }
+        }
+        repaint();
     }
 
 }

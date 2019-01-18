@@ -11,14 +11,23 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.util.ArrayList;
 
-
+/**
+ * This class represents the simulation itself.
+ *
+ * It contains the models: Clock
+ * It contains the views: CarPark, TopBar, CarParkFloor and CarParkView
+ *
+ * This class also handles if the simulation is currently running or is halted.
+ *
+ * @version 18.01.2019
+ */
 public class Simulator {
 
     private Clock clock;
     private CarPark carPark;
     private TopBar topBar;
     private ArrayList<CarParkFloor> floors;
-    private CarParkExtra carParkExtra;
+    private CarParkControls carParkControls;
     private JFrame mainFrame;
     private JPanel mainLayout;
     private CarParkView carParkView;
@@ -39,7 +48,7 @@ public class Simulator {
      * @param ticks the total amount of ticks for the simulation to run
      */
     public void run(int ticks) {
-        carParkExtra.setButtonsEnabled(false);
+        carParkControls.setButtonsEnabled(false);
         isRunning = true;
         new Timer(100, new ActionListener() {
             private int counter = 0;
@@ -54,7 +63,7 @@ public class Simulator {
                 counter++;
                 if (counter >= ticks) {
                     ((Timer)e.getSource()).stop();
-                    carParkExtra.setButtonsEnabled(true);
+                    carParkControls.setButtonsEnabled(true);
                     isRunning = false;
                 }
             }
@@ -109,8 +118,8 @@ public class Simulator {
             carParkView.add(carParkFloor);
         }
 
-        carParkExtra = new CarParkExtra(this);
-        mainLayout.add(carParkExtra, carParkExtra.getConstraints());
+        carParkControls = new CarParkControls(this);
+        mainLayout.add(carParkControls, carParkControls.getConstraints());
 
         mainFrame.pack();
         mainFrame.setVisible(true);
@@ -142,7 +151,7 @@ public class Simulator {
         clock.reset();
         carPark.reset();
         updateViews();
-        carParkExtra.setButtonsEnabled(true);
+        carParkControls.setButtonsEnabled(true);
     }
 
 }
