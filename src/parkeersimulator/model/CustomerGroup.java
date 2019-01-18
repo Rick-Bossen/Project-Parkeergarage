@@ -2,6 +2,10 @@ package parkeersimulator.model;
 
 import java.util.Random;
 
+/**
+ * Customer group for one specific entry type.
+ * Used types: ad hoc and parking pass.
+ */
 public class CustomerGroup {
 
     private Class carType;
@@ -16,23 +20,44 @@ public class CustomerGroup {
         this.weekendArrivals = weekendArrivals;
     }
 
-    public void setEntranceCarQueue(CarQueue queue) {
-        this.entranceCarQueue = queue;
-    }
-
+    /**
+     * Get the entrance queue used by these customers.
+     *
+     * @return Car queue used by the customers
+     */
     public CarQueue getEntranceCarQueue() {
         return entranceCarQueue;
     }
 
+    /**
+     * Set the queue used for entrance by this type.
+     *
+     * @param queue Car queue the customers should use.
+     */
+    public void setEntranceCarQueue(CarQueue queue) {
+        this.entranceCarQueue = queue;
+    }
+
+    /**
+     * Create a new car based on the car type.
+     *
+     * @return Car of the given type.
+     */
     public Car getNewCar() {
-        try{
+        try {
             return (Car) carType.getConstructor().newInstance();
-        }catch (Exception e){
+        } catch (Exception e) {
             return null;
         }
     }
 
-    public int getNumberOfCars(int day){
+    /**
+     * Generate a random number of cars that should enter on a given day.
+     *
+     * @param day To simulate the correct amount per day.
+     * @return Amount of cars that should enter.
+     */
+    public int getNumberOfCars(int day) {
         Random random = new Random();
 
         // Get the average number of cars that arrive per hour.
@@ -43,7 +68,7 @@ public class CustomerGroup {
         // Calculate the number of cars that arrive this minute.
         double standardDeviation = averageNumberOfCarsPerHour * 0.3;
         double numberOfCarsPerHour = averageNumberOfCarsPerHour + random.nextGaussian() * standardDeviation;
-        return (int)Math.round(numberOfCarsPerHour / 60);
+        return (int) Math.round(numberOfCarsPerHour / 60);
     }
 
 }

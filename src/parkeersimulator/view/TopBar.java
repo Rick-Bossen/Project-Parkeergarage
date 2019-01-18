@@ -3,6 +3,11 @@ package parkeersimulator.view;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Top bar containing the title and name.
+ *
+ * @version 13.01.2019
+ */
 public class TopBar extends GridBagView {
 
     private JLabel dateTimeLabel;
@@ -16,13 +21,10 @@ public class TopBar extends GridBagView {
         setUIComponents();
     }
 
-    public void setDateTimeLabelText(String text)
-    {
-        dateTimeLabel.setText(text);
-    }
-
-    private void setUIComponents()
-    {
+    /**
+     * Create labels contained in the top bar.
+     */
+    private void setUIComponents() {
         JLabel titleLabel = new JLabel();
         titleLabel.setFont(new Font("Dubai", Font.BOLD, 14));
         titleLabel.setForeground(Color.white);
@@ -44,6 +46,15 @@ public class TopBar extends GridBagView {
         constraints = new GridBagConstraints();
         constraints.insets = new Insets(0, 0, 0, 15);
         add(dateTimeLabel, constraints);
+    }
+
+    /**
+     * Set the text of the date/time label
+     *
+     * @param text Text of the label
+     */
+    public void setDateTimeLabelText(String text) {
+        dateTimeLabel.setText(text);
     }
 
 }

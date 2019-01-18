@@ -2,6 +2,9 @@ package parkeersimulator.view;
 
 import java.awt.*;
 
+/**
+ * This class contains the whole car park view.
+ */
 public class CarParkView extends GridBagView {
 
     public CarParkView() {
