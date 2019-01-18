@@ -26,7 +26,7 @@ public class Settings {
         properties = new Properties();
         loadDefaultConfig();
         loadUserConfig();
-        saveConfig();
+        saveUserConfig();
     }
 
     /**
@@ -77,9 +77,9 @@ public class Settings {
     }
 
     /**
-     * Save the configuration into a user settings file.
+     * Save the user configuration into a user settings file.
      */
-    private void saveConfig() {
+    private void saveUserConfig() {
         try {
             OutputStream config = new FileOutputStream(userFile);
             properties.store(config, null);
