@@ -43,6 +43,13 @@ public class Clock {
         return minute;
     }
 
+    public void reset()
+    {
+        day = 1;
+        hour = 0;
+        minute = 0;
+    }
+
     public String toString()
     {
         String dayOfWeek = DayOfWeek.of(day % 7).getDisplayName(TextStyle.FULL, Locale.ENGLISH);
