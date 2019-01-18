@@ -81,7 +81,7 @@ public class CarParkFloor extends JPanel {
      * Calculates the factor to scale the drawn images accordingly
      */
     private void setFactor() {
-        factor = Math.min((double) (size.width - 20) / PARK_WIDTH, (double) (size.height - 20) / PARK_HEIGHT);
+        factor = Math.min((double) (size.width - 20) / (int)(PARK_WIDTH / 6 * carPark.getNumberOfRows()), (double) (size.height - 20) / (int)(PARK_HEIGHT / 30 * carPark.getNumberOfPlaces()));
     }
 
     /**
