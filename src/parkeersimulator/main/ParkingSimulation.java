@@ -1,16 +1,17 @@
 package parkeersimulator.main;
 
+import parkeersimulator.controller.Navigation;
 import parkeersimulator.controller.Simulator;
+import parkeersimulator.framework.View;
 import parkeersimulator.model.CarPark;
 import parkeersimulator.model.Clock;
+import parkeersimulator.model.TabList;
 import parkeersimulator.utility.Settings;
-import parkeersimulator.view.CarParkControls;
-import parkeersimulator.view.CarParkView;
-import parkeersimulator.view.SideBar;
-import parkeersimulator.view.TopBar;
+import parkeersimulator.view.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * This class represents the full parking simulation
@@ -36,20 +37,35 @@ public class ParkingSimulation {
         CarPark carPark = new CarPark();
 
         // Create the Views.
+        TabList tabList = new TabList();
         TopBar topBar = new TopBar();
         SideBar sideBar = new SideBar();
         CarParkView carParkView = new CarParkView();
         CarParkControls carParkControls = new CarParkControls();
+        SettingsView settingsView = new SettingsView();
 
         // Create the Controllers.
+        Navigation navigation = new Navigation(tabList);
         Simulator simulator = new Simulator(clock, carPark);
         carParkControls.setController(simulator);
+        sideBar.setController(navigation);
 
         // Link the views to the Models.
         clock.addView(topBar);
         carPark.addView(carParkView);
+        tabList.addView(sideBar);
+
+        // Add the menu tabs
+        ArrayList<View> carParkViews = new ArrayList<>();
+        carParkViews.add(carParkView);
+        carParkViews.add(carParkControls);
+        tabList.addTabList("Home", carParkViews);
+        tabList.addTabList("Settings", settingsView);
+
+        tabList.setActiveTab("Home");
 
         // Set the size of the car park
+        clock.reset();
         carPark.setSize(Settings.get("carpark.floors"), Settings.get("carpark.rows"), Settings.get("carpark.places"));
 
         // Add the views to the window.
@@ -57,6 +73,7 @@ public class ParkingSimulation {
         window.add(sideBar, sideBar.getConstraints());
         window.add(carParkView, carParkView.getConstraints());
         window.add(carParkControls, carParkControls.getConstraints());
+        window.add(settingsView, settingsView.getConstraints());
 
         window.pack();
         window.setVisible(true);
