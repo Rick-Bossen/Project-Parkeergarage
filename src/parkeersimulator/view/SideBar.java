@@ -1,5 +1,8 @@
 package parkeersimulator.view;
 
+import parkeersimulator.framework.GridBagView;
+import parkeersimulator.framework.Model;
+
 import java.awt.*;
 
 /**
@@ -25,5 +28,8 @@ public class SideBar extends GridBagView {
         // @TODO Fill with the sidebar items
     }
 
+    @Override
+    protected void update(Model model) {
 
+    }
 }

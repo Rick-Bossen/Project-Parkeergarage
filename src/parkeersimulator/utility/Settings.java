@@ -1,4 +1,4 @@
-package parkeersimulator.model;
+package parkeersimulator.utility;
 
 import java.io.*;
 import java.util.Enumeration;
