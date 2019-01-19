@@ -1,12 +1,14 @@
 package parkeersimulator.model;
 
+import parkeersimulator.framework.Model;
+
 /**
  * This class represents the location of the car in the car park.
  * It is based on that the car park has multiple floors.
  *
  * @version 18.01.2019
  */
-public class Location {
+public class Location extends Model {
 
     private int floor;
     private int row;

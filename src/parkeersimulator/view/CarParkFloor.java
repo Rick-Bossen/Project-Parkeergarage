@@ -1,8 +1,7 @@
 package parkeersimulator.view;
 
-import parkeersimulator.model.Car;
-import parkeersimulator.model.CarPark;
-import parkeersimulator.model.Location;
+import parkeersimulator.model.*;
+import parkeersimulator.utility.Settings;
 
 import javax.swing.*;
 import java.awt.*;
@@ -239,7 +238,7 @@ public class CarParkFloor extends JPanel {
      * Overridden. Tell the GUI manager how big we would like to be.
      */
     public Dimension getPreferredSize() {
-        return new Dimension(800, 500);
+        return new Dimension(Settings.get("width"), Settings.get("height"));
     }
 
     /**

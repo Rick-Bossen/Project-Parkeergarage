@@ -1,12 +1,11 @@
-package parkeersimulator.view;
+package parkeersimulator.framework;
 
-import javax.swing.*;
 import java.awt.*;
 
 /**
  * Abstract class used by all views inside of a grid bag layout.
  */
-abstract public class GridBagView extends JPanel {
+public abstract class GridBagView extends View {
 
     private GridBagConstraints constraints;
 

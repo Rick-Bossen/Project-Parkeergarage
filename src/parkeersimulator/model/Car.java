@@ -1,5 +1,7 @@
 package parkeersimulator.model;
 
+import parkeersimulator.framework.Model;
+
 import java.awt.*;
 
 /**
@@ -8,7 +10,7 @@ import java.awt.*;
  *
  * @version 13.01.2019
  */
-public abstract class Car {
+public abstract class Car extends Model {
 
     private Location location;
     private int minutesLeft;
