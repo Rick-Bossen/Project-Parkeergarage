@@ -1,6 +1,7 @@
 package parkeersimulator.main;
 
 import parkeersimulator.controller.Navigation;
+import parkeersimulator.controller.SettingManager;
 import parkeersimulator.controller.Simulator;
 import parkeersimulator.framework.View;
 import parkeersimulator.model.CarPark;
@@ -42,25 +43,33 @@ public class ParkingSimulation {
         SideBar sideBar = new SideBar();
         CarParkView carParkView = new CarParkView();
         CarParkControls carParkControls = new CarParkControls();
-        SettingsView settingsView = new SettingsView();
+        SettingView settingsView = new SettingView();
+        SettingControls settingControls = new SettingControls();
 
         // Create the Controllers.
         Navigation navigation = new Navigation(tabList);
         Simulator simulator = new Simulator(clock, carPark);
+        SettingManager settingManager = new SettingManager();
         carParkControls.setController(simulator);
         sideBar.setController(navigation);
+        settingControls.setController(settingManager);
 
         // Link the views to the Models.
         clock.addView(topBar);
         carPark.addView(carParkView);
         tabList.addView(sideBar);
+        Settings.getInstance().addView(settingsView);
 
         // Add the menu tabs
         ArrayList<View> carParkViews = new ArrayList<>();
         carParkViews.add(carParkView);
         carParkViews.add(carParkControls);
         tabList.addTabList("Home", carParkViews);
-        tabList.addTabList("Settings", settingsView);
+
+        ArrayList<View> settingViews = new ArrayList<>();
+        settingViews.add(settingsView);
+        settingViews.add(settingControls);
+        tabList.addTabList("Settings", settingViews);
 
         tabList.setActiveTab("Home");
 
@@ -74,6 +83,7 @@ public class ParkingSimulation {
         window.add(carParkView, carParkView.getConstraints());
         window.add(carParkControls, carParkControls.getConstraints());
         window.add(settingsView, settingsView.getConstraints());
+        window.add(settingControls, settingControls.getConstraints());
 
         window.pack();
         window.setVisible(true);

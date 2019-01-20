@@ -2,7 +2,6 @@ package parkeersimulator.model;
 
 import parkeersimulator.framework.Model;
 import parkeersimulator.framework.View;
-import parkeersimulator.view.SettingsView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
