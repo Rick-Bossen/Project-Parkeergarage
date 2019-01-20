@@ -1,12 +1,14 @@
 package parkeersimulator.model;
 
+import parkeersimulator.framework.Model;
+
 import java.util.Random;
 
 /**
  * Customer group for one specific entry type.
  * Used types: ad hoc and parking pass.
  */
-public class CustomerGroup {
+public class CustomerGroup extends Model {
 
     private Class carType;
     private CarQueue entranceCarQueue;

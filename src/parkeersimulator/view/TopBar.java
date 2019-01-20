@@ -1,5 +1,9 @@
 package parkeersimulator.view;
 
+import parkeersimulator.framework.GridBagView;
+import parkeersimulator.framework.Model;
+import parkeersimulator.model.Clock;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -48,13 +52,11 @@ public class TopBar extends GridBagView {
         add(dateTimeLabel, constraints);
     }
 
-    /**
-     * Set the text of the date/time label
-     *
-     * @param text Text of the label
-     */
-    public void setDateTimeLabelText(String text) {
-        dateTimeLabel.setText(text);
+    @Override
+    protected void update(Model model) {
+        if(model instanceof Clock){
+            dateTimeLabel.setText(((Clock)model).toString());
+        }
     }
 
 }

@@ -1,5 +1,8 @@
 package parkeersimulator.model;
 
+import parkeersimulator.framework.Model;
+import parkeersimulator.utility.Settings;
+
 import java.util.ArrayList;
 
 /**
@@ -7,7 +10,7 @@ import java.util.ArrayList;
  *
  * @version 18.01.2019.
  */
-public class CarPark {
+public class CarPark extends Model {
 
     private CarQueue paymentCarQueue;
     private CarQueue exitCarQueue;
@@ -20,14 +23,7 @@ public class CarPark {
 
     private ArrayList<CustomerGroup> customerGroups;
 
-    public CarPark(int numberOfFloors, int numberOfRows, int numberOfPlaces) {
-
-        this.numberOfFloors = numberOfFloors;
-        this.numberOfRows = numberOfRows;
-        this.numberOfPlaces = numberOfPlaces;
-        this.numberOfOpenSpots = numberOfFloors * numberOfRows * numberOfPlaces;
-        cars = new Car[numberOfFloors][numberOfRows][numberOfPlaces];
-
+    public CarPark() {
         paymentCarQueue = new CarQueue(Settings.get("queue.payment.speed"));
         exitCarQueue = new CarQueue(Settings.get("queue.exit.speed"));
         createGroups();
@@ -115,6 +111,22 @@ public class CarPark {
     }
 
     /**
+     * Set the size of the car park
+     * @param numberOfFloors number of floors
+     * @param numberOfRows number of rows
+     * @param numberOfPlaces number of places
+     */
+    public void setSize(int numberOfFloors, int numberOfRows, int numberOfPlaces) {
+        this.numberOfFloors = numberOfFloors;
+        this.numberOfRows = numberOfRows;
+        this.numberOfPlaces = numberOfPlaces;
+        this.numberOfOpenSpots = numberOfFloors * numberOfRows * numberOfPlaces;
+        cars = new Car[numberOfFloors][numberOfRows][numberOfPlaces];
+
+        updateViews();
+    }
+
+    /**
      * Reset the simulation.
      */
     public void reset() {
@@ -124,6 +136,7 @@ public class CarPark {
         for (CustomerGroup group : customerGroups) {
             group.getEntranceCarQueue().reset();
         }
+        updateViews();
     }
 
     /**
@@ -172,6 +185,7 @@ public class CarPark {
         for (CustomerGroup group : customerGroups) {
             carsEntering(group.getEntranceCarQueue());
         }
+        updateViews();
     }
 
     /**
@@ -181,6 +195,7 @@ public class CarPark {
         carsReadyToLeave();
         carsPaying();
         carsLeaving();
+        updateViews();
     }
 
     /**
