@@ -1,5 +1,7 @@
 package parkeersimulator.model;
 
+import parkeersimulator.framework.Model;
+
 import java.time.DayOfWeek;
 import java.time.format.TextStyle;
 import java.util.Locale;
@@ -8,7 +10,7 @@ import java.util.Locale;
  * This class represents a clock which keeps the time and day currently in the simulation.
  * It has the ability to advance the time.
  */
-public class Clock {
+public class Clock extends Model {
 
     private int day = 1;
     private int hour = 0;
@@ -31,7 +33,7 @@ public class Clock {
         if (day > 7) {
             day -= 7;
         }
-
+        updateViews();
     }
 
     /**
@@ -68,6 +70,7 @@ public class Clock {
         day = 1;
         hour = 0;
         minute = 0;
+        updateViews();
     }
 
     /**

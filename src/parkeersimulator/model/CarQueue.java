@@ -1,5 +1,7 @@
 package parkeersimulator.model;
 
+import parkeersimulator.framework.Model;
+
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -7,7 +9,7 @@ import java.util.Queue;
  * Represents a queue of cars (customers)
  * This contains all cars currently in the queue.
  */
-public class CarQueue {
+public class CarQueue extends Model {
 
     private int speed;
     private Queue<Car> queue = new LinkedList<>();
