@@ -6,8 +6,6 @@ import parkeersimulator.model.TabList;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 /**
@@ -17,7 +15,7 @@ import java.util.ArrayList;
  */
 public class SideBar extends GridBagView {
 
-    public ArrayList<JLabel> menuLabels;
+    public ArrayList<JButton> menuLabels;
 
     public SideBar() {
         super();
@@ -35,17 +33,20 @@ public class SideBar extends GridBagView {
     public void addMenuItem(int number, String name)
     {
         GridBagConstraints constraints = new GridBagConstraints();
-        JLabel menuLabel = new JLabel();
+        JButton menuLabel = new JButton();
         JPanel separator = new JPanel();
 
         menuLabel.setFont(new Font("Dubai", -1, 14));
         menuLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         menuLabel.setText(name);
+        menuLabel.setFocusPainted(false);
+        menuLabel.setBorderPainted(false);
+        menuLabel.setContentAreaFilled(false);
 
         constraints.gridx = 0;
         constraints.gridy = (number * 2) - 2;
         constraints.weightx = 1;
-        constraints.insets = new Insets(number == 1 ? 30 : 5, 20, 5, 20);
+        constraints.insets = new Insets(number == 1 ? 30 : 5, 20, 0, 20);
 
         add(menuLabel, constraints);
         menuLabels.add(menuLabel);
@@ -60,13 +61,7 @@ public class SideBar extends GridBagView {
 
         add(separator, constraints);
 
-        menuLabel.addMouseListener(new MouseAdapter()
-        {
-            public void mouseClicked(MouseEvent e)
-            {
-                sendEvent(number);
-            }
-        });
+        menuLabel.addActionListener(e ->  sendEvent(number));
     }
 
     public String getMenuText(int index){
@@ -92,7 +87,7 @@ public class SideBar extends GridBagView {
                 add(bottomSpacer, constraints);
             }
 
-            for(JLabel menuLabel : menuLabels){
+            for(JButton menuLabel : menuLabels){
                 if(menuLabel.getText().equals(tabList.getActiveTab())){
                     menuLabel.setForeground(new Color(116, 185, 255));
                 }else{
