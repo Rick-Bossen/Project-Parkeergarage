@@ -19,6 +19,7 @@ public class CarPark extends Model {
     private int numberOfRows;
     private int numberOfPlaces;
     private int numberOfOpenSpots;
+    private int numberOfParkingPassSpots;
     private Car[][][] cars;
 
     private ArrayList<CustomerGroup> customerGroups;
@@ -93,8 +94,12 @@ public class CarPark extends Model {
      * @param car Car that leaves the car park.
      */
     private void carLeavesSpot(Car car) {
+        Location location = car.getLocation();
         removeCarAt(car.getLocation());
         exitCarQueue.addCar(car);
+        if(car instanceof ParkingPassCar && ((ParkingPassCar) car).isAtReservedSpot()) {
+            setCarAt(location,new ParkingPassSpot());
+        }
     }
 
     /**
@@ -116,12 +121,14 @@ public class CarPark extends Model {
      * @param numberOfRows number of rows
      * @param numberOfPlaces number of places
      */
-    public void setSize(int numberOfFloors, int numberOfRows, int numberOfPlaces) {
+    public void setSize(int numberOfFloors, int numberOfRows, int numberOfPlaces, int numberOfParkingPassSpots) {
         this.numberOfFloors = numberOfFloors;
         this.numberOfRows = numberOfRows;
         this.numberOfPlaces = numberOfPlaces;
+        this.numberOfParkingPassSpots = numberOfParkingPassSpots;
         this.numberOfOpenSpots = numberOfFloors * numberOfRows * numberOfPlaces;
         cars = new Car[numberOfFloors][numberOfRows][numberOfPlaces];
+        setParkingPassSpots(numberOfParkingPassSpots);
 
         updateViews();
     }
@@ -221,7 +228,7 @@ public class CarPark extends Model {
         // Remove car from the front of the queue and assign to a parking space.
         while (queue.carsInQueue() > 0 && getNumberOfOpenSpots() > 0 && i < queue.getSpeed()) {
             Car car = queue.removeCar();
-            Location freeLocation = getFirstFreeLocation();
+            Location freeLocation = getFirstFreeLocation(car);
             setCarAt(freeLocation, car);
             i++;
         }
@@ -253,7 +260,10 @@ public class CarPark extends Model {
             return false;
         }
         Car oldCar = getCarAt(location);
-        if (oldCar == null) {
+        if (oldCar == null || oldCar instanceof ParkingPassSpot && car instanceof ParkingPassCar || oldCar instanceof ReservedSpot) {
+            if (oldCar instanceof ParkingPassSpot) {
+                ((ParkingPassCar) car).setAtReservedSpot(true);
+            }
             cars[location.getFloor()][location.getRow()][location.getPlace()] = car;
             car.setLocation(location);
             numberOfOpenSpots--;
@@ -287,12 +297,13 @@ public class CarPark extends Model {
      *
      * @return Free Location in the car park if available.
      */
-    public Location getFirstFreeLocation() {
+    public Location getFirstFreeLocation(Car car) {
         for (int floor = 0; floor < getNumberOfFloors(); floor++) {
             for (int row = 0; row < getNumberOfRows(); row++) {
                 for (int place = 0; place < getNumberOfPlaces(); place++) {
                     Location location = new Location(floor, row, place);
-                    if (getCarAt(location) == null) {
+                    Car currentCar = getCarAt(location);
+                    if (currentCar == null || car instanceof ParkingPassCar && currentCar instanceof  ParkingPassSpot) {
                         return location;
                     }
                 }
@@ -312,7 +323,7 @@ public class CarPark extends Model {
                 for (int place = 0; place < getNumberOfPlaces(); place++) {
                     Location location = new Location(floor, row, place);
                     Car car = getCarAt(location);
-                    if (car != null && car.getMinutesLeft() <= 0 && !car.getIsPaying()) {
+                    if (car != null && car.getMinutesLeft() <= 0 && !car.getIsPaying() && !(car instanceof ParkingPassSpot)) {
                         return car;
                     }
                 }
@@ -337,4 +348,32 @@ public class CarPark extends Model {
             }
         }
     }
+
+    public void setParkingPassSpots(int amount)
+    {
+        int currentFloor = 0;
+        int currentRow = 0;
+        int currentPlace = 0;
+        int totalPlacesSet = 0;
+
+        if (amount > numberOfPlaces * numberOfRows * numberOfFloors) {
+            return;
+        }
+
+        for (int i = 0; i < amount; i++) {
+            if(currentPlace == numberOfPlaces) {
+                currentRow++;
+                currentPlace = 0;
+                if(currentRow == numberOfRows){
+                    currentFloor++;
+                    currentRow = 0;
+                }
+            }
+            cars[currentFloor][currentRow][currentPlace] = new ParkingPassSpot();
+            cars[currentFloor][currentRow][currentPlace].setLocation(new Location(currentFloor,currentRow,currentPlace));
+            currentPlace++;
+
+        }
+    }
+
 }

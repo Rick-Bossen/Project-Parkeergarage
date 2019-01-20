@@ -148,13 +148,14 @@ public class CarParkFloor extends JPanel {
      * Paint a car on this car park in a given color.
      *
      * @param graphics image graphics used to draw the image
-     * @param location Location of the car
-     * @param color    Color of the car
+     * @param car current car
      */
-    private void drawCar(Graphics graphics, Location location, Color color) {
-        graphics.setColor(color);
+    private void drawCar(Graphics graphics,Car car) {
+        graphics.setColor(car.getColor());
+        Color color = car.getColor();
+        Location location = car.getLocation();
 
-        if (factor < 1) {
+        if (factor < 1 || car instanceof ParkingPassSpot || car instanceof  ReservedSpot) {
             int x = getOffsetX() + getX(location);
             int y = getOffsetY() + getY(location);
 
@@ -261,7 +262,7 @@ public class CarParkFloor extends JPanel {
                 Car car = carPark.getCarAt(location);
                 drawPlace(graphics, location);
                 if (car != null) {
-                    drawCar(graphics, location, car.getColor());
+                    drawCar(graphics,car);
                 }
             }
         }
