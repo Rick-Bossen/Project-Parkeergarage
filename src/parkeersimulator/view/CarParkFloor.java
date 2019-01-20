@@ -17,8 +17,8 @@ public class CarParkFloor extends JPanel {
 
     private final int CAR_WIDTH = 24;
     private final int CAR_HEIGHT = 13;
-    private final int PARK_HEIGHT = 401;
-    private final int PARK_WIDTH = 234;
+    private final int PARK_HEIGHT = 400;
+    private final int PARK_WIDTH = 230;
     private int floor;
     private double factor;
     private Dimension size;
@@ -33,7 +33,6 @@ public class CarParkFloor extends JPanel {
         this.floor = floor;
         size = new Dimension(0, 0);
         setFactor();
-        setMinimumSize(new Dimension(200, 500));
     }
 
     /**
