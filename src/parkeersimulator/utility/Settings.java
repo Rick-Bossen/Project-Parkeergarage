@@ -1,7 +1,10 @@
 package parkeersimulator.utility;
 
+import parkeersimulator.framework.Model;
+
 import java.io.*;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.Properties;
 
 /**
@@ -10,12 +13,13 @@ import java.util.Properties;
  *
  * @version 18.01.2019
  */
-public class Settings {
+public class Settings extends Model {
 
     private final String defaultFile = "default.properties";
     private final String userFile = "user-config.properties";
 
     private Properties properties;
+    private Properties temporaryProperties;
 
     private static Settings instance = new Settings();
 
@@ -24,26 +28,10 @@ public class Settings {
      */
     private Settings(){
         properties = new Properties();
+        temporaryProperties = new Properties();
         loadDefaultConfig();
         loadUserConfig();
         saveConfig();
-    }
-
-    /**
-     * Loads all predefined configuration.
-     */
-    private void loadDefaultConfig()
-    {
-        try {
-            ClassLoader loader = Thread.currentThread().getContextClassLoader();
-            InputStream config = loader.getResourceAsStream(defaultFile);
-            if(config != null){
-                properties.load(config);
-                config.close();
-            }
-        } catch (IOException e) {
-            // File does not exist yet.
-        }
     }
 
     /**
@@ -77,9 +65,40 @@ public class Settings {
     }
 
     /**
+     * Loads all edited user config.
+     * Checks if the user config is present as default config and contains integer values.
+     */
+    public void loadTemporaryConfig(){
+        System.out.println("IN");
+        Enumeration names = temporaryProperties.propertyNames();
+        while (names.hasMoreElements()) {
+            String key = (String) names.nextElement();
+            System.out.println(key + " = " + temporaryProperties.getProperty(key));
+            properties.setProperty(key, temporaryProperties.getProperty(key));
+        }
+        temporaryProperties.clear();
+    }
+
+    /**
+     * Loads all predefined configuration.
+     */
+    public void loadDefaultConfig() {
+        try {
+            ClassLoader loader = Thread.currentThread().getContextClassLoader();
+            InputStream config = loader.getResourceAsStream(defaultFile);
+            if(config != null){
+                properties.load(config);
+                config.close();
+            }
+        } catch (IOException e) {
+            // File does not exist yet.
+        }
+    }
+
+    /**
      * Save the configuration into a user settings file.
      */
-    private void saveConfig() {
+    public void saveConfig() {
         try {
             OutputStream config = new FileOutputStream(userFile);
             properties.store(config, null);
@@ -87,6 +106,15 @@ public class Settings {
         } catch (IOException e) {
             // Unable to create file.
         }
+        updateViews();
+    }
+
+    /**
+     * Return instance of the settings managers.
+     * @return Settings
+     */
+    public static Settings getInstance(){
+        return instance;
     }
 
     /**
@@ -122,6 +150,18 @@ public class Settings {
             return true;
         }
         return false;
+    }
+
+    /**
+     * Update a setting. Only allowed to update existing settings.
+     *
+     * @param key Key of the setting
+     * @param value Value of the configuration.
+     * @return if the value was successfully saved.
+     */
+    public static boolean setTemporary(String key, int value){
+        instance.temporaryProperties.setProperty(key, Integer.toString(value));
+        return true;
     }
 
 }
