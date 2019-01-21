@@ -3,7 +3,9 @@ package parkeersimulator.model;
 import parkeersimulator.framework.Model;
 import parkeersimulator.utility.Settings;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * This class represents the whole car park containing the location of all cars and the statistics with it.
@@ -23,10 +25,13 @@ public class CarPark extends Model {
     private Car[][][] cars;
 
     private ArrayList<CustomerGroup> customerGroups;
+    private CustomerGroup reservations;
+    private ArrayList<AdHocCar> reservationList;
 
     public CarPark() {
         paymentCarQueue = new CarQueue(Settings.get("queue.payment.speed"));
         exitCarQueue = new CarQueue(Settings.get("queue.exit.speed"));
+        reservationList = new ArrayList<>();
         createGroups();
     }
 
@@ -43,6 +48,9 @@ public class CarPark extends Model {
         CustomerGroup parkingPass = new CustomerGroup(ParkingPassCar.class, Settings.get("pass.arrivals.weekday"), Settings.get("pass.arrivals.weekend"));
         parkingPass.setEntranceCarQueue(new CarQueue(Settings.get("queue.pass.speed")));
         customerGroups.add(parkingPass);
+
+        reservations = new CustomerGroup(ReservedSpot.class, Settings.get("reserved.arrivals.weekday"), Settings.get("reserved.arrivals.weekend"));
+        reservations.setEntranceCarQueue(new CarQueue(Settings.get("queue.reserved.speed")));
     }
 
     /**
@@ -59,6 +67,32 @@ public class CarPark extends Model {
                 carLeavesSpot(car);
             }
             car = getFirstLeavingCar();
+        }
+    }
+
+    public void handleReservations(int day) {
+
+        for (int i = 0; i < reservations.getNumberOfCars(day); i++) {
+            Car car = reservations.getNewCar();
+            Location freeLocation = getFirstFreeLocation(car);
+            if(freeLocation != null) {
+                setCarAt(freeLocation,car);
+                AdHocCar adHocCar = new AdHocCar();
+                adHocCar.setLocation(freeLocation);
+                adHocCar.setTimeUntilArrival();
+                reservationList.add(adHocCar);
+            }
+        }
+
+        CustomerGroup adHocGroup = customerGroups.get(0);
+        CarQueue queue = adHocGroup.getEntranceCarQueue();
+
+        if(!reservationList.isEmpty()) {
+            for (AdHocCar car : reservationList) {
+                if (car.getTimeUntilArrival() == 0) {
+                    queue.addCar(car);
+                }
+            }
         }
     }
 
@@ -228,8 +262,14 @@ public class CarPark extends Model {
         // Remove car from the front of the queue and assign to a parking space.
         while (queue.carsInQueue() > 0 && getNumberOfOpenSpots() > 0 && i < queue.getSpeed()) {
             Car car = queue.removeCar();
-            Location freeLocation = getFirstFreeLocation(car);
-            setCarAt(freeLocation, car);
+            if(!car.getHasReserved()) {
+                Location freeLocation = getFirstFreeLocation(car);
+                setCarAt(freeLocation, car);
+            } else {
+                Location location = car.getLocation();
+                setCarAt(location,car);
+            }
+
             i++;
         }
     }
@@ -303,7 +343,7 @@ public class CarPark extends Model {
                 for (int place = 0; place < getNumberOfPlaces(); place++) {
                     Location location = new Location(floor, row, place);
                     Car currentCar = getCarAt(location);
-                    if (currentCar == null || car instanceof ParkingPassCar && currentCar instanceof  ParkingPassSpot) {
+                    if (currentCar == null || car instanceof ParkingPassCar && currentCar instanceof ParkingPassSpot) {
                         return location;
                     }
                 }
