@@ -93,7 +93,7 @@ public class Simulator extends Controller {
     }
 
     @Override
-    public boolean event(View view, int eventId) {
+    protected boolean event(View view, int eventId) {
         switch (eventId){
             case RUN_ONCE:
                 run((CarParkControls) view, 1);
