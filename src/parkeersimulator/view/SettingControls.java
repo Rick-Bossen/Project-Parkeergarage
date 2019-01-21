@@ -16,11 +16,13 @@ import java.awt.*;
  */
 public class SettingControls extends GridBagView {
 
+    private SettingView settingView;
     private JButton defaultButton;
     private JButton saveButton;
 
-    public SettingControls() {
+    public SettingControls(SettingView settingView) {
         super();
+        this.settingView = settingView;
         setPosition(1, 2);
         setBackground(new Color(45, 52, 54));
         setLayout(new GridBagLayout());
@@ -80,6 +82,14 @@ public class SettingControls extends GridBagView {
         button.setBorderPainted(false);
         button.setFocusPainted(false);
         return button;
+    }
+
+    @Override
+    protected void sendEvent(int eventId) {
+        if (controller == null) {
+            throw new IllegalStateException("View does not have a controller.");
+        }
+        controller.event(settingView, eventId);
     }
 
     @Override

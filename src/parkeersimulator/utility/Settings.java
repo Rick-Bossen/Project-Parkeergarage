@@ -13,13 +13,12 @@ import java.util.Properties;
  *
  * @version 18.01.2019
  */
-public class Settings extends Model {
+public class Settings {
 
     private final String defaultFile = "default.properties";
     private final String userFile = "user-config.properties";
 
     private Properties properties;
-    private Properties temporaryProperties;
 
     private static Settings instance = new Settings();
 
@@ -28,7 +27,6 @@ public class Settings extends Model {
      */
     private Settings(){
         properties = new Properties();
-        temporaryProperties = new Properties();
         loadDefaultConfig();
         loadUserConfig();
         saveConfig();
@@ -65,19 +63,6 @@ public class Settings extends Model {
     }
 
     /**
-     * Loads all edited user config.
-     * Checks if the user config is present as default config and contains integer values.
-     */
-    public void loadTemporaryConfig(){
-        Enumeration names = temporaryProperties.propertyNames();
-        while (names.hasMoreElements()) {
-            String key = (String) names.nextElement();
-            properties.setProperty(key, temporaryProperties.getProperty(key));
-        }
-        temporaryProperties.clear();
-    }
-
-    /**
      * Loads all predefined configuration.
      */
     public void loadDefaultConfig() {
@@ -104,7 +89,6 @@ public class Settings extends Model {
         } catch (IOException e) {
             // Unable to create file.
         }
-        updateViews();
     }
 
     /**
@@ -134,7 +118,6 @@ public class Settings extends Model {
         return 0;
     }
 
-
     /**
      * Update a setting. Only allowed to update existing settings.
      *
@@ -148,18 +131,6 @@ public class Settings extends Model {
             return true;
         }
         return false;
-    }
-
-    /**
-     * Update a setting. Only allowed to update existing settings.
-     *
-     * @param key Key of the setting
-     * @param value Value of the configuration.
-     * @return if the value was successfully saved.
-     */
-    public static boolean setTemporary(String key, int value){
-        instance.temporaryProperties.setProperty(key, Integer.toString(value));
-        return true;
     }
 
 }

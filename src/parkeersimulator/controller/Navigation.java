@@ -14,7 +14,7 @@ public class Navigation extends Controller {
     }
 
     @Override
-    protected boolean event(View view, int eventId) {
+    public boolean event(View view, int eventId) {
         if(view instanceof SideBar){
             tabList.setActiveTab(((SideBar)view).getMenuText(eventId - 1));
             return true;
