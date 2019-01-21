@@ -48,7 +48,12 @@ public class SettingControls extends GridBagView {
         constraints.gridx = 1;
         constraints.insets = new Insets(10, 10, 10, 10);
         add(defaultButton, constraints);
-        defaultButton.addActionListener(e -> sendEvent(SettingManager.RESET_TO_DEFAULT));
+        defaultButton.addActionListener(e -> {
+            int dialogResult = JOptionPane.showConfirmDialog (null, "Are you sure you want to reset to default?", "Confirm", JOptionPane.YES_NO_OPTION);
+            if(dialogResult == JOptionPane.YES_OPTION){
+                sendEvent(SettingManager.RESET_TO_DEFAULT);
+            }
+        });
 
         saveButton = generateNewButton();
         saveButton.setText("Save settings");
@@ -56,7 +61,10 @@ public class SettingControls extends GridBagView {
         constraints.gridx = 2;
         constraints.insets = new Insets(10, 10, 10, 10);
         add(saveButton, constraints);
-        saveButton.addActionListener(e -> sendEvent(SettingManager.SAVE_SETTINGS));
+        saveButton.addActionListener(e -> {
+            sendEvent(SettingManager.SAVE_SETTINGS);
+            JOptionPane.showMessageDialog (null, "The settings have been saved successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+        });
     }
 
     /**

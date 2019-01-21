@@ -69,11 +69,9 @@ public class Settings extends Model {
      * Checks if the user config is present as default config and contains integer values.
      */
     public void loadTemporaryConfig(){
-        System.out.println("IN");
         Enumeration names = temporaryProperties.propertyNames();
         while (names.hasMoreElements()) {
             String key = (String) names.nextElement();
-            System.out.println(key + " = " + temporaryProperties.getProperty(key));
             properties.setProperty(key, temporaryProperties.getProperty(key));
         }
         temporaryProperties.clear();
