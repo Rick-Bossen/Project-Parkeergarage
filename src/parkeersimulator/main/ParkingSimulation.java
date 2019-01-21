@@ -51,7 +51,7 @@ public class ParkingSimulation {
         // Create the Controllers.
         Navigation navigation = new Navigation(tabList);
         Simulator simulator = new Simulator(clock, carPark);
-        SettingManager settingManager = new SettingManager(window);
+        SettingManager settingManager = new SettingManager(window, carPark, clock);
         carParkControls.setController(simulator);
         sideBar.setController(navigation);
         settingControls.setController(settingManager);
@@ -61,19 +61,6 @@ public class ParkingSimulation {
         carPark.addView(carParkView);
         tabList.addView(sideBar);
         settingList.addView(settingsView);
-
-        // Add the menu tabs
-        ArrayList<View> carParkViews = new ArrayList<>();
-        carParkViews.add(carParkView);
-        carParkViews.add(carParkControls);
-        tabList.addTabList("Home", carParkViews);
-
-        ArrayList<View> settingViews = new ArrayList<>();
-        settingViews.add(settingsView);
-        settingViews.add(settingControls);
-        tabList.addTabList("Settings", settingViews);
-
-        tabList.setActiveTab("Home");
 
         // Set the size of the car park
         clock.reset();
@@ -87,6 +74,28 @@ public class ParkingSimulation {
         window.add(carParkControls, carParkControls.getConstraints());
         window.add(settingsView, settingsView.getConstraints());
         window.add(settingControls, settingControls.getConstraints());
+
+        // Add scrollbar for panes.
+        JScrollPane scrollPane = new JScrollPane(settingsView, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.gridx = 2;
+        constraints.gridy = 1;
+        constraints.fill = GridBagConstraints.VERTICAL;
+        window.add(scrollPane, settingsView.getConstraints());
+
+        // Add the menu tabs
+        ArrayList<JComponent> carParkViews = new ArrayList<>();
+        carParkViews.add(carParkView);
+        carParkViews.add(carParkControls);
+        tabList.addTabList("Home", carParkViews);
+
+        ArrayList<JComponent> settingViews = new ArrayList<>();
+        settingViews.add(settingsView);
+        settingViews.add(settingControls);
+        settingViews.add(scrollPane);
+        tabList.addTabList("Settings", settingViews);
+
+        tabList.setActiveTab("Home");
 
         window.pack();
         window.setVisible(true);

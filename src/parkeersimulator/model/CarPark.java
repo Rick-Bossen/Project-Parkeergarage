@@ -127,16 +127,22 @@ public class CarPark extends Model {
     }
 
     /**
-     * Reset the simulation.
+     * Reset the simulation with a set number of floors.
      */
-    public void reset() {
-        cars = new Car[numberOfFloors][numberOfRows][numberOfPlaces];
+    public void reset(int numberOfFloors, int numberOfRows, int numberOfPlaces) {
         paymentCarQueue.reset();
         exitCarQueue.reset();
         for (CustomerGroup group : customerGroups) {
             group.getEntranceCarQueue().reset();
         }
-        updateViews();
+        setSize(numberOfFloors, numberOfRows, numberOfPlaces);
+    }
+
+    /**
+     * Reset the simulation.
+     */
+    public void reset() {
+        reset(numberOfFloors, numberOfRows, numberOfPlaces);
     }
 
     /**
@@ -173,6 +179,30 @@ public class CarPark extends Model {
      */
     public int getNumberOfOpenSpots() {
         return numberOfOpenSpots;
+    }
+
+    /**
+     * Return payment car queue
+     * @return queue
+     */
+    public CarQueue getPaymentCarQueue(){
+        return paymentCarQueue;
+    }
+
+    /**
+     * Return payment car queue
+     * @return queue
+     */
+    public CarQueue getExitCarQueue(){
+        return exitCarQueue;
+    }
+
+    /**
+     * Return all created customer groups.
+     * @return customer groups.
+     */
+    public ArrayList<CustomerGroup> getCustomerGroups(){
+        return customerGroups;
     }
 
     /**
