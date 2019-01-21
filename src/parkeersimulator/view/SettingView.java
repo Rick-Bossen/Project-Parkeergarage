@@ -7,6 +7,7 @@ import parkeersimulator.model.SettingList;
 import parkeersimulator.utility.Settings;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.text.NumberFormatter;
 import java.awt.*;
 import java.text.NumberFormat;
@@ -29,6 +30,7 @@ public class SettingView extends GridBagView {
         setHorizontalPriority(1);
         setVerticalPriority(1);
         setGridHeight(1);
+        setBorder(new EmptyBorder(20, 0, 40, 0));
         setBackground(new Color(195, 195, 195));
 
         NumberFormat format = NumberFormat.getInstance();
@@ -76,8 +78,21 @@ public class SettingView extends GridBagView {
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.gridx = 1;
         constraints.gridy = index;
-        constraints.insets = new Insets(15, 15, 0, 20);
+        constraints.gridwidth = 2;
+        constraints.insets = new Insets(20, 15, 0, 20);
+        constraints.anchor = GridBagConstraints.WEST;
         add(categoryLabel, constraints);
+
+        JSeparator categorySeparator = new JSeparator(SwingConstants.HORIZONTAL);
+        categorySeparator.setBackground(Color.white);
+        categorySeparator.setForeground(Color.white);
+        constraints = new GridBagConstraints();
+        constraints.gridx = 1;
+        constraints.gridy = index + 1;
+        constraints.gridwidth = 2;
+        constraints.fill = GridBagConstraints.HORIZONTAL;
+        constraints.insets = new Insets(0, 15, 10, 20);
+        add(categorySeparator, constraints);
     }
 
     /**
@@ -99,7 +114,8 @@ public class SettingView extends GridBagView {
         constraints = new GridBagConstraints();
         constraints.gridx = 1;
         constraints.gridy = index;
-        constraints.insets = new Insets(15, 15, 0, 20);
+        constraints.insets = new Insets(10, 15, 0, 20);
+        constraints.anchor = GridBagConstraints.WEST;
         add(settingsLabel, constraints);
 
         JFormattedTextField settingsField = new JFormattedTextField(intFormatter);
@@ -143,7 +159,7 @@ public class SettingView extends GridBagView {
             Map.Entry entry = (Map.Entry)categoryIterator.next();
             SettingCategory category = (SettingCategory) entry.getValue();
             if(category.update()){
-                updatedCategories.add(category.getCategory());
+                updatedCategories.add(category.getCategoryId());
             }
         }
         return updatedCategories;
@@ -155,7 +171,7 @@ public class SettingView extends GridBagView {
             int index = 0;
             for (SettingCategory category : ((SettingList) model).getCategories()){
                 addCategory(index, category);
-                index++;
+                index += 2;
                 HashMap<String, String> settings = category.getSettings();
                 Iterator settingsIterator = settings.entrySet().iterator();
                 while (settingsIterator.hasNext()) {

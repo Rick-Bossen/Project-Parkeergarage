@@ -59,6 +59,15 @@ public class CarQueue extends Model {
     }
 
     /**
+     * Set the speed of the queue.
+     *
+     * @param speed Integer representing the speed.
+     */
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+
+    /**
      * Get the speed of the queue.
      *
      * @return Integer representing the speed.

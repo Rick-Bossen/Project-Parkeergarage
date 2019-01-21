@@ -3,6 +3,7 @@ package parkeersimulator.model;
 import parkeersimulator.framework.Model;
 import parkeersimulator.framework.View;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -11,21 +12,10 @@ import java.util.Map;
 public class TabList extends Model {
 
     private String activeTab;
-    private HashMap<String, ArrayList<View>> list;
+    private HashMap<String, ArrayList<JComponent>> list;
 
     public TabList(){
         list = new HashMap<>();
-    }
-
-    /**
-     * Add menu item with one view.
-     * @param name Name of the menu item
-     * @param view View of the tab
-     */
-    public void addTabList(String name, View view){
-        ArrayList<View> views = new ArrayList<>();
-        views.add(view);
-        addTabList(name, views);
     }
 
     /**
@@ -33,7 +23,7 @@ public class TabList extends Model {
      * @param name Name of the menu item
      * @param views Views of the tab
      */
-    public void addTabList(String name, ArrayList<View> views){
+    public void addTabList(String name, ArrayList<JComponent> views){
         list.put(name, views);
     }
 
@@ -65,7 +55,7 @@ public class TabList extends Model {
             Iterator iterator = list.entrySet().iterator();
             while (iterator.hasNext()) {
                 Map.Entry entry = (Map.Entry)iterator.next();
-                for(View view : (ArrayList<View>)entry.getValue()){
+                for(JComponent view : (ArrayList<JComponent>)entry.getValue()){
                     view.setVisible(entry.getKey() == activeTab);
                 }
             }

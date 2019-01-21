@@ -10,11 +10,13 @@ import java.util.Map;
 public class SettingCategory extends Model {
 
     private String category;
+    private String categoryId;
     private HashMap<String, String> settings;
     private HashMap<String, Integer> oldValues;
     private HashMap<String, Integer> newValues;
 
-    public SettingCategory(String category){
+    public SettingCategory(String categoryId, String category){
+        this.categoryId = categoryId;
         this.category = category;
         settings = new HashMap<>();
         newValues = new HashMap<>();
@@ -48,6 +50,14 @@ public class SettingCategory extends Model {
      */
     public String getCategory(){
         return category;
+    }
+
+    /**
+     * Get category id
+     * @return name
+     */
+    public String getCategoryId(){
+        return categoryId;
     }
 
     /**
