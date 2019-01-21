@@ -16,6 +16,7 @@ public abstract class Car extends Model {
     private int minutesLeft;
     private boolean isPaying;
     private boolean hasToPay;
+    private boolean hasReserved = false;
 
     /**
      * Constructor for objects of class Car
@@ -107,4 +108,14 @@ public abstract class Car extends Model {
      * @return the Color of the car
      */
     public abstract Color getColor();
+
+    public void setHasReserved(boolean value)
+    {
+        hasReserved = value;
+    }
+
+    public boolean getHasReserved()
+    {
+        return hasReserved;
+    }
 }
