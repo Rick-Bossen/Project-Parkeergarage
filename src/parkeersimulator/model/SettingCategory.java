@@ -5,6 +5,7 @@ import parkeersimulator.utility.Settings;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class SettingCategory extends Model {
@@ -18,7 +19,7 @@ public class SettingCategory extends Model {
     public SettingCategory(String categoryId, String category){
         this.categoryId = categoryId;
         this.category = category;
-        settings = new HashMap<>();
+        settings = new LinkedHashMap<>();
         newValues = new HashMap<>();
         oldValues = new HashMap<>();
     }
