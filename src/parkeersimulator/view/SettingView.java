@@ -31,14 +31,14 @@ public class SettingView extends GridBagView {
         setVerticalPriority(1);
         setGridHeight(1);
         setBorder(new EmptyBorder(20, 0, 40, 0));
-        setBackground(new Color(195, 195, 195));
+        setBackground(new Color(215, 215, 215));
 
         NumberFormat format = NumberFormat.getInstance();
         NumberFormatter formatter = new NumberFormatter(format);
         formatter.setValueClass(Integer.class);
         formatter.setMinimum(0);
         formatter.setMaximum(Integer.MAX_VALUE);
-        formatter.setAllowsInvalid(false);
+        formatter.setAllowsInvalid(true);
         formatter.setCommitsOnValidEdit(true);
         this.intFormatter = formatter;
 
