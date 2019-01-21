@@ -5,6 +5,7 @@ import javax.swing.*;
 public abstract class View extends JPanel {
 
     protected Controller controller;
+    protected View eventView = this;
 
     /**
      * Attach controller to view
@@ -25,7 +26,15 @@ public abstract class View extends JPanel {
         if (controller == null) {
             throw new IllegalStateException("View does not have a controller.");
         }
-        controller.event(this, eventId);
+        controller.event(eventView, eventId);
+    }
+
+    /**
+     * Update event view to make the notification system more flexible.
+     * @param view Event view.
+     */
+    protected void setEventView(View view){
+        this.eventView = view;
     }
 
     /**

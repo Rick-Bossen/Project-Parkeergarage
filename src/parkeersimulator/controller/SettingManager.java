@@ -29,7 +29,7 @@ public class SettingManager extends Controller {
     }
 
     @Override
-    public boolean event(View view, int eventId) {
+    protected boolean event(View view, int eventId) {
         Settings settings;
         ArrayList<String> updatedCategories = new ArrayList<>();
         switch (eventId){

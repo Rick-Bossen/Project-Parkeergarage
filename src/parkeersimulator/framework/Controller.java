@@ -8,6 +8,6 @@ public abstract class Controller {
      * @param eventId id of event
      * @return true if event is handled
      */
-    public abstract boolean event(View view, int eventId);
+    protected abstract boolean event(View view, int eventId);
 
 }
