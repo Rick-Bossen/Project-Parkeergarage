@@ -6,6 +6,7 @@ import parkeersimulator.controller.Simulator;
 import parkeersimulator.framework.View;
 import parkeersimulator.model.CarPark;
 import parkeersimulator.model.Clock;
+import parkeersimulator.model.SettingList;
 import parkeersimulator.model.TabList;
 import parkeersimulator.utility.Settings;
 import parkeersimulator.view.*;
@@ -36,6 +37,7 @@ public class ParkingSimulation {
         // Create the Models.
         Clock clock = new Clock();
         CarPark carPark = new CarPark();
+        SettingList settingList = new SettingList();
 
         // Create the Views.
         TabList tabList = new TabList();
@@ -44,7 +46,7 @@ public class ParkingSimulation {
         CarParkView carParkView = new CarParkView();
         CarParkControls carParkControls = new CarParkControls();
         SettingView settingsView = new SettingView();
-        SettingControls settingControls = new SettingControls();
+        SettingControls settingControls = new SettingControls(settingsView);
 
         // Create the Controllers.
         Navigation navigation = new Navigation(tabList);
@@ -58,7 +60,7 @@ public class ParkingSimulation {
         clock.addView(topBar);
         carPark.addView(carParkView);
         tabList.addView(sideBar);
-        Settings.getInstance().addView(settingsView);
+        settingList.addView(settingsView);
 
         // Add the menu tabs
         ArrayList<View> carParkViews = new ArrayList<>();
@@ -76,6 +78,7 @@ public class ParkingSimulation {
         // Set the size of the car park
         clock.reset();
         carPark.setSize(Settings.get("carpark.floors"), Settings.get("carpark.rows"), Settings.get("carpark.places"));
+        settingList.fillCategories();
 
         // Add the views to the window.
         window.add(topBar, topBar.getConstraints());
