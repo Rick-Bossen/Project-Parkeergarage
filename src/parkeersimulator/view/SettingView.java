@@ -10,10 +10,7 @@ import javax.swing.*;
 import javax.swing.text.NumberFormatter;
 import java.awt.*;
 import java.text.NumberFormat;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 /**
  * This class contains the whole settings page.
@@ -130,9 +127,10 @@ public class SettingView extends GridBagView {
     }
 
     /**
-     * Clear all categories in the list.
+     * Update all categories in the list.
      */
-    public void clearCategories(){
+    public ArrayList<String> updateCategories(){
+        ArrayList<String> updatedCategories = new ArrayList<>();
         Iterator settingsIterator = fields.entrySet().iterator();
         while (settingsIterator.hasNext()) {
             Map.Entry entry = (Map.Entry)settingsIterator.next();
@@ -144,8 +142,11 @@ public class SettingView extends GridBagView {
         while (categoryIterator.hasNext()) {
             Map.Entry entry = (Map.Entry)categoryIterator.next();
             SettingCategory category = (SettingCategory) entry.getValue();
-            category.reset();
+            if(category.update()){
+                updatedCategories.add(category.getCategory());
+            }
         }
+        return updatedCategories;
     }
 
     @Override

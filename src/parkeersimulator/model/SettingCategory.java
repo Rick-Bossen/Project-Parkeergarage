@@ -4,17 +4,21 @@ import parkeersimulator.framework.Model;
 import parkeersimulator.utility.Settings;
 
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 public class SettingCategory extends Model {
 
     private String category;
     private HashMap<String, String> settings;
-    private HashMap<String, Integer> values;
+    private HashMap<String, Integer> oldValues;
+    private HashMap<String, Integer> newValues;
 
     public SettingCategory(String category){
         this.category = category;
         settings = new HashMap<>();
-        values = new HashMap<>();
+        newValues = new HashMap<>();
+        oldValues = new HashMap<>();
     }
 
     /**
@@ -24,6 +28,7 @@ public class SettingCategory extends Model {
      */
     public void addSetting(String key, String label){
         settings.put(key, label);
+        oldValues.put(key,  Settings.get(key));
     }
 
     /**
@@ -32,8 +37,8 @@ public class SettingCategory extends Model {
      * @param value New value of the setting
      */
     public void addValue(String key, int value){
-        if(settings.get(key) != null && Settings.get(key) != value){
-            values.put(key, value);
+        if(settings.get(key) != null && oldValues.get(key) != value){
+            newValues.put(key, value);
         }
     }
 
@@ -58,14 +63,28 @@ public class SettingCategory extends Model {
      * @return HashMap with all changed values
      */
     public HashMap<String, Integer> getValues(){
-        return values;
+        return newValues;
     }
 
     /**
      * Reset all changed values when necessary.
+     * @return Returns boolean if this category's settings have been changed.
      */
-    public void reset(){
-        values.clear();
+    public boolean update(){
+        boolean updated = false;
+        newValues.clear();
+        Iterator valueIterator = oldValues.entrySet().iterator();
+        while (valueIterator.hasNext()) {
+            Map.Entry entry = (Map.Entry)valueIterator.next();
+            Integer intValue = (Integer) entry.getValue();
+            String key = (String) entry.getKey();
+            if(Settings.get(key) != intValue){
+                updated = true;
+                oldValues.put(key, Settings.get(key));
+            }
+        }
+
+        return updated;
     }
 
 }

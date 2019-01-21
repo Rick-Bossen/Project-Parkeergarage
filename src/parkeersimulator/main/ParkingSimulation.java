@@ -51,7 +51,7 @@ public class ParkingSimulation {
         // Create the Controllers.
         Navigation navigation = new Navigation(tabList);
         Simulator simulator = new Simulator(clock, carPark);
-        SettingManager settingManager = new SettingManager();
+        SettingManager settingManager = new SettingManager(window);
         carParkControls.setController(simulator);
         sideBar.setController(navigation);
         settingControls.setController(settingManager);
