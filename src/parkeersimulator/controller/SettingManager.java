@@ -81,7 +81,7 @@ public class SettingManager extends Controller {
                 }
                 break;
             case "simulation.presets":
-                carPark.reset(Settings.get("carpark.floors"), Settings.get("carpark.rows"), Settings.get("carpark.places"));
+                carPark.reset(Settings.get("carpark.floors"), Settings.get("carpark.rows"), Settings.get("carpark.places"), Settings.get("carpark.passPlaces"));
                 clock.reset();
                 break;
             case "simulation":

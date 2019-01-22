@@ -64,7 +64,7 @@ public class ParkingSimulation {
 
         // Set the size of the car park
         clock.reset();
-        carPark.setSize(Settings.get("carpark.floors"), Settings.get("carpark.rows"), Settings.get("carpark.places"));
+        carPark.setSize(Settings.get("carpark.floors"), Settings.get("carpark.rows"), Settings.get("carpark.places"), Settings.get("carpark.passPlaces"));
         settingList.fillCategories();
 
         // Add the views to the window.

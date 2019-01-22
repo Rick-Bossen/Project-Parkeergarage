@@ -12,6 +12,7 @@ import java.util.Random;
 public class AdHocCar extends Car {
 
     private static final Color COLOR = Color.red;
+    private int timeUntilArrival;
 
     public AdHocCar() {
         Random random = new Random();
@@ -27,5 +28,20 @@ public class AdHocCar extends Car {
      */
     public Color getColor() {
         return COLOR;
+    }
+
+    public void setTimeUntilArrival() {
+        Random random = new Random();
+        timeUntilArrival = (int) (5 + random.nextFloat() * 30);
+    }
+
+    public int getTimeUntilArrival()
+    {
+        return timeUntilArrival;
+    }
+
+    public void incrementTimeUntilArrival()
+    {
+        timeUntilArrival--;
     }
 }

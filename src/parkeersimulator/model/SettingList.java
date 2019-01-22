@@ -35,6 +35,7 @@ public class SettingList extends Model {
         simulationPresetCategory.addSetting("carpark.floors", "Amount of floors");
         simulationPresetCategory.addSetting("carpark.rows", "Amount of rows");
         simulationPresetCategory.addSetting("carpark.places", "Amount of places");
+        simulationPresetCategory.addSetting("carpark.passPlaces", "Reserved Pass places");
         categories.add(simulationPresetCategory);
 
         SettingCategory simulationCategory = new SettingCategory("simulation", "Simulation");
