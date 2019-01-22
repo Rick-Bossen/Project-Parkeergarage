@@ -75,13 +75,9 @@ public class ParkingSimulation {
         window.add(settingsView, settingsView.getConstraints());
         window.add(settingControls, settingControls.getConstraints());
 
-        // Add scrollbar for panes.
+        // Add scrollbar for panels.
         JScrollPane scrollPane = new JScrollPane(settingsView, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.getVerticalScrollBar().setUnitIncrement(16);
-        GridBagConstraints constraints = new GridBagConstraints();
-        constraints.gridx = 2;
-        constraints.gridy = 1;
-        constraints.fill = GridBagConstraints.VERTICAL;
         window.add(scrollPane, settingsView.getConstraints());
 
         // Add the menu tabs

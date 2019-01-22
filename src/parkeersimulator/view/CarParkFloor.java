@@ -252,9 +252,9 @@ public class CarParkFloor extends JPanel {
         // Create a new car park image if the size has changed.
         if (!size.equals(getSize())) {
             size = getSize();
-            setFactor();
             carParkImage = createImage(size.width, size.height);
         }
+        setFactor();
         Graphics graphics = carParkImage.getGraphics();
 
         drawBase(graphics);
