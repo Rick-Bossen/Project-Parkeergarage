@@ -44,6 +44,8 @@ public class SettingList extends Model {
         simulationCategory.addSetting("adhoc.arrivals.weekend", "Normal arrivals/weekend");
         simulationCategory.addSetting("pass.arrivals.weekday", "Parking pass/weekday");
         simulationCategory.addSetting("pass.arrivals.weekend", "Parking pass/weekend");
+        simulationCategory.addSetting("reserved.arrivals.weekday", "Reservations/weekday");
+        simulationCategory.addSetting("reserved.arrivals.weekend", "Reservations/weekend");
         categories.add(simulationCategory);
 
         updateViews();
