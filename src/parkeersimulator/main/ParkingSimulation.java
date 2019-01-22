@@ -77,6 +77,7 @@ public class ParkingSimulation {
 
         // Add scrollbar for panes.
         JScrollPane scrollPane = new JScrollPane(settingsView, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(16);
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.gridx = 2;
         constraints.gridy = 1;
