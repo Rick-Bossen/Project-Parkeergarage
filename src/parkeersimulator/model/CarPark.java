@@ -6,6 +6,7 @@ import parkeersimulator.utility.Settings;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 /**
  * This class represents the whole car park containing the location of all cars and the statistics with it.
@@ -184,6 +185,8 @@ public class CarPark extends Model {
     public void reset(int numberOfFloors, int numberOfRows, int numberOfPlaces, int numberOfParkingPassSpots) {
         paymentCarQueue.reset();
         exitCarQueue.reset();
+        reservationList.clear();
+        reservationCarList.clear();
         for (CustomerGroup group : customerGroups) {
             group.getEntranceCarQueue().reset();
         }
@@ -316,9 +319,21 @@ public class CarPark extends Model {
                     String carId = ((ReservedAdHocCar) car).getId();
                     if (id.equals(carId)) {
                         car.setLocation(reservation.getLocation());
-
-                        setCarAt(car.getLocation(), car);
-                        reservationList.remove(i);
+                        if(getCarAt(car.getLocation()) instanceof ReservedSpot) {
+                            setCarAt(car.getLocation(), car);
+                            reservationList.remove(i);
+                        } else {
+                            Random r = new Random();
+                            if (r.nextFloat() > 0.5f) {
+                                Car newCar = new AdHocCar();
+                                newCar.setLocation(getFirstFreeLocation(newCar));
+                                newCar.setMinutesLeft(car.getMinutesLeft());
+                                setCarAt(newCar.getLocation(),newCar);
+                                reservationList.remove(i);
+                            } else {
+                                reservationList.remove(i);
+                            }
+                        }
                         found = true;
                     }
                 }
