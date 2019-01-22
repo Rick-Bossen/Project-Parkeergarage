@@ -76,7 +76,7 @@ public class Simulator extends Controller {
         clock.advanceTime();
         carPark.tick();
         carPark.handleExit();
-        carPark.handleReservations(clock.getDay());
+        carPark.queueReservations(clock.getDay());
         carPark.handleEntrance(clock.getDay());
     }
 
