@@ -27,7 +27,7 @@ public class ReservedAdHocCar extends AdHocCar {
 
     public void setTimeUntilArrival() {
         Random random = new Random();
-        timeUntilArrival = (int) (5 + random.nextFloat() * 10);
+        timeUntilArrival = (int) (5 + random.nextFloat() * 35);
     }
 
     public int getTimeUntilArrival()
