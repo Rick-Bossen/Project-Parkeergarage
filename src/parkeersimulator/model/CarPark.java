@@ -53,7 +53,6 @@ public class CarPark extends Model {
         customerGroups.add(parkingPass);
 
         reservations = new CustomerGroup(ReservedSpot.class, Settings.get("reserved.arrivals.weekday"), Settings.get("reserved.arrivals.weekend"));
-        reservations.setEntranceCarQueue(new CarQueue(Settings.get("queue.reserved.speed")));
     }
 
     /**
@@ -73,8 +72,7 @@ public class CarPark extends Model {
         }
     }
 
-    public void handleReservations(int day) {
-
+    public void queueReservations(int day) {
         for (int i = 0; i < reservations.getNumberOfCars(day - 1); i++) {
             Reservation reservation = new Reservation();
             reservationList.add(reservation);
@@ -85,7 +83,7 @@ public class CarPark extends Model {
         if(!reservationList.isEmpty()) {
             for (Reservation reservation : reservationList) {
                 if (reservation.getTimeToReserve() == 30) {
-                    Car car = reservations.getNewCar();
+                    ReservedSpot car = (ReservedSpot) reservations.getNewCar();
                     Location freeLocation = getFirstFreeLocation(car);
 
                     if (freeLocation != null) {
@@ -99,8 +97,6 @@ public class CarPark extends Model {
                 }
             }
         }
-
-
 
         if(!reservationCarList.isEmpty()) {
             for (ReservedAdHocCar car : reservationCarList) {
@@ -284,7 +280,7 @@ public class CarPark extends Model {
                 reservationCarList.remove(car);
                 boolean found = false;
                 for (int index = 0; index < reservationList.size() && !found; index++) {
-                    Reservation reservation = reservationList.get(i);
+                    Reservation reservation = reservationList.get(index);
 
                     String id = reservation.getId();
                     String carId = ((ReservedAdHocCar) car).getId();
