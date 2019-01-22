@@ -13,16 +13,14 @@ import java.awt.*;
  * @author M. Visser
  * @version 14.01.2019
  */
-public class CarParkFloor extends JPanel {
+class CarParkFloor extends JPanel {
 
     private final int CAR_WIDTH = 24;
     private final int CAR_HEIGHT = 13;
-    private final int PARK_HEIGHT = 400;
-    private final int PARK_WIDTH = 230;
-    private int floor;
+    private final int floor;
     private double factor;
     private Dimension size;
-    private CarPark carPark;
+    private final CarPark carPark;
     private Image carParkImage;
 
 
@@ -79,7 +77,9 @@ public class CarParkFloor extends JPanel {
      * Calculates the factor to scale the drawn images accordingly
      */
     private void setFactor() {
-        factor = Math.min((double) (size.width - 20) / (int)(PARK_WIDTH / 6 * carPark.getNumberOfRows()), (double) (size.height - 20) / (int)(PARK_HEIGHT / 30 * carPark.getNumberOfPlaces()));
+        int PARK_WIDTH = 230;
+        int PARK_HEIGHT = 400;
+        factor = Math.min((double) (size.width - 20) / (PARK_WIDTH / 6 * carPark.getNumberOfRows()), (double) (size.height - 20) / (PARK_HEIGHT / 30 * carPark.getNumberOfPlaces()));
     }
 
     /**

@@ -15,7 +15,7 @@ import java.util.ArrayList;
  */
 public class SideBar extends GridBagView {
 
-    public ArrayList<JButton> menuLabels;
+    private final ArrayList<JButton> menuLabels;
 
     public SideBar() {
         super();
@@ -30,7 +30,7 @@ public class SideBar extends GridBagView {
      * Add menu item to sidebar.
      * @param name
      */
-    public void addMenuItem(int number, String name)
+    private void addMenuItem(int number, String name)
     {
         GridBagConstraints constraints = new GridBagConstraints();
         JButton menuLabel = new JButton();

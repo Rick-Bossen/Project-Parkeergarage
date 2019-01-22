@@ -2,7 +2,6 @@ package parkeersimulator.view;
 
 
 import parkeersimulator.controller.SettingManager;
-import parkeersimulator.controller.Simulator;
 import parkeersimulator.framework.GridBagView;
 import parkeersimulator.framework.Model;
 
@@ -15,9 +14,6 @@ import java.awt.*;
  * @version 18.01.2019
  */
 public class SettingControls extends GridBagView {
-
-    private JButton defaultButton;
-    private JButton saveButton;
 
     public SettingControls(SettingView settingView) {
         super();
@@ -43,7 +39,7 @@ public class SettingControls extends GridBagView {
         add(spacer, constraints);
 
 
-        defaultButton = generateNewButton();
+        JButton defaultButton = generateNewButton();
         defaultButton.setText("Reset to Default");
         constraints = new GridBagConstraints();
         constraints.gridx = 1;
@@ -56,7 +52,7 @@ public class SettingControls extends GridBagView {
             }
         });
 
-        saveButton = generateNewButton();
+        JButton saveButton = generateNewButton();
         saveButton.setText("Save settings");
         constraints = new GridBagConstraints();
         constraints.gridx = 2;

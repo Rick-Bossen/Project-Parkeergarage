@@ -4,8 +4,8 @@ import javax.swing.*;
 
 public abstract class View extends JPanel {
 
-    protected Controller controller;
-    protected View eventView = this;
+    private Controller controller;
+    private View eventView = this;
 
     /**
      * Attach controller to view

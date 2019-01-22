@@ -1,18 +1,16 @@
 package parkeersimulator.model;
 
 import parkeersimulator.framework.Model;
-import parkeersimulator.framework.View;
 
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 public class TabList extends Model {
 
     private String activeTab;
-    private HashMap<String, ArrayList<JComponent>> list;
+    private final HashMap<String, ArrayList<JComponent>> list;
 
     public TabList(){
         list = new HashMap<>();
@@ -52,11 +50,9 @@ public class TabList extends Model {
         if(list.get(activeTab) != null && (this.activeTab == null || !this.activeTab.equals(activeTab))) {
             this.activeTab = activeTab;
             updateViews();
-            Iterator iterator = list.entrySet().iterator();
-            while (iterator.hasNext()) {
-                Map.Entry entry = (Map.Entry)iterator.next();
-                for(JComponent view : (ArrayList<JComponent>)entry.getValue()){
-                    view.setVisible(entry.getKey() == activeTab);
+            for (Map.Entry<String, ArrayList<JComponent>> stringArrayListEntry : list.entrySet()) {
+                for (JComponent view : (ArrayList<JComponent>) ((Map.Entry) stringArrayListEntry).getValue()) {
+                    view.setVisible(((Map.Entry) stringArrayListEntry).getKey() == activeTab);
                 }
             }
 

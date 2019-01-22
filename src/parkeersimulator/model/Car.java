@@ -20,7 +20,7 @@ public abstract class Car extends Model {
     /**
      * Constructor for objects of class Car
      */
-    public Car() {
+    Car() {
 
     }
 
@@ -92,7 +92,7 @@ public abstract class Car extends Model {
      *
      * @param hasToPay boolean if the customer has to pay.
      */
-    public void setHasToPay(boolean hasToPay) {
+    void setHasToPay(boolean hasToPay) {
         this.hasToPay = hasToPay;
     }
 

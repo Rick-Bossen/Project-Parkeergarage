@@ -23,8 +23,8 @@ import java.awt.event.ActionListener;
  */
 public class Simulator extends Controller {
 
-    private Clock clock;
-    private CarPark carPark;
+    private final Clock clock;
+    private final CarPark carPark;
 
 
     public static final int RUN_ONCE = 1;
@@ -44,7 +44,7 @@ public class Simulator extends Controller {
      *
      * @param ticks the total amount of ticks for the simulation to run
      */
-    public void run(CarParkControls controls, int ticks) {
+    private void run(CarParkControls controls, int ticks) {
         controls.setButtonsEnabled(false);
         isRunning = true;
         new Timer(Settings.get("tickspeed"), new ActionListener() {
@@ -94,7 +94,7 @@ public class Simulator extends Controller {
     }
 
     @Override
-    protected boolean event(View view, int eventId) {
+    protected void event(View view, int eventId) {
         switch (eventId){
             case RUN_ONCE:
                 run((CarParkControls) view, 1);
@@ -106,7 +106,6 @@ public class Simulator extends Controller {
                 reset((CarParkControls) view);
                 break;
         }
-        return false;
     }
 
 }

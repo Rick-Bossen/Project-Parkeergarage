@@ -14,13 +14,13 @@ import java.util.ArrayList;
  */
 public class CarParkView extends GridBagView {
 
-    ArrayList<CarParkFloor> floors;
+    private ArrayList<CarParkFloor> floors;
 
     public CarParkView() {
         super();
         setPosition(1, 1);
-        setHorizontalPriority(1);
-        setVerticalPriority(1);
+        setHorizontalPriority();
+        setVerticalPriority();
         setLayout(new GridLayout(1, 3));
     }
 

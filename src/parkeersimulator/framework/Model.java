@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public abstract class Model {
 
-    private ArrayList<View> views = new ArrayList<>();
+    private final ArrayList<View> views = new ArrayList<>();
 
     /**
      * Add views to model to be notified by model.

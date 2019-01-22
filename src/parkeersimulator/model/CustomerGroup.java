@@ -10,7 +10,7 @@ import java.util.Random;
  */
 public class CustomerGroup extends Model {
 
-    private Class carType;
+    private final Class carType;
     private CarQueue entranceCarQueue;
 
     private int weekDayArrivals;

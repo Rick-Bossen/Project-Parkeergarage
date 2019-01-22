@@ -9,7 +9,7 @@ import java.util.ArrayList;
  */
 public class SettingList extends Model {
 
-    public ArrayList<SettingCategory> categories;
+    private final ArrayList<SettingCategory> categories;
 
     public SettingList(){
         categories = new ArrayList<>();

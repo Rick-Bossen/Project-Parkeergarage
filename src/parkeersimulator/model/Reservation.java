@@ -3,11 +3,11 @@ package parkeersimulator.model;
 import java.util.Random;
 import java.util.UUID;
 
-public class Reservation {
+class Reservation {
 
     private Location location;
     private int timeToReserve;
-    private  String id;
+    private final String id;
 
     public Reservation()
     {
