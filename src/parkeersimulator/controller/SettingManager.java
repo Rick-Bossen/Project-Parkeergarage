@@ -92,6 +92,9 @@ public class SettingManager extends Controller {
                     }else if(group.getNewCar() instanceof ParkingPassCar){
                         group.setWeekDayArrivals(Settings.get("pass.arrivals.weekday"));
                         group.setWeekendArrivals(Settings.get("pass.arrivals.weekend"));
+                    }else if(group.getNewCar() instanceof ReservedSpot){
+                        group.setWeekDayArrivals(Settings.get("reserved.arrivals.weekday"));
+                        group.setWeekendArrivals(Settings.get("reserved.arrivals.weekend"));
                     }
                 }
                 break;

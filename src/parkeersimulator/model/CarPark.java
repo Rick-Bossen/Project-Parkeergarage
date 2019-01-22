@@ -315,7 +315,6 @@ public class CarPark extends Model {
                     String id = reservation.getId();
                     String carId = ((ReservedAdHocCar) car).getId();
                     if (id.equals(carId)) {
-                        System.out.println("test");
                         car.setLocation(reservation.getLocation());
 
                         setCarAt(car.getLocation(), car);
