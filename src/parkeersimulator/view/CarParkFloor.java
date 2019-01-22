@@ -157,12 +157,18 @@ public class CarParkFloor extends JPanel {
         Color color = car.getColor();
         graphics.setColor(color);
         Location location = car.getLocation();
+        boolean reverse = (location.getRow() + 1) % 2 == 0;
 
         if (factor < 1 || car instanceof ParkingPassSpot || car instanceof  ReservedSpot) {
             int x = getOffsetX() + getX(location);
             int y = getOffsetY() + getY(location);
 
-            graphics.fillRect(x, y + 2, useFactor(CAR_WIDTH) - 2, useFactor(CAR_HEIGHT) - 4);
+
+            if(!reverse){
+                graphics.fillRect(x, y + 1, useFactor(CAR_WIDTH) - 1, useFactor(CAR_HEIGHT) - 2);
+            }else{
+                graphics.fillRect(x + 1, y + 1, useFactor(CAR_WIDTH), useFactor(CAR_HEIGHT) - 2);
+            }
         } else {
             Color[] colors = new Color[]{
                     null,
@@ -188,7 +194,6 @@ public class CarParkFloor extends JPanel {
             int startX = 1 + getOffsetX() + getX(location);
             int y = 2 + getOffsetY() + getY(location);
             int x, timesX, timesY;
-            boolean reverse = (location.getRow() + 1) % 2 == 0;
             for (int[] colorMap : mapping) {
                 timesY = 1;
                 for (int currentY = 1; currentY <= useFactor(timesY) - useFactor((timesY - 1)); currentY++) {
