@@ -179,16 +179,22 @@ public class CarPark extends Model {
     }
 
     /**
-     * Reset the simulation.
+     * Reset the simulation with a set number of floors.
      */
-    public void reset() {
-        cars = new Car[numberOfFloors][numberOfRows][numberOfPlaces];
+    public void reset(int numberOfFloors, int numberOfRows, int numberOfPlaces, int numberOfParkingPassSpots) {
         paymentCarQueue.reset();
         exitCarQueue.reset();
         for (CustomerGroup group : customerGroups) {
             group.getEntranceCarQueue().reset();
         }
-        updateViews();
+        setSize(numberOfFloors, numberOfRows, numberOfPlaces, numberOfParkingPassSpots);
+    }
+
+    /**
+     * Reset the simulation.
+     */
+    public void reset() {
+        reset(numberOfFloors, numberOfRows, numberOfPlaces, numberOfParkingPassSpots);
     }
 
     /**
@@ -225,6 +231,30 @@ public class CarPark extends Model {
      */
     public int getNumberOfOpenSpots() {
         return numberOfOpenSpots;
+    }
+
+    /**
+     * Return payment car queue
+     * @return queue
+     */
+    public CarQueue getPaymentCarQueue(){
+        return paymentCarQueue;
+    }
+
+    /**
+     * Return payment car queue
+     * @return queue
+     */
+    public CarQueue getExitCarQueue(){
+        return exitCarQueue;
+    }
+
+    /**
+     * Return all created customer groups.
+     * @return customer groups.
+     */
+    public ArrayList<CustomerGroup> getCustomerGroups(){
+        return customerGroups;
     }
 
     /**
@@ -285,7 +315,6 @@ public class CarPark extends Model {
                     String id = reservation.getId();
                     String carId = ((ReservedAdHocCar) car).getId();
                     if (id.equals(carId)) {
-                        System.out.println("test");
                         car.setLocation(reservation.getLocation());
 
                         setCarAt(car.getLocation(), car);

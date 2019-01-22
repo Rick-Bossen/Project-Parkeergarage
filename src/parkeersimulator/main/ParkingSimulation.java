@@ -6,6 +6,7 @@ import parkeersimulator.controller.Simulator;
 import parkeersimulator.framework.View;
 import parkeersimulator.model.CarPark;
 import parkeersimulator.model.Clock;
+import parkeersimulator.model.SettingList;
 import parkeersimulator.model.TabList;
 import parkeersimulator.utility.Settings;
 import parkeersimulator.view.*;
@@ -36,6 +37,7 @@ public class ParkingSimulation {
         // Create the Models.
         Clock clock = new Clock();
         CarPark carPark = new CarPark();
+        SettingList settingList = new SettingList();
 
         // Create the Views.
         TabList tabList = new TabList();
@@ -44,12 +46,12 @@ public class ParkingSimulation {
         CarParkView carParkView = new CarParkView();
         CarParkControls carParkControls = new CarParkControls();
         SettingView settingsView = new SettingView();
-        SettingControls settingControls = new SettingControls();
+        SettingControls settingControls = new SettingControls(settingsView);
 
         // Create the Controllers.
         Navigation navigation = new Navigation(tabList);
         Simulator simulator = new Simulator(clock, carPark);
-        SettingManager settingManager = new SettingManager();
+        SettingManager settingManager = new SettingManager(window, carPark, clock);
         carParkControls.setController(simulator);
         sideBar.setController(navigation);
         settingControls.setController(settingManager);
@@ -58,24 +60,12 @@ public class ParkingSimulation {
         clock.addView(topBar);
         carPark.addView(carParkView);
         tabList.addView(sideBar);
-        Settings.getInstance().addView(settingsView);
-
-        // Add the menu tabs
-        ArrayList<View> carParkViews = new ArrayList<>();
-        carParkViews.add(carParkView);
-        carParkViews.add(carParkControls);
-        tabList.addTabList("Home", carParkViews);
-
-        ArrayList<View> settingViews = new ArrayList<>();
-        settingViews.add(settingsView);
-        settingViews.add(settingControls);
-        tabList.addTabList("Settings", settingViews);
-
-        tabList.setActiveTab("Home");
+        settingList.addView(settingsView);
 
         // Set the size of the car park
         clock.reset();
         carPark.setSize(Settings.get("carpark.floors"), Settings.get("carpark.rows"), Settings.get("carpark.places"), Settings.get("carpark.passPlaces"));
+        settingList.fillCategories();
 
         // Add the views to the window.
         window.add(topBar, topBar.getConstraints());
@@ -83,9 +73,30 @@ public class ParkingSimulation {
         window.add(carParkView, carParkView.getConstraints());
         window.add(carParkControls, carParkControls.getConstraints());
         window.add(settingsView, settingsView.getConstraints());
-
         window.add(settingControls, settingControls.getConstraints());
 
+        // Add scrollbar for panes.
+        JScrollPane scrollPane = new JScrollPane(settingsView, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(16);
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.gridx = 2;
+        constraints.gridy = 1;
+        constraints.fill = GridBagConstraints.VERTICAL;
+        window.add(scrollPane, settingsView.getConstraints());
+
+        // Add the menu tabs
+        ArrayList<JComponent> carParkViews = new ArrayList<>();
+        carParkViews.add(carParkView);
+        carParkViews.add(carParkControls);
+        tabList.addTabList("Home", carParkViews);
+
+        ArrayList<JComponent> settingViews = new ArrayList<>();
+        settingViews.add(settingsView);
+        settingViews.add(settingControls);
+        settingViews.add(scrollPane);
+        tabList.addTabList("Settings", settingViews);
+
+        tabList.setActiveTab("Home");
 
         window.pack();
         window.setVisible(true);
