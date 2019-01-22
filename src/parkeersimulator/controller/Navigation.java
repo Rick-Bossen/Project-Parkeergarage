@@ -7,19 +7,17 @@ import parkeersimulator.view.SideBar;
 
 public class Navigation extends Controller {
 
-    private TabList tabList;
+    private final TabList tabList;
 
     public Navigation(TabList tabList){
         this.tabList = tabList;
     }
 
     @Override
-    protected boolean event(View view, int eventId) {
+    protected void event(View view, int eventId) {
         if(view instanceof SideBar){
             tabList.setActiveTab(((SideBar)view).getMenuText(eventId - 1));
-            return true;
         }
-        return false;
     }
 
 }

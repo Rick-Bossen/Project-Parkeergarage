@@ -18,7 +18,7 @@ public class TopBar extends GridBagView {
 
     public TopBar() {
         super();
-        setGridWidth(2);
+        setGridWidth();
         setBackground(new Color(45, 52, 54));
 
         setLayout(new GridBagLayout());
@@ -55,7 +55,7 @@ public class TopBar extends GridBagView {
     @Override
     protected void update(Model model) {
         if(model instanceof Clock){
-            dateTimeLabel.setText(((Clock)model).toString());
+            dateTimeLabel.setText(model.toString());
         }
     }
 

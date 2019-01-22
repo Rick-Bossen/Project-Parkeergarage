@@ -10,9 +10,9 @@ import parkeersimulator.framework.Model;
  */
 public class Location extends Model {
 
-    private int floor;
-    private int row;
-    private int place;
+    private final int floor;
+    private final int row;
+    private final int place;
 
     /**
      * Constructor for objects of class Location

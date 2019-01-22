@@ -7,9 +7,9 @@ import java.awt.*;
  */
 public abstract class GridBagView extends View {
 
-    private GridBagConstraints constraints;
+    private final GridBagConstraints constraints;
 
-    public GridBagView() {
+    protected GridBagView() {
         constraints = new GridBagConstraints();
         constraints.fill = GridBagConstraints.BOTH;
         constraints.gridx = 0;
@@ -30,10 +30,9 @@ public abstract class GridBagView extends View {
     /**
      * Set the amount of columns this element should span.
      *
-     * @param gridWidth Amount of columns.
      */
-    protected void setGridWidth(int gridWidth) {
-        constraints.gridwidth = gridWidth;
+    protected void setGridWidth() {
+        constraints.gridwidth = 2;
     }
 
     /**
@@ -48,19 +47,17 @@ public abstract class GridBagView extends View {
     /**
      * Set the priority this element should take horizontally.
      *
-     * @param priority Double representing the priority
      */
-    protected void setHorizontalPriority(double priority) {
-        constraints.weightx = priority;
+    protected void setHorizontalPriority() {
+        constraints.weightx = (double) 1;
     }
 
     /**
      * Set the priority this element should take vertically.
      *
-     * @param priority Double representing the priority
      */
-    protected void setVerticalPriority(double priority) {
-        constraints.weighty = priority;
+    protected void setVerticalPriority() {
+        constraints.weighty = (double) 1;
     }
 
     /**

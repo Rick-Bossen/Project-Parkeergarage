@@ -12,7 +12,7 @@ import java.util.Queue;
 public class CarQueue extends Model {
 
     private int speed;
-    private Queue<Car> queue = new LinkedList<>();
+    private final Queue<Car> queue = new LinkedList<>();
 
     /**
      * Initialize a new queue with a given speed.
@@ -29,8 +29,8 @@ public class CarQueue extends Model {
      * @param car Car that is added to the queue.
      * @return If the car is successfully added.
      */
-    public boolean addCar(Car car) {
-        return queue.add(car);
+    public void addCar(Car car) {
+        queue.add(car);
     }
 
     /**

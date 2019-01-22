@@ -1,10 +1,7 @@
 package parkeersimulator.utility;
 
-import parkeersimulator.framework.Model;
-
 import java.io.*;
 import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.Properties;
 
 /**
@@ -15,12 +12,11 @@ import java.util.Properties;
  */
 public class Settings {
 
-    private final String defaultFile = "default.properties";
     private final String userFile = "user-config.properties";
 
-    private Properties properties;
+    private final Properties properties;
 
-    private static Settings instance = new Settings();
+    private static final Settings instance = new Settings();
 
     /**
      * Create a new settings manager whilst load default and user config.
@@ -68,6 +64,7 @@ public class Settings {
     public void loadDefaultConfig() {
         try {
             ClassLoader loader = Thread.currentThread().getContextClassLoader();
+            String defaultFile = "default.properties";
             InputStream config = loader.getResourceAsStream(defaultFile);
             if(config != null){
                 properties.load(config);
@@ -125,12 +122,10 @@ public class Settings {
      * @param value Value of the configuration.
      * @return if the value was successfully saved.
      */
-    public static boolean set(String key, int value){
+    public static void set(String key, int value){
         if(instance.properties.getProperty(key) != null){
             instance.properties.setProperty(key, Integer.toString(value));
-            return true;
         }
-        return false;
     }
 
 }

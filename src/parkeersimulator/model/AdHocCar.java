@@ -12,7 +12,6 @@ import java.util.Random;
 public class AdHocCar extends Car {
 
     private static final Color COLOR = Color.red;
-    private String id;
 
     public AdHocCar() {
         Random random = new Random();
@@ -30,8 +29,4 @@ public class AdHocCar extends Car {
             return COLOR;
     }
 
-    public void setId(String id)
-    {
-        this.id = id;
-    }
 }

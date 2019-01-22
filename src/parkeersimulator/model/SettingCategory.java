@@ -4,17 +4,16 @@ import parkeersimulator.framework.Model;
 import parkeersimulator.utility.Settings;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class SettingCategory extends Model {
 
-    private String category;
-    private String categoryId;
-    private HashMap<String, String> settings;
-    private HashMap<String, Integer> oldValues;
-    private HashMap<String, Integer> newValues;
+    private final String category;
+    private final String categoryId;
+    private final HashMap<String, String> settings;
+    private final HashMap<String, Integer> oldValues;
+    private final HashMap<String, Integer> newValues;
 
     public SettingCategory(String categoryId, String category){
         this.categoryId = categoryId;
@@ -84,12 +83,10 @@ public class SettingCategory extends Model {
     public boolean update(){
         boolean updated = false;
         newValues.clear();
-        Iterator valueIterator = oldValues.entrySet().iterator();
-        while (valueIterator.hasNext()) {
-            Map.Entry entry = (Map.Entry)valueIterator.next();
-            Integer intValue = (Integer) entry.getValue();
-            String key = (String) entry.getKey();
-            if(Settings.get(key) != intValue){
+        for (Map.Entry<String, Integer> stringIntegerEntry : oldValues.entrySet()) {
+            Integer intValue = (Integer) ((Map.Entry) stringIntegerEntry).getValue();
+            String key = (String) ((Map.Entry) stringIntegerEntry).getKey();
+            if (Settings.get(key) != intValue) {
                 updated = true;
                 oldValues.put(key, Settings.get(key));
             }

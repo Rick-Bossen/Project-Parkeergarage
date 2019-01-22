@@ -3,9 +3,7 @@ package parkeersimulator.model;
 import parkeersimulator.framework.Model;
 import parkeersimulator.utility.Settings;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Random;
 
 /**
@@ -15,8 +13,8 @@ import java.util.Random;
  */
 public class CarPark extends Model {
 
-    private CarQueue paymentCarQueue;
-    private CarQueue exitCarQueue;
+    private final CarQueue paymentCarQueue;
+    private final CarQueue exitCarQueue;
 
     private int numberOfFloors;
     private int numberOfRows;
@@ -27,8 +25,8 @@ public class CarPark extends Model {
 
     private ArrayList<CustomerGroup> customerGroups;
     private CustomerGroup reservations;
-    private ArrayList<ReservedAdHocCar> reservationCarList;
-    private ArrayList<Reservation> reservationList;
+    private final ArrayList<ReservedAdHocCar> reservationCarList;
+    private final ArrayList<Reservation> reservationList;
 
 
     public CarPark() {
@@ -158,7 +156,7 @@ public class CarPark extends Model {
         int floor = location.getFloor();
         int row = location.getRow();
         int place = location.getPlace();
-        return floor >= 0 && floor < numberOfFloors && row >= 0 && row <= numberOfRows && place >= 0 && place <= numberOfPlaces;
+        return floor < 0 || floor >= numberOfFloors || row < 0 || row > numberOfRows || place < 0 || place > numberOfPlaces;
     }
 
     /**
@@ -232,7 +230,7 @@ public class CarPark extends Model {
      *
      * @return Integer of the number of open spots.
      */
-    public int getNumberOfOpenSpots() {
+    private int getNumberOfOpenSpots() {
         return numberOfOpenSpots;
     }
 
@@ -288,7 +286,7 @@ public class CarPark extends Model {
      *
      * @param day Integer of the current day
      */
-    public void carsArriving(int day) {
+    private void carsArriving(int day) {
         for (CustomerGroup group : customerGroups) {
             if(group.getEntranceCarQueue() != null) {
                 int enteringCars = group.getNumberOfCars(day);
@@ -304,7 +302,7 @@ public class CarPark extends Model {
      *
      * @param queue Car queue which has cars entering
      */
-    public void carsEntering(CarQueue queue) {
+    private void carsEntering(CarQueue queue) {
         int i = 0;
         // Remove car from the front of the queue and assign to a parking space.
         while (queue.carsInQueue() > 0 && getNumberOfOpenSpots() > 0 && i < queue.getSpeed()) {
@@ -354,7 +352,7 @@ public class CarPark extends Model {
      * @return Car if currently at that location.
      */
     public Car getCarAt(Location location) {
-        if (!locationIsValid(location)) {
+        if (locationIsValid(location)) {
             return null;
         }
         return cars[location.getFloor()][location.getRow()][location.getPlace()];
@@ -367,9 +365,9 @@ public class CarPark extends Model {
      * @param car      Car that is currently entering the car park.
      * @return Boolean if the car could successfully enter.
      */
-    public boolean setCarAt(Location location, Car car) {
-        if (!locationIsValid(location)) {
-            return false;
+    private void setCarAt(Location location, Car car) {
+        if (locationIsValid(location)) {
+            return;
         }
         Car oldCar = getCarAt(location);
         if (oldCar == null || oldCar instanceof ParkingPassSpot && car instanceof ParkingPassCar || oldCar instanceof ReservedSpot && car instanceof ReservedAdHocCar) {
@@ -378,11 +376,9 @@ public class CarPark extends Model {
             }
             cars[location.getFloor()][location.getRow()][location.getPlace()] = car;
             car.setLocation(location);
-            if(car instanceof ParkingPassCar || car instanceof  ParkingPassSpot || oldCar instanceof ReservedSpot)
+            if(car instanceof ParkingPassCar || car instanceof  ParkingPassSpot || oldCar != null)
             numberOfOpenSpots--;
-            return true;
         }
-        return false;
     }
 
     /**
@@ -391,18 +387,17 @@ public class CarPark extends Model {
      * @param location Location of the car.
      * @return
      */
-    public Car removeCarAt(Location location) {
-        if (!locationIsValid(location)) {
-            return null;
+    private void removeCarAt(Location location) {
+        if (locationIsValid(location)) {
+            return;
         }
         Car car = getCarAt(location);
         if (car == null) {
-            return null;
+            return;
         }
         cars[location.getFloor()][location.getRow()][location.getPlace()] = null;
         car.setLocation(null);
         numberOfOpenSpots++;
-        return car;
     }
 
     /**
@@ -410,7 +405,7 @@ public class CarPark extends Model {
      *
      * @return Free Location in the car park if available.
      */
-    public Location getFirstFreeLocation(Car car) {
+    private Location getFirstFreeLocation(Car car) {
         for (int floor = 0; floor < getNumberOfFloors(); floor++) {
             for (int row = 0; row < getNumberOfRows(); row++) {
                 for (int place = 0; place < getNumberOfPlaces(); place++) {
@@ -430,7 +425,7 @@ public class CarPark extends Model {
      *
      * @return Car that is leaving.
      */
-    public Car getFirstLeavingCar() {
+    private Car getFirstLeavingCar() {
         for (int floor = 0; floor < getNumberOfFloors(); floor++) {
             for (int row = 0; row < getNumberOfRows(); row++) {
                 for (int place = 0; place < getNumberOfPlaces(); place++) {
@@ -474,7 +469,7 @@ public class CarPark extends Model {
         }
     }
 
-    public void setParkingPassSpots(int amount)
+    private void setParkingPassSpots(int amount)
     {
         int currentFloor = 0;
         int currentRow = 0;

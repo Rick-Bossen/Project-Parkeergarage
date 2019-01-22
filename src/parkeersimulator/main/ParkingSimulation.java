@@ -3,7 +3,6 @@ package parkeersimulator.main;
 import parkeersimulator.controller.Navigation;
 import parkeersimulator.controller.SettingManager;
 import parkeersimulator.controller.Simulator;
-import parkeersimulator.framework.View;
 import parkeersimulator.model.CarPark;
 import parkeersimulator.model.Clock;
 import parkeersimulator.model.SettingList;
@@ -21,12 +20,12 @@ import java.util.ArrayList;
  *
  * @version 18.01.2019
  */
-public class ParkingSimulation {
+class ParkingSimulation {
 
     /**
      * Create a new Parking simulation and start it.
      */
-    public ParkingSimulation() {
+    private ParkingSimulation() {
 
         JFrame window = new JFrame("Parking simulator");
         window.setLayout(new GridBagLayout());

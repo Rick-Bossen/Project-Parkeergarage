@@ -18,17 +18,17 @@ import java.util.*;
  */
 public class SettingView extends GridBagView {
 
-    private NumberFormatter intFormatter;
-    private HashMap<String, JFormattedTextField> fields;
-    private HashMap<String,SettingCategory> categories;
+    private final NumberFormatter intFormatter;
+    private final HashMap<String, JFormattedTextField> fields;
+    private final HashMap<String,SettingCategory> categories;
 
     public SettingView() {
         super();
         fields = new HashMap<>();
         categories = new HashMap<>();
         setPosition(1, 1);
-        setHorizontalPriority(1);
-        setVerticalPriority(1);
+        setHorizontalPriority();
+        setVerticalPriority();
         setGridHeight(1);
         setBorder(new EmptyBorder(20, 0, 40, 0));
         setBackground(new Color(215, 215, 215));
@@ -147,18 +147,14 @@ public class SettingView extends GridBagView {
      */
     public ArrayList<String> updateCategories(){
         ArrayList<String> updatedCategories = new ArrayList<>();
-        Iterator settingsIterator = fields.entrySet().iterator();
-        while (settingsIterator.hasNext()) {
-            Map.Entry entry = (Map.Entry)settingsIterator.next();
-            JFormattedTextField field = (JFormattedTextField) entry.getValue();
-            String key = (String) entry.getKey();
+        for (Map.Entry<String, JFormattedTextField> stringJFormattedTextFieldEntry : fields.entrySet()) {
+            JFormattedTextField field = (JFormattedTextField) ((Map.Entry) stringJFormattedTextFieldEntry).getValue();
+            String key = (String) ((Map.Entry) stringJFormattedTextFieldEntry).getKey();
             field.setValue(Settings.get(key));
         }
-        Iterator categoryIterator = categories.entrySet().iterator();
-        while (categoryIterator.hasNext()) {
-            Map.Entry entry = (Map.Entry)categoryIterator.next();
-            SettingCategory category = (SettingCategory) entry.getValue();
-            if(category.update()){
+        for (Map.Entry<String, SettingCategory> stringSettingCategoryEntry : categories.entrySet()) {
+            SettingCategory category = (SettingCategory) ((Map.Entry) stringSettingCategoryEntry).getValue();
+            if (category.update()) {
                 updatedCategories.add(category.getCategoryId());
             }
         }
@@ -173,9 +169,8 @@ public class SettingView extends GridBagView {
                 addCategory(index, category);
                 index += 2;
                 HashMap<String, String> settings = category.getSettings();
-                Iterator settingsIterator = settings.entrySet().iterator();
-                while (settingsIterator.hasNext()) {
-                    addField(index, category, (Map.Entry)settingsIterator.next());
+                for (Map.Entry<String, String> stringStringEntry : settings.entrySet()) {
+                    addField(index, category, stringStringEntry);
                     index++;
                 }
             }

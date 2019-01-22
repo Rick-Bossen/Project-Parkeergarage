@@ -10,7 +10,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 public class SettingManager extends Controller {
@@ -18,9 +17,9 @@ public class SettingManager extends Controller {
     public static final int RESET_TO_DEFAULT = 1;
     public static final int SAVE_SETTINGS = 3;
 
-    private JFrame window;
-    private CarPark carPark;
-    private Clock clock;
+    private final JFrame window;
+    private final CarPark carPark;
+    private final Clock clock;
 
     public SettingManager(JFrame window, CarPark carPark, Clock clock){
         this.window = window;
@@ -29,7 +28,7 @@ public class SettingManager extends Controller {
     }
 
     @Override
-    protected boolean event(View view, int eventId) {
+    protected void event(View view, int eventId) {
         Settings settings;
         ArrayList<String> updatedCategories = new ArrayList<>();
         switch (eventId){
@@ -43,11 +42,9 @@ public class SettingManager extends Controller {
                 settings = Settings.getInstance();
                 for (SettingCategory category : ((SettingView) view).getCategories()){
                     HashMap<String, Integer> values = category.getValues();
-                    Iterator valueIterator = values.entrySet().iterator();
-                    while (valueIterator.hasNext()) {
-                        Map.Entry entry = (Map.Entry)valueIterator.next();
-                        Integer intValue = (Integer) entry.getValue();
-                        String key = (String) entry.getKey();
+                    for (Map.Entry<String, Integer> stringIntegerEntry : values.entrySet()) {
+                        Integer intValue = (Integer) ((Map.Entry) stringIntegerEntry).getValue();
+                        String key = (String) ((Map.Entry) stringIntegerEntry).getKey();
                         Settings.set(key, intValue);
                     }
                 }
@@ -60,10 +57,9 @@ public class SettingManager extends Controller {
             handleCategory(category);
         }
 
-        return false;
     }
 
-    public void handleCategory(String update){
+    private void handleCategory(String update){
         switch (update){
             case "general":
                 window.setSize(new Dimension(Settings.get("width"), Settings.get("height")));

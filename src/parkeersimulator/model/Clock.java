@@ -50,7 +50,7 @@ public class Clock extends Model {
      *
      * @return Integer of the current hour.
      */
-    public int getHour() {
+    private int getHour() {
         return hour;
     }
 
@@ -59,7 +59,7 @@ public class Clock extends Model {
      *
      * @return Integer of the current minute.
      */
-    public int getMinute() {
+    private int getMinute() {
         return minute;
     }
 
