@@ -151,8 +151,8 @@ public class CarParkFloor extends JPanel {
      * @param car current car
      */
     private void drawCar(Graphics graphics,Car car) {
-        graphics.setColor(car.getColor());
         Color color = car.getColor();
+        graphics.setColor(color);
         Location location = car.getLocation();
 
         if (factor < 1 || car instanceof ParkingPassSpot || car instanceof  ReservedSpot) {
