@@ -287,8 +287,11 @@ public class CarPark extends Model {
      */
     public void carsArriving(int day) {
         for (CustomerGroup group : customerGroups) {
-            for (int i = 0; i < group.getNumberOfCars(day); i++) {
-                group.getEntranceCarQueue().addCar(group.getNewCar());
+            if(group.getEntranceCarQueue() != null) {
+                int enteringCars = group.getNumberOfCars(day);
+                for (int i = 0; i < enteringCars; i++) {
+                    group.getEntranceCarQueue().addCar(group.getNewCar());
+                }
             }
         }
     }
