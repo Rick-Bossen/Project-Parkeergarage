@@ -3,7 +3,6 @@ package parkeersimulator.main;
 import parkeersimulator.controller.Navigation;
 import parkeersimulator.controller.SettingManager;
 import parkeersimulator.controller.Simulator;
-import parkeersimulator.framework.View;
 import parkeersimulator.model.CarPark;
 import parkeersimulator.model.Clock;
 import parkeersimulator.model.SettingList;

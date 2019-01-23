@@ -167,9 +167,9 @@ public class CarParkFloor extends JPanel {
 
 
         if(!reverse){
-            graphics.fillRect(x, y + 1, useFactor(CAR_WIDTH) - 1, useFactor(CAR_HEIGHT) - useFactor(2));
+            graphics.fillRect(x, y + 1, useFactor(CAR_WIDTH) - 1, useFactor(CAR_HEIGHT) - 2);
         }else{
-            graphics.fillRect(x + 1, y + 1, useFactor(CAR_WIDTH), useFactor(CAR_HEIGHT) - useFactor(2));
+            graphics.fillRect(x + 1, y + 1, useFactor(CAR_WIDTH), useFactor(CAR_HEIGHT) - 2);
         }
     }
 
@@ -294,9 +294,6 @@ public class CarParkFloor extends JPanel {
             for (int place = 0; place < carPark.getNumberOfPlaces(); place++) {
                 Location location = new Location(floor, row, place);
                 Car car = carPark.getCarAt(location);
-                if(shouldRedraw){
-                    drawPlace(graphics, location);
-                }
                 if (car != null) {
                     if(shouldRedraw || car.isFirstDraw()) {
                         drawRectangle(graphics, location, new Color(195, 195, 195));
@@ -306,6 +303,7 @@ public class CarParkFloor extends JPanel {
                 }else{
                     drawRectangle(graphics, location, new Color(195, 195, 195));
                 }
+                drawPlace(graphics, location);
             }
         }
         repaint();

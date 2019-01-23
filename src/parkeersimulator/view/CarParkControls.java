@@ -17,6 +17,7 @@ public class CarParkControls extends GridBagView {
 
     private JButton oneTickButton;
     private JButton thousandTickButton;
+    private JButton millionTickButton;
 
     public CarParkControls() {
         super();
@@ -55,18 +56,26 @@ public class CarParkControls extends GridBagView {
         add(thousandTickButton, constraints);
         thousandTickButton.addActionListener(e -> sendEvent(Simulator.RUN_THOUSAND_TIMES));
 
+        millionTickButton = generateNewButton();
+        millionTickButton.setText("1000000");
+        constraints = new GridBagConstraints();
+        constraints.gridx = 3;
+        constraints.insets = new Insets(10, 10, 10, 10);
+        add(millionTickButton, constraints);
+        millionTickButton.addActionListener(e -> sendEvent(Simulator.RUN_MILLION_TIMES));
+
         JPanel spacer = new JPanel();
         spacer.setOpaque(false);
         constraints = new GridBagConstraints();
         constraints.weightx = 1;
-        constraints.gridx = 3;
+        constraints.gridx = 4;
         constraints.fill = GridBagConstraints.HORIZONTAL;
         add(spacer, constraints);
 
         JButton resetButton = generateNewButton();
         resetButton.setText("Reset simulation");
         constraints = new GridBagConstraints();
-        constraints.gridx = 4;
+        constraints.gridx = 5;
         constraints.insets = new Insets(10, 10, 10, 10);
         add(resetButton, constraints);
         resetButton.addActionListener(e -> sendEvent(Simulator.RESET));
@@ -95,6 +104,7 @@ public class CarParkControls extends GridBagView {
     public void setButtonsEnabled(boolean bool) {
         oneTickButton.setEnabled(bool);
         thousandTickButton.setEnabled(bool);
+        millionTickButton.setEnabled(bool);
     }
 
     @Override

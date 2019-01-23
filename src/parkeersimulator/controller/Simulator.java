@@ -29,7 +29,8 @@ public class Simulator extends Controller {
 
     public static final int RUN_ONCE = 1;
     public static final int RUN_THOUSAND_TIMES = 2;
-    public static final int RESET = 3;
+    public static final int RUN_MILLION_TIMES = 3;
+    public static final int RESET = 4;
 
     private boolean halt = false;
     private boolean isRunning = false;
@@ -76,8 +77,8 @@ public class Simulator extends Controller {
         clock.advanceTime();
         carPark.tick();
         carPark.handleExit();
-        carPark.queueReservations(clock.getDay());
-        carPark.handleEntrance(clock.getDay());
+        carPark.queueReservations(clock.getDayOfWeek());
+        carPark.handleEntrance(clock.getDayOfWeek());
     }
 
     /**
@@ -101,6 +102,9 @@ public class Simulator extends Controller {
                 break;
             case RUN_THOUSAND_TIMES:
                 run((CarParkControls) view, 1000);
+                break;
+            case RUN_MILLION_TIMES:
+                run((CarParkControls) view, 1000000);
                 break;
             case RESET:
                 reset((CarParkControls) view);

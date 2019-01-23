@@ -12,9 +12,9 @@ import java.util.Locale;
  */
 public class Clock extends Model {
 
-    private int day = 1;
-    private int hour = 0;
-    private int minute = 0;
+    private int day;
+    private int hour;
+    private int minute;
 
 
     /**
@@ -30,9 +30,6 @@ public class Clock extends Model {
             hour -= 24;
             day++;
         }
-        if (day > 7) {
-            day -= 7;
-        }
         updateViews();
     }
 
@@ -43,6 +40,18 @@ public class Clock extends Model {
      */
     public int getDay() {
         return day;
+    }
+
+    /**
+     * Get the current day of the week.
+     * @return Integer of the current day.
+     */
+    public int getDayOfWeek() {
+        int dayOfWeek = day % 7;
+        if(dayOfWeek == 0){
+            dayOfWeek = 7;
+        }
+        return dayOfWeek;
     }
 
     /**
@@ -79,8 +88,8 @@ public class Clock extends Model {
      * @return String of the current date/time.
      */
     public String toString() {
-        String dayOfWeek = DayOfWeek.of(day % 7).getDisplayName(TextStyle.FULL, Locale.ENGLISH);
-        return String.format("%s, day %o - %02d:%02d", dayOfWeek, getDay(), getHour(), getMinute());
+        String dayOfWeek = DayOfWeek.of(getDayOfWeek()).getDisplayName(TextStyle.FULL, Locale.ENGLISH);
+        return String.format("%s, day %d - %02d:%02d", dayOfWeek, getDay(), getHour(), getMinute());
     }
 }
 
