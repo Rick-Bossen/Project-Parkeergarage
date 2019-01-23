@@ -25,6 +25,8 @@ public class CarParkFloor extends JPanel {
     private CarPark carPark;
     private Image carParkImage;
 
+    private int[] drawLock = new int[3];
+
 
     public CarParkFloor(CarPark carPark, int floor) {
         super();
@@ -32,6 +34,9 @@ public class CarParkFloor extends JPanel {
         this.carPark = carPark;
         this.floor = floor;
         size = new Dimension(0, 0);
+        drawLock[0] = 0;
+        drawLock[1] = 0;
+        drawLock[2] = 0;
         setFactor();
     }
 
@@ -148,6 +153,27 @@ public class CarParkFloor extends JPanel {
     }
 
     /**
+     * Draw rectangle in the location of the car.
+     *
+     * @param graphics Graphics to draw on
+     * @param location Location of the drawing
+     * @param color Color of the rectangle
+     */
+    private void drawRectangle(Graphics graphics, Location location, Color color){
+        graphics.setColor(color);
+        boolean reverse = (location.getRow() + 1) % 2 == 0;
+        int x = getOffsetX() + getX(location);
+        int y = getOffsetY() + getY(location);
+
+
+        if(!reverse){
+            graphics.fillRect(x, y + 1, useFactor(CAR_WIDTH) - 1, useFactor(CAR_HEIGHT) - useFactor(2));
+        }else{
+            graphics.fillRect(x + 1, y + 1, useFactor(CAR_WIDTH), useFactor(CAR_HEIGHT) - useFactor(2));
+        }
+    }
+
+    /**
      * Paint a car on this car park in a given color.
      *
      * @param graphics image graphics used to draw the image
@@ -155,20 +181,11 @@ public class CarParkFloor extends JPanel {
      */
     private void drawCar(Graphics graphics,Car car) {
         Color color = car.getColor();
-        graphics.setColor(color);
         Location location = car.getLocation();
         boolean reverse = (location.getRow() + 1) % 2 == 0;
 
         if (factor < 1 || car instanceof ParkingPassSpot || car instanceof  ReservedSpot) {
-            int x = getOffsetX() + getX(location);
-            int y = getOffsetY() + getY(location);
-
-
-            if(!reverse){
-                graphics.fillRect(x, y + 1, useFactor(CAR_WIDTH) - 1, useFactor(CAR_HEIGHT) - 2);
-            }else{
-                graphics.fillRect(x + 1, y + 1, useFactor(CAR_WIDTH), useFactor(CAR_HEIGHT) - 2);
-            }
+            drawRectangle(graphics, location, color);
         } else {
             Color[] colors = new Color[]{
                     null,
@@ -255,22 +272,39 @@ public class CarParkFloor extends JPanel {
      */
     public void updateView() {
         // Create a new car park image if the size has changed.
+        boolean shouldRedraw = false;
         if (!size.equals(getSize())) {
+            shouldRedraw = true;
             size = getSize();
             carParkImage = createImage(size.width, size.height);
+        }if(drawLock[0] != carPark.getNumberOfFloors() || drawLock[1] != carPark.getNumberOfRows() || drawLock[2] != carPark.getNumberOfPlaces()){
+            drawLock[0] = carPark.getNumberOfFloors();
+            drawLock[1] = carPark.getNumberOfRows();
+            drawLock[2] = carPark.getNumberOfPlaces();
+            shouldRedraw = true;
         }
         setFactor();
         Graphics graphics = carParkImage.getGraphics();
 
-        drawBase(graphics);
+        if(shouldRedraw){
+            drawBase(graphics);
+        }
 
         for (int row = 0; row < carPark.getNumberOfRows(); row++) {
             for (int place = 0; place < carPark.getNumberOfPlaces(); place++) {
                 Location location = new Location(floor, row, place);
                 Car car = carPark.getCarAt(location);
-                drawPlace(graphics, location);
+                if(shouldRedraw){
+                    drawPlace(graphics, location);
+                }
                 if (car != null) {
-                    drawCar(graphics,car);
+                    if(shouldRedraw || car.isFirstDraw()) {
+                        drawRectangle(graphics, location, new Color(195, 195, 195));
+                        car.setFirstDraw(false);
+                        drawCar(graphics, car);
+                    }
+                }else{
+                    drawRectangle(graphics, location, new Color(195, 195, 195));
                 }
             }
         }

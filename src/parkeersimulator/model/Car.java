@@ -16,6 +16,7 @@ public abstract class Car extends Model {
     private int minutesLeft;
     private boolean isPaying;
     private boolean hasToPay;
+    private boolean isFirstDraw = true;
 
     /**
      * Constructor for objects of class Car
@@ -107,4 +108,21 @@ public abstract class Car extends Model {
      * @return the Color of the car
      */
     public abstract Color getColor();
+
+    /**
+     * Return if the car has been drawn before.
+     * @return If the car has been drawn before.
+     */
+    public boolean isFirstDraw(){
+        return isFirstDraw;
+    }
+
+    /**
+     * Set if the car has already been drawn.
+     *
+     * @param firstDraw If the car has been drawn.0
+     */
+    public void  setFirstDraw(boolean firstDraw){
+        this.isFirstDraw = firstDraw;
+    }
 }
