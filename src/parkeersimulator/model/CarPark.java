@@ -74,7 +74,7 @@ public class CarPark extends Model {
     }
 
     public void queueReservations(int day) {
-        for (int i = 0; i < reservations.getNumberOfCars(day - 1); i++) {
+        for (int i = 0; i < reservations.getNumberOfCars(day + 1); i++) {
             Reservation reservation = new Reservation();
             reservationList.add(reservation);
         }
@@ -83,7 +83,7 @@ public class CarPark extends Model {
         CarQueue queue = parkingPassGroup.getEntranceCarQueue();
         if(!reservationList.isEmpty()) {
             for (Reservation reservation : reservationList) {
-                if (reservation.getTimeToReserve() == 30) {
+                if (reservation.getTimeToReserve() == 45) {
                     ReservedSpot car = (ReservedSpot) reservations.getNewCar();
                     Location freeLocation = getFirstFreeLocation(car);
 
