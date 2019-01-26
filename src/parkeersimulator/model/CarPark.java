@@ -15,6 +15,8 @@ import java.util.Random;
  */
 public class CarPark extends Model {
 
+    private Statistics statistics;
+
     private CarQueue paymentCarQueue;
     private CarQueue exitCarQueue;
 
@@ -31,11 +33,12 @@ public class CarPark extends Model {
     private ArrayList<Reservation> reservationList;
 
 
-    public CarPark() {
+    public CarPark(Statistics statistics) {
         paymentCarQueue = new CarQueue(Settings.get("queue.payment.speed"));
         exitCarQueue = new CarQueue(Settings.get("queue.exit.speed"));
         reservationCarList = new ArrayList<>();
         reservationList = new ArrayList<>();
+        this.statistics = statistics;
         createGroups();
     }
 
@@ -77,6 +80,7 @@ public class CarPark extends Model {
         for (int i = 0; i < reservations.getNumberOfCars(day + 1); i++) {
             Reservation reservation = new Reservation();
             reservationList.add(reservation);
+            statistics.payReservation();
         }
 
         CustomerGroup parkingPassGroup = customerGroups.get(1);
@@ -116,7 +120,7 @@ public class CarPark extends Model {
         int i = 0;
         while (paymentCarQueue.carsInQueue() > 0 && i < paymentCarQueue.getSpeed()) {
             Car car = paymentCarQueue.removeCar();
-            // TODO Handle payment.
+            statistics.payAdHoc();
             carLeavesSpot(car);
             i++;
         }

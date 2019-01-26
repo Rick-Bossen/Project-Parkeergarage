@@ -31,6 +31,12 @@ public class SettingList extends Model {
         speedCategory.addSetting("queue.payment.speed", "Payments");
         categories.add(speedCategory);
 
+        SettingCategory priceCategory = new SettingCategory("price", "Prices (Price per car)");
+        priceCategory.addSetting("price.adhoc", "Normal visitor price");
+        priceCategory.addSetting("price.pass", "Daily membership fee");
+        priceCategory.addSetting("price.reserved", "Reservation price");
+        categories.add(priceCategory);
+
         SettingCategory simulationPresetCategory = new SettingCategory("simulation.presets", "Simulation presets (Restarted after change)");
         simulationPresetCategory.addSetting("carpark.floors", "Amount of floors");
         simulationPresetCategory.addSetting("carpark.rows", "Amount of rows");

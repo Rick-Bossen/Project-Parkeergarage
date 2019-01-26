@@ -5,6 +5,12 @@ import java.util.Random;
 
 public class ReservedAdHocCar extends AdHocCar {
 
+    public ReservedAdHocCar()
+    {
+        super();
+        this.setHasToPay(false);
+    }
+
     private static final Color COLOR = Color.magenta;
     private String id;
     private int timeUntilArrival;

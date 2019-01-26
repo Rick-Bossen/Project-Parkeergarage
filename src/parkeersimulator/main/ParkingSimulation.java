@@ -3,10 +3,7 @@ package parkeersimulator.main;
 import parkeersimulator.controller.Navigation;
 import parkeersimulator.controller.SettingManager;
 import parkeersimulator.controller.Simulator;
-import parkeersimulator.model.CarPark;
-import parkeersimulator.model.Clock;
-import parkeersimulator.model.SettingList;
-import parkeersimulator.model.TabList;
+import parkeersimulator.model.*;
 import parkeersimulator.utility.Settings;
 import parkeersimulator.view.*;
 
@@ -35,7 +32,8 @@ public class ParkingSimulation {
 
         // Create the Models.
         Clock clock = new Clock();
-        CarPark carPark = new CarPark();
+        Statistics statistics = new Statistics();
+        CarPark carPark = new CarPark(statistics);
         SettingList settingList = new SettingList();
 
         // Create the Views.
@@ -46,10 +44,11 @@ public class ParkingSimulation {
         CarParkControls carParkControls = new CarParkControls();
         SettingView settingsView = new SettingView();
         SettingControls settingControls = new SettingControls(settingsView);
+        StatisticsView statisticsView = new StatisticsView();
 
         // Create the Controllers.
         Navigation navigation = new Navigation(tabList);
-        Simulator simulator = new Simulator(clock, carPark);
+        Simulator simulator = new Simulator(clock, carPark, statistics);
         SettingManager settingManager = new SettingManager(window, carPark, clock);
         carParkControls.setController(simulator);
         sideBar.setController(navigation);
@@ -60,6 +59,7 @@ public class ParkingSimulation {
         carPark.addView(carParkView);
         tabList.addView(sideBar);
         settingList.addView(settingsView);
+        statistics.addView(statisticsView);
 
         // Set the size of the car park
         clock.reset();
@@ -73,6 +73,7 @@ public class ParkingSimulation {
         window.add(carParkControls, carParkControls.getConstraints());
         window.add(settingsView, settingsView.getConstraints());
         window.add(settingControls, settingControls.getConstraints());
+        window.add(statisticsView, statisticsView.getConstraints());
 
         // Add scrollbar for panels.
         JScrollPane scrollPane = new JScrollPane(settingsView, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -90,6 +91,10 @@ public class ParkingSimulation {
         settingViews.add(settingControls);
         settingViews.add(scrollPane);
         tabList.addTabList("Settings", settingViews);
+
+        ArrayList<JComponent> statisticsViews = new ArrayList<>();
+        statisticsViews.add(statisticsView);
+        tabList.addTabList("Statistics", statisticsViews);
 
         tabList.setActiveTab("Home");
 

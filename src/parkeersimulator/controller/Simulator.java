@@ -4,6 +4,7 @@ import parkeersimulator.framework.Controller;
 import parkeersimulator.framework.View;
 import parkeersimulator.model.CarPark;
 import parkeersimulator.model.Clock;
+import parkeersimulator.model.Statistics;
 import parkeersimulator.utility.Settings;
 import parkeersimulator.view.CarParkControls;
 
@@ -25,7 +26,7 @@ public class Simulator extends Controller {
 
     private Clock clock;
     private CarPark carPark;
-
+    private Statistics statistics;
 
     public static final int RUN_ONCE = 1;
     public static final int RUN_THOUSAND_TIMES = 2;
@@ -35,9 +36,10 @@ public class Simulator extends Controller {
     private boolean halt = false;
     private boolean isRunning = false;
 
-    public Simulator(Clock clock, CarPark carPark) {
+    public Simulator(Clock clock, CarPark carPark, Statistics statistics) {
         this.clock = clock;
         this.carPark = carPark;
+        this.statistics = statistics;
     }
 
     /**
@@ -79,6 +81,7 @@ public class Simulator extends Controller {
         carPark.handleExit();
         carPark.queueReservations(clock.getDayOfWeek());
         carPark.handleEntrance(clock.getDayOfWeek());
+        statistics.tick(clock.getDayOfWeek(),clock.getHour(),clock.getMinute());
     }
 
     /**
@@ -91,6 +94,7 @@ public class Simulator extends Controller {
         }
         clock.reset();
         carPark.reset();
+        statistics.reset();
         controls.setButtonsEnabled(true);
     }
 
