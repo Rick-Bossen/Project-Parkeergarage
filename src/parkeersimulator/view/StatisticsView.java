@@ -2,7 +2,7 @@ package parkeersimulator.view;
 
 import parkeersimulator.framework.GridBagView;
 import parkeersimulator.framework.Model;
-import parkeersimulator.model.Statistics;
+import parkeersimulator.model.statistics.StatisticsList;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -109,11 +109,11 @@ public class StatisticsView extends GridBagView {
     @Override
     protected void update(Model model)
     {
-        if(model instanceof Statistics) {
-            Statistics statistics = (Statistics) model;
-            total.setText(String.valueOf(statistics.getTotal()));
-            hourly.setText(String.valueOf(statistics.getHourlyAverage()));
-            daily.setText(String.valueOf(statistics.getDailyAverage()));
+        if(model instanceof StatisticsList) {
+            StatisticsList statisticsList = (StatisticsList) model;
+            total.setText(String.valueOf(statisticsList.getTotal("profit.total")));
+            hourly.setText(String.valueOf(statisticsList.getHourlyAvg("profit.total")));
+            daily.setText(String.valueOf(statisticsList.getDailyAvg("profit.total")));
         }
     }
 }

@@ -1,6 +1,7 @@
 package parkeersimulator.model;
 
 import parkeersimulator.framework.Model;
+import parkeersimulator.model.statistics.StatisticsList;
 import parkeersimulator.utility.Settings;
 
 import java.lang.reflect.Array;
@@ -15,7 +16,7 @@ import java.util.Random;
  */
 public class CarPark extends Model {
 
-    private Statistics statistics;
+    private StatisticsList statistics;
 
     private CarQueue paymentCarQueue;
     private CarQueue exitCarQueue;
@@ -33,7 +34,7 @@ public class CarPark extends Model {
     private ArrayList<Reservation> reservationList;
 
 
-    public CarPark(Statistics statistics) {
+    public CarPark(StatisticsList statistics) {
         paymentCarQueue = new CarQueue(Settings.get("queue.payment.speed"));
         exitCarQueue = new CarQueue(Settings.get("queue.exit.speed"));
         reservationCarList = new ArrayList<>();
@@ -80,7 +81,7 @@ public class CarPark extends Model {
         for (int i = 0; i < reservations.getNumberOfCars(day + 1); i++) {
             Reservation reservation = new Reservation();
             reservationList.add(reservation);
-            statistics.payReservation();
+            handlePayment("reserved");
         }
 
         CustomerGroup parkingPassGroup = customerGroups.get(1);
@@ -120,10 +121,20 @@ public class CarPark extends Model {
         int i = 0;
         while (paymentCarQueue.carsInQueue() > 0 && i < paymentCarQueue.getSpeed()) {
             Car car = paymentCarQueue.removeCar();
-            statistics.payAdHoc();
+            handlePayment("adhoc");
             carLeavesSpot(car);
             i++;
         }
+    }
+
+    /**
+     * Handle a payment for the specified car type.
+     */
+    private void handlePayment(String id)
+    {
+        int price = Settings.get("price." + id);
+        statistics.add( "profit." + id,price);
+        statistics.add("profit.total",price);
     }
 
     /**

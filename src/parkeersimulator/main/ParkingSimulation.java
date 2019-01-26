@@ -4,6 +4,7 @@ import parkeersimulator.controller.Navigation;
 import parkeersimulator.controller.SettingManager;
 import parkeersimulator.controller.Simulator;
 import parkeersimulator.model.*;
+import parkeersimulator.model.statistics.StatisticsList;
 import parkeersimulator.utility.Settings;
 import parkeersimulator.view.*;
 
@@ -32,7 +33,7 @@ public class ParkingSimulation {
 
         // Create the Models.
         Clock clock = new Clock();
-        Statistics statistics = new Statistics();
+        StatisticsList statistics = new StatisticsList();
         CarPark carPark = new CarPark(statistics);
         SettingList settingList = new SettingList();
 
@@ -94,7 +95,7 @@ public class ParkingSimulation {
 
         ArrayList<JComponent> statisticsViews = new ArrayList<>();
         statisticsViews.add(statisticsView);
-        tabList.addTabList("Statistics", statisticsViews);
+        tabList.addTabList("StatisticsList", statisticsViews);
 
         tabList.setActiveTab("Home");
 
