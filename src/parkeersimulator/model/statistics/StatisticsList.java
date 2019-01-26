@@ -30,7 +30,6 @@ public class StatisticsList extends Model {
     public int getTotal(String id)
     {
         Statistic statistic = statistics.get(id);
-        System.out.println(id);
         return statistic.getTotal();
     }
 
