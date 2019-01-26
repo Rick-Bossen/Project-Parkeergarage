@@ -324,9 +324,11 @@ public class CarPark extends Model {
         // Remove car from the front of the queue and assign to a parking space.
         while (queue.carsInQueue() > 0 && getNumberOfOpenSpots() > 0 && i < queue.getSpeed()) {
             Car car = queue.removeCar();
-            if(!(car instanceof ReservedAdHocCar)) {
+            if (!(car instanceof ReservedAdHocCar)) {
                 Location freeLocation = getFirstFreeLocation(car);
-                setCarAt(freeLocation, car);
+                if (freeLocation != null) {
+                    setCarAt(freeLocation, car);
+                }
             } else {
                 reservationCarList.remove(car);
                 boolean found = false;
@@ -337,7 +339,7 @@ public class CarPark extends Model {
                     String carId = ((ReservedAdHocCar) car).getId();
                     if (id.equals(carId)) {
                         car.setLocation(reservation.getLocation());
-                        if(getCarAt(car.getLocation()) instanceof ReservedSpot) {
+                        if (getCarAt(car.getLocation()) instanceof ReservedSpot) {
                             setCarAt(car.getLocation(), car);
                             reservationList.remove(i);
                         } else {
@@ -431,7 +433,10 @@ public class CarPark extends Model {
                 for (int place = 0; place < getNumberOfPlaces(); place++) {
                     Location location = new Location(floor, row, place);
                     Car currentCar = getCarAt(location);
-                    if (currentCar == null || car instanceof ParkingPassCar && currentCar instanceof ParkingPassSpot) {
+                    if (car instanceof ParkingPassCar && currentCar instanceof ParkingPassSpot) {
+                        return location;
+                    }
+                    if (currentCar == null && !(car instanceof ParkingPassCar)) {
                         return location;
                     }
                 }
