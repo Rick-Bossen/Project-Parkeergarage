@@ -5,20 +5,20 @@ import parkeersimulator.framework.Model;
 import java.util.ArrayList;
 
 /**
- *  Index of all setting categories.
+ * Index of all setting categories.
  */
 public class SettingList extends Model {
 
-    public ArrayList<SettingCategory> categories;
+    private ArrayList<SettingCategory> categories;
 
-    public SettingList(){
+    public SettingList() {
         categories = new ArrayList<>();
     }
 
     /**
      * Will all categories with the information.
      */
-    public void fillCategories(){
+    public void fillCategories() {
         SettingCategory generalCategory = new SettingCategory("general", "General");
         generalCategory.addSetting("width", "Width");
         generalCategory.addSetting("height", "Height");
@@ -59,9 +59,10 @@ public class SettingList extends Model {
 
     /**
      * Get all categories.
+     *
      * @return List of all categories.
      */
-    public ArrayList<SettingCategory> getCategories(){
+    public ArrayList<SettingCategory> getCategories() {
         return categories;
     }
 

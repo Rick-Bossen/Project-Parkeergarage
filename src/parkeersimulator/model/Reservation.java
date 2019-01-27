@@ -7,22 +7,21 @@ public class Reservation {
 
     private Location location;
     private int timeToReserve;
-    private  String id;
+    private String id;
 
-    public Reservation()
-    {
+    public Reservation() {
         Random random = new Random();
         timeToReserve = 60 + (int) (random.nextFloat() * (1440 - 60));
 
         id = UUID.randomUUID().toString();
     }
 
-    public void setLocation(Location location) {
-        this.location = location;
-    }
-
     public Location getLocation() {
         return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
     }
 
     public int getTimeToReserve() {
@@ -33,8 +32,7 @@ public class Reservation {
         return id;
     }
 
-    public void tick()
-    {
+    public void tick() {
         timeToReserve--;
     }
 }

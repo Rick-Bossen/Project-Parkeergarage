@@ -15,7 +15,7 @@ import java.util.ArrayList;
  */
 public class SideBar extends GridBagView {
 
-    public ArrayList<JButton> menuLabels;
+    private ArrayList<JButton> menuLabels;
 
     public SideBar() {
         super();
@@ -28,10 +28,10 @@ public class SideBar extends GridBagView {
 
     /**
      * Add menu item to sidebar.
-     * @param name
+     *
+     * @param name label of the menu item
      */
-    public void addMenuItem(int number, String name)
-    {
+    private void addMenuItem(int number, String name) {
         GridBagConstraints constraints = new GridBagConstraints();
         JButton menuLabel = new JButton();
         JPanel separator = new JPanel();
@@ -61,20 +61,20 @@ public class SideBar extends GridBagView {
 
         add(separator, constraints);
 
-        menuLabel.addActionListener(e ->  sendEvent(number));
+        menuLabel.addActionListener(e -> sendEvent(number));
     }
 
-    public String getMenuText(int index){
+    public String getMenuText(int index) {
         return menuLabels.get(index).getText();
     }
 
     @Override
     protected void update(Model model) {
-        if(model instanceof TabList){
+        if (model instanceof TabList) {
             TabList tabList = (TabList) model;
-            if(menuLabels.size() <= 0){
+            if (menuLabels.size() <= 0) {
                 String[] items = tabList.getMenuItems();
-                for(int index = 0; index < items.length; index++){
+                for (int index = 0; index < items.length; index++) {
                     addMenuItem(index + 1, items[index]);
                 }
                 JPanel bottomSpacer = new JPanel();
@@ -87,10 +87,10 @@ public class SideBar extends GridBagView {
                 add(bottomSpacer, constraints);
             }
 
-            for(JButton menuLabel : menuLabels){
-                if(menuLabel.getText().equals(tabList.getActiveTab())){
+            for (JButton menuLabel : menuLabels) {
+                if (menuLabel.getText().equals(tabList.getActiveTab())) {
                     menuLabel.setForeground(new Color(116, 185, 255));
-                }else{
+                } else {
                     menuLabel.setForeground(Color.white);
                 }
             }

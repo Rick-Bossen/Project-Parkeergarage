@@ -44,11 +44,12 @@ public class Clock extends Model {
 
     /**
      * Get the current day of the week.
+     *
      * @return Integer of the current day.
      */
     public int getDayOfWeek() {
         int dayOfWeek = day % 7;
-        if(dayOfWeek == 0){
+        if (dayOfWeek == 0) {
             dayOfWeek = 7;
         }
         return dayOfWeek;

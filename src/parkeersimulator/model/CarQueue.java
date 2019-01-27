@@ -27,10 +27,9 @@ public class CarQueue extends Model {
      * Add a car to the queue.
      *
      * @param car Car that is added to the queue.
-     * @return If the car is successfully added.
      */
-    public boolean addCar(Car car) {
-        return queue.add(car);
+    public void addCar(Car car) {
+        queue.add(car);
     }
 
     /**
@@ -59,20 +58,20 @@ public class CarQueue extends Model {
     }
 
     /**
-     * Set the speed of the queue.
-     *
-     * @param speed Integer representing the speed.
-     */
-    public void setSpeed(int speed) {
-        this.speed = speed;
-    }
-
-    /**
      * Get the speed of the queue.
      *
      * @return Integer representing the speed.
      */
     public int getSpeed() {
         return speed;
+    }
+
+    /**
+     * Set the speed of the queue.
+     *
+     * @param speed Integer representing the speed.
+     */
+    public void setSpeed(int speed) {
+        this.speed = speed;
     }
 }

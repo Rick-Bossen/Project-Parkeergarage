@@ -9,17 +9,15 @@ public class Navigation extends Controller {
 
     private TabList tabList;
 
-    public Navigation(TabList tabList){
+    public Navigation(TabList tabList) {
         this.tabList = tabList;
     }
 
     @Override
-    protected boolean event(View view, int eventId) {
-        if(view instanceof SideBar){
-            tabList.setActiveTab(((SideBar)view).getMenuText(eventId - 1));
-            return true;
+    protected void event(View view, int eventId) {
+        if (view instanceof SideBar) {
+            tabList.setActiveTab(((SideBar) view).getMenuText(eventId - 1));
         }
-        return false;
     }
 
 }

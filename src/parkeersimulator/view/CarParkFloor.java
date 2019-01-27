@@ -84,7 +84,7 @@ public class CarParkFloor extends JPanel {
      * Calculates the factor to scale the drawn images accordingly
      */
     private void setFactor() {
-        factor = Math.min((double) (size.width - 20) / (int)(PARK_WIDTH / 6 * carPark.getNumberOfRows()), (double) (size.height - 20) / (int)(PARK_HEIGHT / 30 * carPark.getNumberOfPlaces()));
+        factor = Math.min((double) (size.width - 20) / (PARK_WIDTH / 6 * carPark.getNumberOfRows()), (double) (size.height - 20) / (PARK_HEIGHT / 30 * carPark.getNumberOfPlaces()));
     }
 
     /**
@@ -157,18 +157,18 @@ public class CarParkFloor extends JPanel {
      *
      * @param graphics Graphics to draw on
      * @param location Location of the drawing
-     * @param color Color of the rectangle
+     * @param color    Color of the rectangle
      */
-    private void drawRectangle(Graphics graphics, Location location, Color color){
+    private void drawRectangle(Graphics graphics, Location location, Color color) {
         graphics.setColor(color);
         boolean reverse = (location.getRow() + 1) % 2 == 0;
         int x = getOffsetX() + getX(location);
         int y = getOffsetY() + getY(location);
 
 
-        if(!reverse){
+        if (!reverse) {
             graphics.fillRect(x, y + 1, useFactor(CAR_WIDTH) - 1, useFactor(CAR_HEIGHT) - 2);
-        }else{
+        } else {
             graphics.fillRect(x + 1, y + 1, useFactor(CAR_WIDTH), useFactor(CAR_HEIGHT) - 2);
         }
     }
@@ -177,14 +177,14 @@ public class CarParkFloor extends JPanel {
      * Paint a car on this car park in a given color.
      *
      * @param graphics image graphics used to draw the image
-     * @param car current car
+     * @param car      current car
      */
-    private void drawCar(Graphics graphics,Car car) {
+    private void drawCar(Graphics graphics, Car car) {
         Color color = car.getColor();
         Location location = car.getLocation();
         boolean reverse = (location.getRow() + 1) % 2 == 0;
 
-        if (factor < 1 || car instanceof ParkingPassSpot || car instanceof  ReservedSpot) {
+        if (factor < 1 || car instanceof ParkingPassSpot || car instanceof ReservedSpot) {
             drawRectangle(graphics, location, color);
         } else {
             Color[] colors = new Color[]{
@@ -277,7 +277,8 @@ public class CarParkFloor extends JPanel {
             shouldRedraw = true;
             size = getSize();
             carParkImage = createImage(size.width, size.height);
-        }if(drawLock[0] != carPark.getNumberOfFloors() || drawLock[1] != carPark.getNumberOfRows() || drawLock[2] != carPark.getNumberOfPlaces()){
+        }
+        if (drawLock[0] != carPark.getNumberOfFloors() || drawLock[1] != carPark.getNumberOfRows() || drawLock[2] != carPark.getNumberOfPlaces()) {
             drawLock[0] = carPark.getNumberOfFloors();
             drawLock[1] = carPark.getNumberOfRows();
             drawLock[2] = carPark.getNumberOfPlaces();
@@ -286,7 +287,7 @@ public class CarParkFloor extends JPanel {
         setFactor();
         Graphics graphics = carParkImage.getGraphics();
 
-        if(shouldRedraw){
+        if (shouldRedraw) {
             drawBase(graphics);
         }
 
@@ -295,15 +296,16 @@ public class CarParkFloor extends JPanel {
                 Location location = new Location(floor, row, place);
                 Car car = carPark.getCarAt(location);
                 if (car != null) {
-                    if(shouldRedraw || car.isFirstDraw()) {
+                    if (shouldRedraw || car.isFirstDraw()) {
                         drawRectangle(graphics, location, new Color(195, 195, 195));
                         car.setFirstDraw(false);
                         drawCar(graphics, car);
+                        drawPlace(graphics, location);
                     }
-                }else{
+                } else {
                     drawRectangle(graphics, location, new Color(195, 195, 195));
+                    drawPlace(graphics, location);
                 }
-                drawPlace(graphics, location);
             }
         }
         repaint();

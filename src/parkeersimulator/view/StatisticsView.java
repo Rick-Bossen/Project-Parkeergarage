@@ -7,12 +7,13 @@ import parkeersimulator.model.statistics.StatisticsList;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+
 //TODO add more statistics (and graphs)
 public class StatisticsView extends GridBagView {
 
-    JLabel total;
-    JLabel daily;
-    JLabel hourly;
+    private JLabel total;
+    private JLabel daily;
+    private JLabel hourly;
 
     public StatisticsView() {
         super();
@@ -46,8 +47,7 @@ public class StatisticsView extends GridBagView {
         generateLabels();
     }
 
-    private JLabel generateLabel(String name)
-    {
+    private JLabel generateLabel(String name) {
         JLabel label = new JLabel();
         label.setText(name);
         label.setFont(new Font("Dubai", Font.BOLD, 14));
@@ -56,8 +56,7 @@ public class StatisticsView extends GridBagView {
         return label;
     }
 
-    private void generateLabels()
-    {
+    private void generateLabels() {
         GridBagConstraints constraints;
 
         JLabel totalLabel = generateLabel("Total: ");
@@ -107,9 +106,8 @@ public class StatisticsView extends GridBagView {
     }
 
     @Override
-    protected void update(Model model)
-    {
-        if(model instanceof StatisticsList) {
+    protected void update(Model model) {
+        if (model instanceof StatisticsList) {
             StatisticsList statisticsList = (StatisticsList) model;
             total.setText(String.valueOf(statisticsList.getTotal("profit.total")));
             hourly.setText(String.valueOf(statisticsList.getHourlyAvg("profit.total")));

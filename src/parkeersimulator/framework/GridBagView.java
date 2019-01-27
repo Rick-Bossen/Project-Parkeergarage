@@ -9,7 +9,7 @@ public abstract class GridBagView extends View {
 
     private GridBagConstraints constraints;
 
-    public GridBagView() {
+    protected GridBagView() {
         constraints = new GridBagConstraints();
         constraints.fill = GridBagConstraints.BOTH;
         constraints.gridx = 0;

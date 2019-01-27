@@ -54,8 +54,8 @@ public class TopBar extends GridBagView {
 
     @Override
     protected void update(Model model) {
-        if(model instanceof Clock){
-            dateTimeLabel.setText(((Clock)model).toString());
+        if (model instanceof Clock) {
+            dateTimeLabel.setText(model.toString());
         }
     }
 

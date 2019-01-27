@@ -3,7 +3,10 @@ package parkeersimulator.main;
 import parkeersimulator.controller.Navigation;
 import parkeersimulator.controller.SettingManager;
 import parkeersimulator.controller.Simulator;
-import parkeersimulator.model.*;
+import parkeersimulator.model.CarPark;
+import parkeersimulator.model.Clock;
+import parkeersimulator.model.SettingList;
+import parkeersimulator.model.TabList;
 import parkeersimulator.model.statistics.StatisticsList;
 import parkeersimulator.utility.Settings;
 import parkeersimulator.view.*;
@@ -23,7 +26,7 @@ public class ParkingSimulation {
     /**
      * Create a new Parking simulation and start it.
      */
-    public ParkingSimulation() {
+    private ParkingSimulation() {
 
         JFrame window = new JFrame("Parking simulator");
         window.setLayout(new GridBagLayout());
@@ -95,7 +98,7 @@ public class ParkingSimulation {
 
         ArrayList<JComponent> statisticsViews = new ArrayList<>();
         statisticsViews.add(statisticsView);
-        tabList.addTabList("StatisticsList", statisticsViews);
+        tabList.addTabList("Results", statisticsViews);
 
         tabList.setActiveTab("Home");
 

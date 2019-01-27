@@ -42,17 +42,19 @@ public class CustomerGroup extends Model {
 
     /**
      * Set new weekday arrivals
+     *
      * @param arrivals arrivals per weekday
      */
-    public void setWeekDayArrivals(int arrivals){
+    public void setWeekDayArrivals(int arrivals) {
         this.weekDayArrivals = arrivals;
     }
 
     /**
      * Set new weekend arrivals
+     *
      * @param arrivals arrivals per weekend
      */
-    public void setWeekendArrivals(int arrivals){
+    public void setWeekendArrivals(int arrivals) {
         this.weekendArrivals = arrivals;
     }
 

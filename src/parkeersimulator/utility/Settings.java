@@ -1,10 +1,7 @@
 package parkeersimulator.utility;
 
-import parkeersimulator.framework.Model;
-
 import java.io.*;
 import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.Properties;
 
 /**
@@ -15,17 +12,15 @@ import java.util.Properties;
  */
 public class Settings {
 
+    private static Settings instance = new Settings();
     private final String defaultFile = "default.properties";
     private final String userFile = "user-config.properties";
-
     private Properties properties;
-
-    private static Settings instance = new Settings();
 
     /**
      * Create a new settings manager whilst load default and user config.
      */
-    private Settings(){
+    private Settings() {
         properties = new Properties();
         loadDefaultConfig();
         loadUserConfig();
@@ -33,10 +28,50 @@ public class Settings {
     }
 
     /**
+     * Return instance of the settings managers.
+     *
+     * @return Settings
+     */
+    public static Settings getInstance() {
+        return instance;
+    }
+
+    /**
+     * Get the integer value of a setting.
+     * If the key is not found return 0.
+     *
+     * @param key name of the setting.
+     * @return value of the setting
+     */
+    public static int get(String key) {
+        String value = instance.properties.getProperty(key);
+        if (value != null) {
+            try {
+                return Integer.parseInt(value);
+            } catch (NumberFormatException e) {
+                return 0;
+            }
+        }
+        return 0;
+    }
+
+    /**
+     * Update a setting. Only allowed to update existing settings.
+     *
+     * @param key   Key of the setting
+     * @param value Value of the configuration.
+     */
+    public static void set(String key, int value) {
+        if (instance.properties.getProperty(key) != null) {
+            instance.properties.setProperty(key, Integer.toString(value));
+        }
+    }
+
+    /**
      * Loads all user config.
      * Checks if the user config is present as default config and contains integer values.
      */
-    private void loadUserConfig(){
+    private void loadUserConfig() {
         Properties userConfig = new Properties();
         try {
             InputStream config = new FileInputStream(userFile);
@@ -45,15 +80,15 @@ public class Settings {
 
             Enumeration keys = userConfig.propertyNames();
             while (keys.hasMoreElements()) {
-                String key = (String)keys.nextElement();
-                try{
+                String key = (String) keys.nextElement();
+                try {
                     // Key should already exist in the default config and be an integer.
                     String value = userConfig.getProperty(key);
                     Integer.parseInt(value);
-                    if(properties.getProperty(key) != null){
+                    if (properties.getProperty(key) != null) {
                         properties.setProperty(key, value);
                     }
-                }catch (NumberFormatException e){
+                } catch (NumberFormatException e) {
                     // Not an integer. Only integers allowed
                 }
             }
@@ -69,7 +104,7 @@ public class Settings {
         try {
             ClassLoader loader = Thread.currentThread().getContextClassLoader();
             InputStream config = loader.getResourceAsStream(defaultFile);
-            if(config != null){
+            if (config != null) {
                 properties.load(config);
                 config.close();
             }
@@ -89,48 +124,6 @@ public class Settings {
         } catch (IOException e) {
             // Unable to create file.
         }
-    }
-
-    /**
-     * Return instance of the settings managers.
-     * @return Settings
-     */
-    public static Settings getInstance(){
-        return instance;
-    }
-
-    /**
-     * Get the integer value of a setting.
-     * If the key is not found return 0.
-     *
-     * @param key name of the setting.
-     * @return value of the setting
-     */
-    public static int get(String key){
-        String value = instance.properties.getProperty(key);
-        if(value != null){
-            try{
-                return Integer.parseInt(value);
-            }catch (NumberFormatException e){
-                return 0;
-            }
-        }
-        return 0;
-    }
-
-    /**
-     * Update a setting. Only allowed to update existing settings.
-     *
-     * @param key Key of the setting
-     * @param value Value of the configuration.
-     * @return if the value was successfully saved.
-     */
-    public static boolean set(String key, int value){
-        if(instance.properties.getProperty(key) != null){
-            instance.properties.setProperty(key, Integer.toString(value));
-            return true;
-        }
-        return false;
     }
 
 }

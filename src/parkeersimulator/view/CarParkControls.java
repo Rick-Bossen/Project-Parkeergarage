@@ -7,6 +7,7 @@ import parkeersimulator.framework.Model;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * This class represents the view containing the controls to control the car park.
@@ -15,15 +16,14 @@ import java.awt.*;
  */
 public class CarParkControls extends GridBagView {
 
-    private JButton oneTickButton;
-    private JButton thousandTickButton;
-    private JButton millionTickButton;
+    private ArrayList<JButton> controls;
 
     public CarParkControls() {
         super();
         setPosition(1, 2);
         setBackground(new Color(45, 52, 54));
         setLayout(new GridBagLayout());
+        controls = new ArrayList<>();
         setUIComponents();
     }
 
@@ -35,76 +35,64 @@ public class CarParkControls extends GridBagView {
         JLabel minutesLabel = new JLabel();
         minutesLabel.setFont(new Font("Dubai", -1, 12));
         minutesLabel.setForeground(Color.white);
-        minutesLabel.setText("Minutes forward:");
+        minutesLabel.setText("Forward simulation:");
         constraints.gridx = 0;
         constraints.insets = new Insets(10, 20, 10, 10);
         add(minutesLabel, constraints);
 
-        oneTickButton = generateNewButton();
-        oneTickButton.setText("1");
-        constraints = new GridBagConstraints();
-        constraints.gridx = 1;
-        constraints.insets = new Insets(10, 10, 10, 10);
-        add(oneTickButton, constraints);
-        oneTickButton.addActionListener(e -> sendEvent(Simulator.RUN_ONCE));
-
-        thousandTickButton = generateNewButton();
-        thousandTickButton.setText("1000");
-        constraints = new GridBagConstraints();
-        constraints.gridx = 2;
-        constraints.insets = new Insets(10, 10, 10, 10);
-        add(thousandTickButton, constraints);
-        thousandTickButton.addActionListener(e -> sendEvent(Simulator.RUN_THOUSAND_TIMES));
-
-        millionTickButton = generateNewButton();
-        millionTickButton.setText("1000000");
-        constraints = new GridBagConstraints();
-        constraints.gridx = 3;
-        constraints.insets = new Insets(10, 10, 10, 10);
-        add(millionTickButton, constraints);
-        millionTickButton.addActionListener(e -> sendEvent(Simulator.RUN_MILLION_TIMES));
+        controls.add(createButton(1, "1 hour", Simulator.RUN_ONE_HOUR));
+        controls.add(createButton(2, "1 day", Simulator.RUN_ONE_DAY));
+        controls.add(createButton(3, "1 week", Simulator.RUN_ONE_WEEK));
+        controls.add(createButton(4, "1 month", Simulator.RUN_ONE_MONTH));
 
         JPanel spacer = new JPanel();
         spacer.setOpaque(false);
         constraints = new GridBagConstraints();
         constraints.weightx = 1;
-        constraints.gridx = 4;
+        constraints.gridx = 5;
         constraints.fill = GridBagConstraints.HORIZONTAL;
         add(spacer, constraints);
 
-        JButton resetButton = generateNewButton();
-        resetButton.setText("Reset simulation");
-        constraints = new GridBagConstraints();
-        constraints.gridx = 5;
-        constraints.insets = new Insets(10, 10, 10, 10);
-        add(resetButton, constraints);
-        resetButton.addActionListener(e -> sendEvent(Simulator.RESET));
+        createButton(7, "Stop", Simulator.STOP);
+        createButton(8, "Reset", Simulator.RESET);
+
+        setControlsEnabled(true);
     }
 
     /**
-     * Generate a new [basic] button
+     * Add controller to the view with a given label and event
      *
-     * @return new button
+     * @param gridX   Horizontal position of the button
+     * @param label   Label of the button.
+     * @param eventId Event id of the button. If event id = -1 no action will be bound.
      */
-    private JButton generateNewButton() {
+    private JButton createButton(int gridX, String label, int eventId) {
         JButton button = new JButton();
         button.setFont(new Font("Dubai Light", -1, 14));
         button.setForeground(Color.white);
-        button.setBackground(new Color(116, 185, 255));
         button.setBorderPainted(false);
         button.setFocusPainted(false);
+        button.setText(label);
+        button.setBackground(new Color(116, 185, 255));
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.gridx = gridX;
+        constraints.insets = new Insets(10, 10, 10, 10);
+        if (eventId >= 0) {
+            button.addActionListener(e -> sendEvent(eventId));
+        }
+        add(button, constraints);
         return button;
     }
 
     /**
-     * Set all buttons to enabled or disabled.
+     * Set all Control type buttons to enabled or disabled.
      *
-     * @param bool Boolean if the button should be enabled or not.
+     * @param enabled Boolean if the button should be enabled or not.
      */
-    public void setButtonsEnabled(boolean bool) {
-        oneTickButton.setEnabled(bool);
-        thousandTickButton.setEnabled(bool);
-        millionTickButton.setEnabled(bool);
+    public void setControlsEnabled(boolean enabled) {
+        for (JButton button : controls) {
+            button.setEnabled(enabled);
+        }
     }
 
     @Override

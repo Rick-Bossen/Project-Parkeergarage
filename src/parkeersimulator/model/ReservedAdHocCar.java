@@ -1,34 +1,28 @@
 package parkeersimulator.model;
 
-import java.awt.Color;
+import java.awt.*;
 import java.util.Random;
 
 public class ReservedAdHocCar extends AdHocCar {
 
-    public ReservedAdHocCar()
-    {
+    private static final Color COLOR = Color.magenta;
+    private String id;
+    private int timeUntilArrival;
+    public ReservedAdHocCar() {
         super();
         this.setHasToPay(false);
     }
 
-    private static final Color COLOR = Color.magenta;
-    private String id;
-    private int timeUntilArrival;
-
-
-    public Color getColor()
-    {
+    public Color getColor() {
         return COLOR;
     }
 
-    public void setId(String id)
-    {
-        this.id = id;
+    public String getId() {
+        return id;
     }
 
-    public String getId()
-    {
-        return id;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public void setTimeUntilArrival() {
@@ -36,13 +30,11 @@ public class ReservedAdHocCar extends AdHocCar {
         timeUntilArrival = (int) (5 + random.nextFloat() * 50);
     }
 
-    public int getTimeUntilArrival()
-    {
+    public int getTimeUntilArrival() {
         return timeUntilArrival;
     }
 
-    public void incrementArrivalTime()
-    {
+    public void incrementArrivalTime() {
         timeUntilArrival--;
     }
 }

@@ -31,12 +31,11 @@ public class ParkingPassCar extends Car {
         return COLOR;
     }
 
-    public void setAtReservedSpot(boolean atReservedSpot) {
-        this.atReservedSpot = atReservedSpot;
+    public boolean isAtReservedSpot() {
+        return atReservedSpot;
     }
 
-    public boolean isAtReservedSpot()
-    {
-        return atReservedSpot;
+    public void setAtReservedSpot(boolean atReservedSpot) {
+        this.atReservedSpot = atReservedSpot;
     }
 }

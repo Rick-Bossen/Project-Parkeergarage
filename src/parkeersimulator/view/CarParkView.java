@@ -14,7 +14,7 @@ import java.util.ArrayList;
  */
 public class CarParkView extends GridBagView {
 
-    ArrayList<CarParkFloor> floors;
+    private ArrayList<CarParkFloor> floors;
 
     public CarParkView() {
         super();
@@ -26,9 +26,9 @@ public class CarParkView extends GridBagView {
 
     @Override
     protected void update(Model model) {
-        if(model instanceof CarPark){
+        if (model instanceof CarPark) {
             CarPark carPark = (CarPark) model;
-            if(floors == null || floors.size() != carPark.getNumberOfFloors()) {
+            if (floors == null || floors.size() != carPark.getNumberOfFloors()) {
                 removeAll();
                 floors = new ArrayList<>();
                 for (int floor = 0; floor < carPark.getNumberOfFloors(); floor++) {
@@ -44,8 +44,8 @@ public class CarParkView extends GridBagView {
                     add(carParkFloor);
                     floors.add(carParkFloor);
                 }
-            }else{
-                for(CarParkFloor floor : floors){
+            } else {
+                for (CarParkFloor floor : floors) {
                     floor.updateView();
                 }
             }

@@ -2,7 +2,6 @@ package parkeersimulator.view;
 
 
 import parkeersimulator.controller.SettingManager;
-import parkeersimulator.controller.Simulator;
 import parkeersimulator.framework.GridBagView;
 import parkeersimulator.framework.Model;
 
@@ -15,9 +14,6 @@ import java.awt.*;
  * @version 18.01.2019
  */
 public class SettingControls extends GridBagView {
-
-    private JButton defaultButton;
-    private JButton saveButton;
 
     public SettingControls(SettingView settingView) {
         super();
@@ -43,20 +39,20 @@ public class SettingControls extends GridBagView {
         add(spacer, constraints);
 
 
-        defaultButton = generateNewButton();
+        JButton defaultButton = generateNewButton();
         defaultButton.setText("Reset to Default");
         constraints = new GridBagConstraints();
         constraints.gridx = 1;
         constraints.insets = new Insets(10, 10, 10, 10);
         add(defaultButton, constraints);
         defaultButton.addActionListener(e -> {
-            int dialogResult = JOptionPane.showConfirmDialog (null, "Are you sure you want to reset to default?", "Confirm", JOptionPane.YES_NO_OPTION);
-            if(dialogResult == JOptionPane.YES_OPTION){
+            int dialogResult = JOptionPane.showConfirmDialog(null, "Are you sure you want to reset to default?", "Confirm", JOptionPane.YES_NO_OPTION);
+            if (dialogResult == JOptionPane.YES_OPTION) {
                 sendEvent(SettingManager.RESET_TO_DEFAULT);
             }
         });
 
-        saveButton = generateNewButton();
+        JButton saveButton = generateNewButton();
         saveButton.setText("Save settings");
         constraints = new GridBagConstraints();
         constraints.gridx = 2;
@@ -64,7 +60,7 @@ public class SettingControls extends GridBagView {
         add(saveButton, constraints);
         saveButton.addActionListener(e -> {
             sendEvent(SettingManager.SAVE_SETTINGS);
-            JOptionPane.showMessageDialog (null, "The settings have been saved successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "The settings have been saved successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
         });
     }
 

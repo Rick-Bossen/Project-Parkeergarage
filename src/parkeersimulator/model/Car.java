@@ -19,13 +19,6 @@ public abstract class Car extends Model {
     private boolean isFirstDraw = true;
 
     /**
-     * Constructor for objects of class Car
-     */
-    public Car() {
-
-    }
-
-    /**
      * Return the location of the car.
      *
      * @return Location of the car.
@@ -111,9 +104,10 @@ public abstract class Car extends Model {
 
     /**
      * Return if the car has been drawn before.
+     *
      * @return If the car has been drawn before.
      */
-    public boolean isFirstDraw(){
+    public boolean isFirstDraw() {
         return isFirstDraw;
     }
 
@@ -122,7 +116,7 @@ public abstract class Car extends Model {
      *
      * @param firstDraw If the car has been drawn.0
      */
-    public void  setFirstDraw(boolean firstDraw){
+    public void setFirstDraw(boolean firstDraw) {
         this.isFirstDraw = firstDraw;
     }
 }

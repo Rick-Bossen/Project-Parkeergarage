@@ -8,6 +8,7 @@ public abstract class Model {
 
     /**
      * Add views to model to be notified by model.
+     *
      * @param view View to be added to list of models that will be notified.
      */
     public void addView(View view) {

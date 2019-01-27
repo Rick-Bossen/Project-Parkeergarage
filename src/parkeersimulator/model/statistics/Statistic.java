@@ -1,28 +1,26 @@
 package parkeersimulator.model.statistics;
 
-import parkeersimulator.model.Clock;
 import parkeersimulator.framework.Model;
+import parkeersimulator.model.Clock;
+
 //TODO make averages only work over select amount of time
-class Statistic extends Model {
+public class Statistic extends Model {
 
     private int total;
 
     private Clock clock;
     private int ticks;
 
-    Statistic()
-    {
+    Statistic() {
         clock = new Clock();
     }
 
-    void tick()
-    {
+    void tick() {
         clock.advanceTime();
         ticks++;
     }
 
-    void add(int amount)
-    {
+    void add(int amount) {
         total += amount;
     }
 
