@@ -83,7 +83,7 @@ public class Simulator extends Controller {
         statisticsList.tick();
         carPark.tick();
         carPark.queueReservations(clock.getDayOfWeek());
-        carPark.handleEntrance(clock.getDayOfWeek());
+        carPark.handleEntrance(clock);
         if (updateViews) {
             carPark.updateFloors();
         }

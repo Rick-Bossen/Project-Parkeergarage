@@ -2,6 +2,7 @@ package parkeersimulator.model;
 
 import parkeersimulator.framework.Model;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -16,10 +17,17 @@ public class CustomerGroup extends Model {
     private int weekDayArrivals;
     private int weekendArrivals;
 
+    private ArrayList<Event> events;
+
     public CustomerGroup(Class carType, int weekDayArrivals, int weekendArrivals) {
         this.carType = carType;
         this.weekDayArrivals = weekDayArrivals;
         this.weekendArrivals = weekendArrivals;
+        events = new ArrayList<>();
+    }
+
+    public void setEvents(ArrayList<Event> events) {
+        this.events = events;
     }
 
     /**
@@ -71,6 +79,22 @@ public class CustomerGroup extends Model {
         }
     }
 
+    public int getNumberOfCars(Clock clock){
+        int averageNumber;
+        if(clock.getDayOfWeek() < 6){
+            averageNumber = weekDayArrivals;
+        }else{
+            averageNumber = weekendArrivals;
+        }
+        for (Event event : events) {
+            if(event.isOngoing(clock)){
+                averageNumber = event.getHourlyAmount(clock.getDayOfWeek());
+            }
+        }
+        
+        return calculateNumberOfCars(averageNumber);
+    }
+
     /**
      * Generate a random number of cars that should enter on a given day.
      *
@@ -78,16 +102,13 @@ public class CustomerGroup extends Model {
      * @return Amount of cars that should enter.
      */
     public int getNumberOfCars(int day) {
+        return calculateNumberOfCars(day < 6 ? weekDayArrivals : weekendArrivals);
+    }
+
+    private int calculateNumberOfCars(int averageNumber){
         Random random = new Random();
-
-        // Get the average number of cars that arrive per hour.
-        int averageNumberOfCarsPerHour = day < 6
-                ? weekDayArrivals
-                : weekendArrivals;
-
-        // Calculate the number of cars that arrive this minute.
-        double standardDeviation = averageNumberOfCarsPerHour * 0.3;
-        double numberOfCarsPerHour = averageNumberOfCarsPerHour + random.nextGaussian() * standardDeviation;
+        double standardDeviation = averageNumber * 0.3;
+        double numberOfCarsPerHour = averageNumber + random.nextGaussian() * standardDeviation;
         return (int) Math.round(numberOfCarsPerHour / 60);
     }
 

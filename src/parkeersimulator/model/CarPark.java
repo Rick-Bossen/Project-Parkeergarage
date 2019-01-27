@@ -4,6 +4,7 @@ import parkeersimulator.framework.Model;
 import parkeersimulator.model.statistics.StatisticsList;
 import parkeersimulator.utility.Settings;
 
+import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -45,10 +46,21 @@ public class CarPark extends Model {
      * Create the different customer groups used in the simulation.
      */
     private void createGroups() {
+        ArrayList<Event> events = new ArrayList<>();
+        Event theaterEvent = new Event(1000);
+        theaterEvent.addDay(DayOfWeek.FRIDAY.getValue());
+        theaterEvent.addDay(DayOfWeek.SATURDAY.getValue(), 18, 24);
+        theaterEvent.addDay(DayOfWeek.SUNDAY.getValue(), 12, 18);
+        events.add(theaterEvent);
+
+        Event lateOpening = new Event(600);
+        lateOpening.addDay(DayOfWeek.THURSDAY.getValue(), 18, 24);
+        events.add(lateOpening);
         this.customerGroups = new ArrayList<>();
 
         CustomerGroup adHoc = new CustomerGroup(AdHocCar.class, Settings.get("adhoc.arrivals.weekday"), Settings.get("adhoc.arrivals.weekend"));
         adHoc.setEntranceCarQueue(new CarQueue(Settings.get("queue.adhoc.speed")));
+        adHoc.setEvents(events);
         customerGroups.add(adHoc);
 
         CustomerGroup parkingPass = new CustomerGroup(ParkingPassCar.class, Settings.get("pass.arrivals.weekday"), Settings.get("pass.arrivals.weekend"));
@@ -260,10 +272,10 @@ public class CarPark extends Model {
     /**
      * Handle the entrance of all cars today.
      *
-     * @param day Integer the current day.
+     * @param clock clock of the current date/time
      */
-    public void handleEntrance(int day) {
-        carsArriving(day);
+    public void handleEntrance(Clock clock) {
+        carsArriving(clock);
         for (CustomerGroup group : customerGroups) {
             carsEntering(group.getEntranceCarQueue());
         }
@@ -281,12 +293,12 @@ public class CarPark extends Model {
     /**
      * Handle all arriving cars and add them to the entrance queue
      *
-     * @param day Integer of the current day
+     * @param clock Integer of the current day
      */
-    private void carsArriving(int day) {
+    private void carsArriving(Clock clock) {
         for (CustomerGroup group : customerGroups) {
             if (group.getEntranceCarQueue() != null) {
-                int enteringCars = group.getNumberOfCars(day);
+                int enteringCars = group.getNumberOfCars(clock);
                 for (int i = 0; i < enteringCars; i++) {
                     group.getEntranceCarQueue().addCar(group.getNewCar());
                 }
