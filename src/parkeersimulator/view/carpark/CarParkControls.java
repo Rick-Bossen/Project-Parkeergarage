@@ -1,4 +1,4 @@
-package parkeersimulator.view;
+package parkeersimulator.view.carpark;
 
 
 import parkeersimulator.controller.Simulator;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 /**
  * This class represents the view containing the controls to control the car park.
  *
- * @version 27.01.2019.
+ * @version 28.01.2019.
  */
 public class CarParkControls extends GridBagView {
 

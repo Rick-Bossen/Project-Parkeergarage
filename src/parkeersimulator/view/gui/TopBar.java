@@ -1,4 +1,4 @@
-package parkeersimulator.view;
+package parkeersimulator.view.gui;
 
 import parkeersimulator.framework.GridBagView;
 import parkeersimulator.framework.Model;

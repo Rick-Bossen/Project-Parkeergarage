@@ -1,9 +1,9 @@
-package parkeersimulator.view;
+package parkeersimulator.view.settings;
 
 import parkeersimulator.framework.GridBagView;
 import parkeersimulator.framework.Model;
-import parkeersimulator.model.SettingCategory;
-import parkeersimulator.model.SettingList;
+import parkeersimulator.model.settings.SettingCategory;
+import parkeersimulator.model.settings.SettingList;
 import parkeersimulator.utility.Settings;
 
 import javax.swing.*;

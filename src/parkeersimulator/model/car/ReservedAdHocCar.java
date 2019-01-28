@@ -1,4 +1,6 @@
-package parkeersimulator.model;
+package parkeersimulator.model.car;
+
+import parkeersimulator.model.car.AdHocCar;
 
 import java.awt.*;
 import java.util.Random;

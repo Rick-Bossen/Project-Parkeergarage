@@ -1,8 +1,8 @@
-package parkeersimulator.view;
+package parkeersimulator.view.carpark;
 
 import parkeersimulator.framework.GridBagView;
 import parkeersimulator.framework.Model;
-import parkeersimulator.model.CarPark;
+import parkeersimulator.model.carpark.CarPark;
 
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 /**
  * This class contains the whole car park view.
  *
- * @version 27.01.2019.
+ * @version 28.01.2019.
  */
 public class CarParkView extends GridBagView {
 

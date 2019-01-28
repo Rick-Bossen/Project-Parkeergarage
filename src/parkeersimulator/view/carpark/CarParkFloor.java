@@ -1,6 +1,10 @@
-package parkeersimulator.view;
+package parkeersimulator.view.carpark;
 
 import parkeersimulator.model.*;
+import parkeersimulator.model.car.Car;
+import parkeersimulator.model.car.ParkingPassSpot;
+import parkeersimulator.model.car.ReservedSpot;
+import parkeersimulator.model.carpark.CarPark;
 import parkeersimulator.utility.Settings;
 
 import javax.swing.*;
@@ -11,7 +15,7 @@ import java.awt.*;
  * It has the ability to draw parking spots and cars accordingly.
  *
  * @author M. Visser
- * @version 27.01.2019.
+ * @version 28.01.2019.
  */
 public class CarParkFloor extends JPanel {
 
@@ -28,7 +32,7 @@ public class CarParkFloor extends JPanel {
     private int[] drawLock = new int[3];
 
 
-    public CarParkFloor(CarPark carPark, int floor) {
+    CarParkFloor(CarPark carPark, int floor) {
         super();
 
         this.carPark = carPark;
@@ -271,7 +275,7 @@ public class CarParkFloor extends JPanel {
      * Update the view,
      * Draws the base floor, parking spots and cars.
      */
-    public void updateView() {
+    void updateView() {
         // Create a new car park image if the size has changed.
         boolean shouldRedraw = false;
         if (!size.equals(getSize())) {

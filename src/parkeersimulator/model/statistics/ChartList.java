@@ -2,7 +2,7 @@ package parkeersimulator.model.statistics;
 
 import parkeersimulator.framework.Model;
 import parkeersimulator.model.Clock;
-import parkeersimulator.view.StatisticsChart;
+import parkeersimulator.view.statistics.StatisticsChart;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
