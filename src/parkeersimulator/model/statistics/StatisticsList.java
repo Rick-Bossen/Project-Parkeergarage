@@ -29,14 +29,14 @@ public class StatisticsList extends Model {
         return statistic.getTotal();
     }
 
-    public int getHourlyAvg(String id) {
+    public int getHourAvg(String id) {
         Statistic statistic = statistics.get(id);
-        return statistic.getHourlyAvg();
+        return statistic.getHourAvg();
     }
 
-    public int getDailyAvg(String id) {
+    public int getDayAvg(String id) {
         Statistic statistic = statistics.get(id);
-        return statistic.getDailyAvg();
+        return statistic.getDayAvg();
     }
 
     public void tick() {

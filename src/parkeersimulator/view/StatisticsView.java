@@ -67,7 +67,7 @@ public class StatisticsView extends GridBagView {
         constraints.anchor = GridBagConstraints.WEST;
         add(totalLabel, constraints);
 
-        JLabel hourlyLabel = generateLabel("Hourly average: ");
+        JLabel hourlyLabel = generateLabel("Past hour average: ");
         constraints = new GridBagConstraints();
         constraints.gridx = 1;
         constraints.gridy = 1;
@@ -75,7 +75,7 @@ public class StatisticsView extends GridBagView {
         constraints.anchor = GridBagConstraints.WEST;
         add(hourlyLabel, constraints);
 
-        JLabel dailyLabel = generateLabel("Daily average: ");
+        JLabel dailyLabel = generateLabel("Past day average: ");
         constraints = new GridBagConstraints();
         constraints.gridx = 1;
         constraints.gridy = 2;
@@ -105,13 +105,18 @@ public class StatisticsView extends GridBagView {
         add(daily, constraints);
     }
 
+    private void generateCharts()
+    {
+        //StatisticsChart hourlyProfit = new StatisticsChart("Hourly Profit",);
+    }
+
     @Override
     protected void update(Model model) {
         if (model instanceof StatisticsList) {
             StatisticsList statisticsList = (StatisticsList) model;
             total.setText(String.valueOf(statisticsList.getTotal("profit.total")));
-            hourly.setText(String.valueOf(statisticsList.getHourlyAvg("profit.total")));
-            daily.setText(String.valueOf(statisticsList.getDailyAvg("profit.total")));
+            hourly.setText(String.valueOf(statisticsList.getHourAvg("profit.total")));
+            daily.setText(String.valueOf(statisticsList.getDayAvg("profit.total")));
         }
     }
 }
