@@ -12,6 +12,11 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * This class represents a single line chart.
+ *
+ * @version 28.01.2019.
+ */
 public class StatisticsChart extends JPanel {
 
     private JFreeChart chart;

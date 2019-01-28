@@ -17,10 +17,10 @@ import java.awt.*;
 import java.util.ArrayList;
 
 /**
- * This class represents the full parking simulation
+ * This class represents the full parking simulation,
  * It creates the simulation and the other components.
  *
- * @version 18.01.2019
+ * @version 28.01.2019
  */
 public class ParkingSimulation {
 

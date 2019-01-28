@@ -4,7 +4,7 @@ import java.awt.*;
 import java.util.Random;
 
 /**
- * This class represents a car which contains a customer that has a parking pass.
+ * This class represents a car which contains a customer that has a parking pass,
  * Contains the color of the car.
  *
  * @version 13.01.2019
@@ -12,30 +12,20 @@ import java.util.Random;
 public class ParkingPassCar extends Car {
 
     private static final Color COLOR = Color.blue;
-    private boolean atReservedSpot;
 
     public ParkingPassCar() {
         Random random = new Random();
         int stayMinutes = (int) (15 + random.nextFloat() * 3 * 60);
         this.setMinutesLeft(stayMinutes);
         this.setHasToPay(false);
-        this.atReservedSpot = false;
     }
 
     /**
-     * Return the color of the car
+     * Return the color of the car.
      *
-     * @return Color the color of the car
+     * @return Color the color of the car.
      */
     public Color getColor() {
         return COLOR;
-    }
-
-    public boolean isAtReservedSpot() {
-        return atReservedSpot;
-    }
-
-    public void setAtReservedSpot(boolean atReservedSpot) {
-        this.atReservedSpot = atReservedSpot;
     }
 }

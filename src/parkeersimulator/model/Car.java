@@ -5,7 +5,7 @@ import parkeersimulator.framework.Model;
 import java.awt.*;
 
 /**
- * This class represents a car with no entry type.
+ * This class represents a car with no entry type,
  * Has the properties location and payment process of the customer.
  *
  * @version 13.01.2019
@@ -39,7 +39,7 @@ public abstract class Car extends Model {
     /**
      * The time the car has left.
      *
-     * @return an Integer representing the amount of minutes the car can still park
+     * @return an Integer representing the amount of minutes the car can still park.
      */
     public int getMinutesLeft() {
         return minutesLeft;
@@ -48,14 +48,14 @@ public abstract class Car extends Model {
     /**
      * Set the time the car has left.
      *
-     * @param minutesLeft an Integer representing the amount of minutes the car can still park
+     * @param minutesLeft an Integer representing the amount of minutes the car can still park.
      */
     public void setMinutesLeft(int minutesLeft) {
         this.minutesLeft = minutesLeft;
     }
 
     /**
-     * Get if the car is currently paying
+     * Get if the car is currently paying.
      *
      * @return boolean if the car is paying.
      */
@@ -98,7 +98,9 @@ public abstract class Car extends Model {
     }
 
     /**
-     * @return the Color of the car
+     * Return the Color of the car.
+     *
+     * @return the Color of the car.
      */
     public abstract Color getColor();
 
@@ -114,7 +116,7 @@ public abstract class Car extends Model {
     /**
      * Set if the car has already been drawn.
      *
-     * @param firstDraw If the car has been drawn.0
+     * @param firstDraw If the car has been drawn.
      */
     public void setFirstDraw(boolean firstDraw) {
         this.isFirstDraw = firstDraw;
