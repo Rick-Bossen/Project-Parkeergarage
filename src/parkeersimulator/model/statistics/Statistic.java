@@ -8,7 +8,7 @@ import java.util.ArrayList;
 /**
  * A class that represents a single numeral statistic and the hourly and daily total amount of added values.
  *
- * @version 27.1.2019.
+ * @version 26.01.2019
  */
 class Statistic extends Model {
 
@@ -64,6 +64,7 @@ class Statistic extends Model {
 
     /**
      * Calculates and returns the sum of all the values inside of a given ArrayList.
+     *
      * @param arrayList the ArrayList containing all the values to calculate the sum of.
      * @return the total sum of all the values inside of the ArrayList.
      */
@@ -80,6 +81,7 @@ class Statistic extends Model {
 
     /**
      * Adds a given number to the total and to the total of this tick.
+     *
      * @param amount the given amount to add up to the total and total of this tick.
      */
     void add(int amount) {
@@ -88,6 +90,8 @@ class Statistic extends Model {
     }
 
     /**
+     * Return the sum of all the added values.
+     *
      * @return The sum of all added values.
      */
     int getTotal() {
@@ -95,14 +99,18 @@ class Statistic extends Model {
     }
 
     /**
-     * @return The sum of all the values from the past 60 ticks.
+     * Return the sum of all the added values from the past 60 ticks.
+     *
+     * @return The sum of all the added values from the past 60 ticks.
      */
     int getPastHour() {
         return sum(pastHour);
     }
 
     /**
-     * @return The sum of all the values from the past 24 hours (of 60 ticks each).
+     * Returns the sum of all the added values from the past 24 hours (the past 1440 ticks).
+     *
+     * @return The sum of all the added values from the past 24 hours (the past 1440 ticks).
      */
     int getPastDay() {
         return sum(pastDay);

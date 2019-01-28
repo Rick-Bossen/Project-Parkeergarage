@@ -7,7 +7,7 @@ import java.util.LinkedHashMap;
 /**
  * A class that contains a list of all the tracked statistics linked to an unique id.
  *
- * @version 27.1.2019.
+ * @version 27.01.2019
  */
 public class StatisticsList extends Model {
 
@@ -20,6 +20,7 @@ public class StatisticsList extends Model {
 
     /**
      * Adds a new Statistic to the object.
+     *
      * @param id the id given to the new Statistic.
      */
     private void addStatistic(String id) {
@@ -29,6 +30,7 @@ public class StatisticsList extends Model {
 
     /**
      * Adds the given amount to the Statistic linked to the id.
+     *
      * @param id the id of the Statistic.
      * @param amount the amount to add to the Statistic.
      */
@@ -39,6 +41,7 @@ public class StatisticsList extends Model {
 
     /**
      * Returns the total of the Statistic linked to the id.
+     *
      * @param id the id of the Statistic.
      * @return the total of the Statistic linked to the id.
      */
@@ -49,6 +52,7 @@ public class StatisticsList extends Model {
 
     /**
      * Returns the sum of all the values added to the Statistic in the past hour.
+     *
      * @param id the id of the Statistic.
      * @return the sum of all the values added to the Statistic in the past hour.
      */
@@ -59,6 +63,7 @@ public class StatisticsList extends Model {
 
     /**
      * Returns the sum of all the values added to the Statistic in the past day.
+     *
      * @param id the id of the Statistic.
      * @return the sum of all the values added to the Statistic in the past day.
      */
@@ -87,6 +92,7 @@ public class StatisticsList extends Model {
 
     /**
      * Returns th Statistic linked to the given id.
+     *
      * @param id the id of the Statistic.
      * @return the Statistic linked to the id.
      */

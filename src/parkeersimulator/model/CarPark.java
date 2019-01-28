@@ -170,7 +170,7 @@ public class CarPark extends Model {
         Location location = car.getLocation();
         removeCarAt(car.getLocation());
         exitCarQueue.addCar(car);
-        if (car instanceof ParkingPassCar && ((ParkingPassCar) car).isAtReservedSpot()) {
+        if (car instanceof ParkingPassCar) {
             setCarAt(location, new ParkingPassSpot());
         }
     }
@@ -375,9 +375,6 @@ public class CarPark extends Model {
     private void setCarAt(Location location, Car car) {
         Car oldCar = getCarAt(location);
         if (oldCar == null || oldCar instanceof ParkingPassSpot && car instanceof ParkingPassCar || oldCar instanceof ReservedSpot && car instanceof ReservedAdHocCar) {
-            if (oldCar instanceof ParkingPassSpot) {
-                ((ParkingPassCar) car).setAtReservedSpot(true);
-            }
             cars[location.getFloor()][location.getRow()][location.getPlace()] = car;
             car.setLocation(location);
             if (oldCar == null) {
@@ -476,7 +473,8 @@ public class CarPark extends Model {
     }
 
     /**
-     * Sets the amount of parking spots reserved for passholders only.
+     * Sets the amount of parking spots reserved for pass holders only.
+     *
      * @param amount the amount of spots to be reserved.
      */
     private void setParkingPassSpots(int amount) {

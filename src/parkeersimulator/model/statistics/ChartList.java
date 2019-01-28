@@ -11,7 +11,7 @@ import java.util.Map;
 /**
  * This class represents a list of all the StatisticCharts and its corresponding Statistic.
  *
- * @version 28.1.2019.
+ * @version 28.01.2019
  */
 public class ChartList extends Model {
 
@@ -109,6 +109,7 @@ public class ChartList extends Model {
 
     /**
      * Resets the object to a state as if it was just initialized.
+     *
      * @param statisticsList the new StatisticsList to be linked to this object.
      */
     public void reset(StatisticsList statisticsList) {

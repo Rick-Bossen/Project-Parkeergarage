@@ -10,6 +10,12 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 //TODO add more statistics
+
+/**
+ * This class contains the whole Statistics/Results page.
+ *
+ * @version 26.01.2019.
+ */
 public class StatisticsView extends GridBagView {
 
     private JLabel total;
@@ -49,15 +55,24 @@ public class StatisticsView extends GridBagView {
         generateCharts(charts);
     }
 
-    private JLabel generateLabel(String name) {
+    /**
+     * Generates a new JLabel and styles it.
+     *
+     * @param text the text that the JLabel should display.
+     * @return the generated JLabel.
+     */
+    private JLabel generateLabel(String text) {
         JLabel label = new JLabel();
-        label.setText(name);
+        label.setText(text);
         label.setFont(new Font("Dubai", Font.BOLD, 14));
         label.setForeground(Color.white);
 
         return label;
     }
 
+    /**
+     * Generates all the JLabels on the the view.
+     */
     private void generateLabels() {
         GridBagConstraints constraints;
 
@@ -107,6 +122,11 @@ public class StatisticsView extends GridBagView {
         add(daily, constraints);
     }
 
+    /**
+     * Retrieves all the needed charts from a ChartList and adds them to the view.
+     *
+     * @param charts the ChartList to retrieve the charts from.
+     */
     private void generateCharts(ChartList charts)
     {
         GridBagConstraints constraints;
@@ -126,6 +146,11 @@ public class StatisticsView extends GridBagView {
         add(dailyProfit, constraints);
     }
 
+    /**
+     * Resets all the content of tie view and links a new ChartList to the charts.
+     *
+     * @param chartList the new ChartList to be used.
+     */
     public void reset(ChartList chartList)
     {
         removeAll();
