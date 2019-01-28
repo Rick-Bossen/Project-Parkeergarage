@@ -4,9 +4,11 @@ import parkeersimulator.framework.Controller;
 import parkeersimulator.framework.View;
 import parkeersimulator.model.CarPark;
 import parkeersimulator.model.Clock;
+import parkeersimulator.model.statistics.ChartList;
 import parkeersimulator.model.statistics.StatisticsList;
 import parkeersimulator.utility.Settings;
 import parkeersimulator.view.CarParkControls;
+import parkeersimulator.view.StatisticsView;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -34,13 +36,17 @@ public class Simulator extends Controller {
     private Clock clock;
     private CarPark carPark;
     private StatisticsList statisticsList;
+    private ChartList chartList;
+    private StatisticsView statisticsView;
     private boolean halt = false;
     private boolean isRunning = false;
 
-    public Simulator(Clock clock, CarPark carPark, StatisticsList statisticsList) {
+    public Simulator(Clock clock, CarPark carPark, StatisticsList statisticsList, ChartList chartList, StatisticsView statisticsView) {
         this.clock = clock;
         this.carPark = carPark;
         this.statisticsList = statisticsList;
+        this.chartList = chartList;
+        this.statisticsView = statisticsView;
     }
 
     /**
@@ -81,6 +87,7 @@ public class Simulator extends Controller {
     private void tick(boolean updateViews) {
         clock.advanceTime();
         statisticsList.tick();
+        chartList.tick();
         carPark.tick();
         carPark.queueReservations(clock.getDayOfWeek());
         carPark.handleEntrance(clock);
@@ -106,6 +113,8 @@ public class Simulator extends Controller {
         clock.reset();
         carPark.reset();
         statisticsList.reset();
+        chartList.reset(statisticsList);
+        statisticsView.reset(chartList);
         stop();
     }
 

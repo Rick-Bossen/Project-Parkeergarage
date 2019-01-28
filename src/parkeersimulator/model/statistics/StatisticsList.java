@@ -29,14 +29,14 @@ public class StatisticsList extends Model {
         return statistic.getTotal();
     }
 
-    public int getHourAvg(String id) {
+    public int getPastHour(String id) {
         Statistic statistic = statistics.get(id);
-        return statistic.getHourAvg();
+        return statistic.getPastHour();
     }
 
-    public int getDayAvg(String id) {
+    public int getPastDay(String id) {
         Statistic statistic = statistics.get(id);
-        return statistic.getDayAvg();
+        return statistic.getPastDay();
     }
 
     public void tick() {
@@ -51,6 +51,11 @@ public class StatisticsList extends Model {
         fillStatisticsList();
     }
 
+    Statistic getStatistic(String id)
+    {
+        return statistics.get(id);
+    }
+
 
     private void fillStatisticsList() {
         addStatistic("profit.total");
@@ -60,5 +65,4 @@ public class StatisticsList extends Model {
         addStatistic("cars.entered");
         addStatistic("cars.missed");
     }
-
 }

@@ -59,15 +59,15 @@ class Statistic extends Model {
         return total;
     }
 
-    int getHourAvg() {
-        return average(pastHour);
+    int getPastHour() {
+        return sum(pastHour);
     }
 
-    int getDayAvg() {
-        return average(pastDay);
+    int getPastDay() {
+        return sum(pastDay);
     }
 
-    private int average(ArrayList<Integer> arrayList)
+    private int sum(ArrayList<Integer> arrayList)
     {
         int output = 0;
         if (arrayList.size() > 0) {
