@@ -5,6 +5,11 @@ import parkeersimulator.model.Clock;
 
 import java.util.ArrayList;
 
+/**
+ * A class that represents a single numeral statistic and the hourly and daily total amount of added values.
+ *
+ * @version 27.1.2019.
+ */
 class Statistic extends Model {
 
     private int total;
@@ -22,12 +27,19 @@ class Statistic extends Model {
         pastDay = new ArrayList<>();
     }
 
+    /**
+     * Advances the time, increments tick and calls for the handleArrays() method.
+     */
     void tick() {
         clock.advanceTime();
         ticks++;
         handleArrays();
     }
 
+    /**
+     * Adds new values to the arrays if needed and makes sure that the total amount of values does not exceed a certain
+     * threshold.
+     */
     private void handleArrays()
     {
         pastHour.add(lastTick);
@@ -50,23 +62,41 @@ class Statistic extends Model {
         }
     }
 
+    /**
+     * Adds a given number to the total and to the total of this tick.
+     * @param amount the given amount to add up to the total and total of this tick.
+     */
     void add(int amount) {
         total += amount;
         lastTick += amount;
     }
 
+    /**
+     * @return The sum of all added values.
+     */
     int getTotal() {
         return total;
     }
 
+    /**
+     * @return The sum of all the values from the past 60 ticks.
+     */
     int getPastHour() {
         return sum(pastHour);
     }
 
+    /**
+     * @return The sum of all the values from the past 24 hours (of 60 ticks each).
+     */
     int getPastDay() {
         return sum(pastDay);
     }
 
+    /**
+     * Calculates and returns the sum of all the values inside of a given ArrayList.
+     * @param arrayList the ArrayList containing all the values to calculate the sum of.
+     * @return the total sum of all the values inside of the ArrayList.
+     */
     private int sum(ArrayList<Integer> arrayList)
     {
         int output = 0;

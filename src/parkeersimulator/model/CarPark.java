@@ -475,6 +475,10 @@ public class CarPark extends Model {
         handleExit();
     }
 
+    /**
+     * Sets the amount of parking spots reserved for passholders only.
+     * @param amount the amount of spots to be reserved.
+     */
     private void setParkingPassSpots(int amount) {
         int currentFloor = 0;
         int currentRow = 0;
@@ -499,6 +503,9 @@ public class CarPark extends Model {
         }
     }
 
+    /**
+     * Updates the view for the parking garage.
+     */
     public void updateFloors() {
         updateViews();
     }

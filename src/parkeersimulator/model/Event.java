@@ -1,5 +1,4 @@
 package parkeersimulator.model;
-import java.time.DayOfWeek;
 import java.util.HashMap;
 
 /**

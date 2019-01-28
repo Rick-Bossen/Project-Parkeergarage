@@ -9,7 +9,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
-//TODO add more statistics (and graphs)
+//TODO add more statistics
 public class StatisticsView extends GridBagView {
 
     private JLabel total;
