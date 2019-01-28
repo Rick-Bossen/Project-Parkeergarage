@@ -1,4 +1,4 @@
-package parkeersimulator.view;
+package parkeersimulator.view.gui;
 
 import parkeersimulator.framework.GridBagView;
 import parkeersimulator.framework.Model;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 /**
  * Sidebar used to navigate the different views.
  *
- * @version 27.01.2019.
+ * @version 28.01.2019.
  */
 public class SideBar extends GridBagView {
 

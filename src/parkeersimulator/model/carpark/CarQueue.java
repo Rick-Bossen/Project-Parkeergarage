@@ -1,6 +1,7 @@
-package parkeersimulator.model;
+package parkeersimulator.model.carpark;
 
 import parkeersimulator.framework.Model;
+import parkeersimulator.model.car.Car;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -9,7 +10,7 @@ import java.util.Queue;
  * Represents a queue of cars (customers),
  * This contains all cars currently in the queue.
  *
- * @version 27.01.2019.
+ * @version 28.01.2019.
  */
 public class CarQueue extends Model {
 
@@ -21,7 +22,7 @@ public class CarQueue extends Model {
      *
      * @param speed Speed of the queue.
      */
-    public CarQueue(int speed) {
+    CarQueue(int speed) {
         this.speed = speed;
     }
 
@@ -30,7 +31,7 @@ public class CarQueue extends Model {
      *
      * @param car Car that is added to the queue.
      */
-    public void addCar(Car car) {
+    void addCar(Car car) {
         queue.add(car);
     }
 
@@ -46,7 +47,7 @@ public class CarQueue extends Model {
      *
      * @return The first Car in the queue.
      */
-    public Car removeCar() {
+    Car removeCar() {
         return queue.poll();
     }
 
@@ -55,7 +56,7 @@ public class CarQueue extends Model {
      *
      * @return The amount of cars.
      */
-    public int carsInQueue() {
+    int carsInQueue() {
         return queue.size();
     }
 
@@ -64,7 +65,7 @@ public class CarQueue extends Model {
      *
      * @return Integer representing the speed.
      */
-    public int getSpeed() {
+    int getSpeed() {
         return speed;
     }
 

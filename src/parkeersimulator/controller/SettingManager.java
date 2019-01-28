@@ -3,8 +3,14 @@ package parkeersimulator.controller;
 import parkeersimulator.framework.Controller;
 import parkeersimulator.framework.View;
 import parkeersimulator.model.*;
+import parkeersimulator.model.car.AdHocCar;
+import parkeersimulator.model.car.ParkingPassCar;
+import parkeersimulator.model.car.ReservedSpot;
+import parkeersimulator.model.carpark.CarPark;
+import parkeersimulator.model.carpark.CustomerGroup;
+import parkeersimulator.model.settings.SettingCategory;
 import parkeersimulator.utility.Settings;
-import parkeersimulator.view.SettingView;
+import parkeersimulator.view.settings.SettingView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,7 +21,7 @@ import java.util.Map;
 /**
  * This class represents the controller for the settings tab.
  *
- * @version 27.01.2019.
+ * @version 28.01.2019.
  */
 public class SettingManager extends Controller {
 

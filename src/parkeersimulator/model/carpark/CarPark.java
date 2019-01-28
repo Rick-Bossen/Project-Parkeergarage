@@ -1,6 +1,8 @@
-package parkeersimulator.model;
+package parkeersimulator.model.carpark;
 
 import parkeersimulator.framework.Model;
+import parkeersimulator.model.*;
+import parkeersimulator.model.car.*;
 import parkeersimulator.model.statistics.StatisticsList;
 import parkeersimulator.utility.Settings;
 

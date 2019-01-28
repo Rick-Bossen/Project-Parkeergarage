@@ -3,12 +3,12 @@ package parkeersimulator.controller;
 import parkeersimulator.framework.Controller;
 import parkeersimulator.framework.View;
 import parkeersimulator.model.TabList;
-import parkeersimulator.view.SideBar;
+import parkeersimulator.view.gui.SideBar;
 
 /**
  * This class represents the Controller used for navigating through the different tabs.
  *
- * @version 27.01.2019
+ * @version 28.01.2019
  */
 public class Navigation extends Controller {
 

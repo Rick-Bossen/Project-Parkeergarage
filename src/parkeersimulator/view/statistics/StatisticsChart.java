@@ -1,4 +1,4 @@
-package parkeersimulator.view;
+package parkeersimulator.view.statistics;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;

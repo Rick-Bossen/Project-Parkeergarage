@@ -1,4 +1,4 @@
-package parkeersimulator.model;
+package parkeersimulator.model.settings;
 
 import parkeersimulator.framework.Model;
 import parkeersimulator.utility.Settings;
@@ -11,7 +11,7 @@ import java.util.Map;
  * This class represents a settings category in which all the current settings are contained,
  * current settings can be updated.
  *
- * @version 27.01.2019.
+ * @version 28.01.2019.
  */
 public class SettingCategory extends Model {
 
@@ -21,7 +21,7 @@ public class SettingCategory extends Model {
     private HashMap<String, Integer> oldValues;
     private HashMap<String, Integer> newValues;
 
-    public SettingCategory(String categoryId, String category) {
+    SettingCategory(String categoryId, String category) {
         this.categoryId = categoryId;
         this.category = category;
         settings = new LinkedHashMap<>();
@@ -35,7 +35,7 @@ public class SettingCategory extends Model {
      * @param key   Key of the setting.
      * @param label Label of the setting.
      */
-    public void addSetting(String key, String label) {
+    void addSetting(String key, String label) {
         settings.put(key, label);
         oldValues.put(key, Settings.get(key));
     }

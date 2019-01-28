@@ -1,4 +1,4 @@
-package parkeersimulator.view;
+package parkeersimulator.view.settings;
 
 
 import parkeersimulator.controller.SettingManager;
@@ -11,7 +11,7 @@ import java.awt.*;
 /**
  * This class represents the view containing the controls to control the car park.
  *
- * @version 27.01.2019.
+ * @version 28.01.2019.
  */
 public class SettingControls extends GridBagView {
 

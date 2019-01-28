@@ -2,13 +2,13 @@ package parkeersimulator.controller;
 
 import parkeersimulator.framework.Controller;
 import parkeersimulator.framework.View;
-import parkeersimulator.model.CarPark;
+import parkeersimulator.model.carpark.CarPark;
 import parkeersimulator.model.Clock;
 import parkeersimulator.model.statistics.ChartList;
 import parkeersimulator.model.statistics.StatisticsList;
 import parkeersimulator.utility.Settings;
-import parkeersimulator.view.CarParkControls;
-import parkeersimulator.view.StatisticsView;
+import parkeersimulator.view.carpark.CarParkControls;
+import parkeersimulator.view.statistics.StatisticsView;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
