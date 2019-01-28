@@ -3,6 +3,7 @@ package parkeersimulator.view;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.StandardChartTheme;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.LineAndShapeRenderer;
@@ -15,17 +16,35 @@ public class StatisticsChart extends JPanel {
 
     private JFreeChart chart;
     private DefaultCategoryDataset dataset;
+    final StandardChartTheme chartTheme = (StandardChartTheme)org.jfree.chart.StandardChartTheme.createJFreeTheme();
 
     public StatisticsChart(String title, String xLabel, String yLabel)
     {
+        createTheme();
         dataset = new DefaultCategoryDataset();
         chart = ChartFactory.createLineChart(title,xLabel,yLabel,dataset,PlotOrientation.VERTICAL,false,false,false);
+        chartTheme.apply(chart);
         CategoryPlot plot = chart.getCategoryPlot();
         LineAndShapeRenderer renderer = (LineAndShapeRenderer) plot.getRenderer();
         renderer.setDefaultShapesVisible(true);
         ChartPanel chartPanel = new ChartPanel(chart);
         chartPanel.setPreferredSize(new Dimension(300,200));
         add(chartPanel);
+    }
+
+    /**
+     * Create chart theme.
+     */
+    private void createTheme(){
+        Font oldExtraLargeFont = chartTheme.getExtraLargeFont();
+        Font oldLargeFont = chartTheme.getLargeFont();
+        Font oldRegularFont = chartTheme.getRegularFont();
+        Font oldSmallFont = chartTheme.getSmallFont();
+
+        chartTheme.setExtraLargeFont(new Font("Dubai", oldExtraLargeFont.getStyle(), oldExtraLargeFont.getSize()));
+        chartTheme.setLargeFont(new Font("Dubai", oldLargeFont.getStyle(), oldLargeFont.getSize()));
+        chartTheme.setRegularFont(new Font("Dubai", oldRegularFont.getStyle(), oldRegularFont.getSize()));
+        chartTheme.setSmallFont(new Font("Dubai", oldSmallFont.getStyle(), oldSmallFont.getSize()));
     }
 
     /**

@@ -34,7 +34,7 @@ public class SettingView extends GridBagView {
         setVerticalPriority(1);
         setGridHeight(1);
         setBorder(new EmptyBorder(20, 0, 40, 0));
-        setBackground(new Color(215, 215, 215));
+        setBackground(Color.white);
 
         NumberFormat format = NumberFormat.getInstance();
         NumberFormatter formatter = new NumberFormatter(format);
@@ -77,7 +77,7 @@ public class SettingView extends GridBagView {
         JLabel categoryLabel = new JLabel();
         categoryLabel.setText(category.getCategory());
         categoryLabel.setFont(new Font("Dubai", Font.BOLD, 16));
-        categoryLabel.setForeground(Color.white);
+        categoryLabel.setForeground(new Color(45, 52, 54));
 
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.gridx = 1;
@@ -88,8 +88,8 @@ public class SettingView extends GridBagView {
         add(categoryLabel, constraints);
 
         JSeparator categorySeparator = new JSeparator(SwingConstants.HORIZONTAL);
-        categorySeparator.setBackground(Color.white);
-        categorySeparator.setForeground(Color.white);
+        categorySeparator.setBackground(new Color(45, 52, 54));
+        categorySeparator.setForeground(new Color(45, 52, 54));
         constraints = new GridBagConstraints();
         constraints.gridx = 1;
         constraints.gridy = index + 1;
@@ -114,7 +114,7 @@ public class SettingView extends GridBagView {
         JLabel settingsLabel = new JLabel();
         settingsLabel.setText(name + ": ");
         settingsLabel.setFont(new Font("Dubai", Font.BOLD, 14));
-        settingsLabel.setForeground(Color.white);
+        settingsLabel.setForeground(new Color(45, 52, 54));
 
         constraints = new GridBagConstraints();
         constraints.gridx = 1;
@@ -127,7 +127,6 @@ public class SettingView extends GridBagView {
         settingsField.setFont(new Font("Dubai", Font.BOLD, 14));
         settingsField.setValue(Settings.get(key));
         settingsField.setColumns(10);
-        settingsField.setBorder(null);
         settingsField.addPropertyChangeListener(e -> categories.get(category.getCategory()).addValue(key, (int) settingsField.getValue()));
 
         constraints = new GridBagConstraints();

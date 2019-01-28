@@ -23,7 +23,7 @@ public class StatisticsView extends GridBagView {
         setVerticalPriority(1);
         setGridHeight(1);
         setBorder(new EmptyBorder(20, 0, 40, 0));
-        setBackground(new Color(215, 215, 215));
+        setBackground(Color.white);
 
         setLayout(new GridBagLayout());
 
@@ -53,7 +53,7 @@ public class StatisticsView extends GridBagView {
         JLabel label = new JLabel();
         label.setText(name);
         label.setFont(new Font("Dubai", Font.BOLD, 14));
-        label.setForeground(Color.white);
+        label.setForeground(new Color(45, 52, 54));
 
         return label;
     }
