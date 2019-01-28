@@ -14,7 +14,7 @@ import java.awt.*;
 /**
  * This class contains the whole Statistics/Results page.
  *
- * @version 26.01.2019.
+ * @version 28.01.2019.
  */
 public class StatisticsView extends GridBagView {
 

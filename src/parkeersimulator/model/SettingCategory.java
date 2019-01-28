@@ -7,6 +7,12 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * This class represents a settings category in which all the current settings are contained,
+ * current settings can be updated.
+ *
+ * @version 27.01.2019.
+ */
 public class SettingCategory extends Model {
 
     private String category;
@@ -35,10 +41,10 @@ public class SettingCategory extends Model {
     }
 
     /**
-     * Add a new value to this category
+     * Add a new value to this category.
      *
-     * @param key   Setting key
-     * @param value New value of the setting
+     * @param key   Setting key.
+     * @param value New value of the setting.
      */
     public void addValue(String key, int value) {
         if (settings.get(key) != null && oldValues.get(key) != value) {
@@ -47,36 +53,36 @@ public class SettingCategory extends Model {
     }
 
     /**
-     * Get category name
+     * Get category name.
      *
-     * @return name
+     * @return name.
      */
     public String getCategory() {
         return category;
     }
 
     /**
-     * Get category id
+     * Get category id.
      *
-     * @return name
+     * @return name.
      */
     public String getCategoryId() {
         return categoryId;
     }
 
     /**
-     * Get all settings of this category
+     * Get all settings of this category.
      *
-     * @return HashMap with all settings
+     * @return HashMap with all settings.
      */
     public HashMap<String, String> getSettings() {
         return settings;
     }
 
     /**
-     * Get all new values of this category
+     * Get all new values of this category.
      *
-     * @return HashMap with all changed values
+     * @return HashMap with all changed values.
      */
     public HashMap<String, Integer> getValues() {
         return newValues;

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 /**
  * This class represents the view containing the controls to control the car park.
  *
- * @version 18.01.2019.
+ * @version 27.01.2019.
  */
 public class CarParkControls extends GridBagView {
 

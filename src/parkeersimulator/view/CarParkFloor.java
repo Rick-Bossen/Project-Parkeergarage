@@ -11,7 +11,7 @@ import java.awt.*;
  * It has the ability to draw parking spots and cars accordingly.
  *
  * @author M. Visser
- * @version 14.01.2019.
+ * @version 27.01.2019.
  */
 public class CarParkFloor extends JPanel {
 
@@ -262,6 +262,7 @@ public class CarParkFloor extends JPanel {
     /**
      * Overridden. Tell the GUI manager how big we would like to be.
      */
+    @Override
     public Dimension getPreferredSize() {
         return new Dimension(Settings.get("width"), Settings.get("height"));
     }

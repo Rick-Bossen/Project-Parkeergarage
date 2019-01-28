@@ -11,7 +11,7 @@ import java.util.ArrayList;
 /**
  * Sidebar used to navigate the different views.
  *
- * @version 13.01.2019.
+ * @version 27.01.2019.
  */
 public class SideBar extends GridBagView {
 

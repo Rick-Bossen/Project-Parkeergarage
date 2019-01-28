@@ -109,9 +109,9 @@ public class ParkingSimulation {
     }
 
     /**
-     * Start a new parking simulation
+     * Start a new parking simulation.
      *
-     * @param args String[] containing all running arguments
+     * @param args String[] containing all running arguments.
      */
     public static void main(String[] args) {
         new ParkingSimulation();

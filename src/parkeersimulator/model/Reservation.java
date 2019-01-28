@@ -4,10 +4,10 @@ import java.util.Random;
 import java.util.UUID;
 
 /**
- * This class represents a single reservation.
+ * This class represents a single reservation,
  * Contains the Location, time until the reservation and an unique id.
  *
- * @version 22.01.2019.
+ * @version 27.01.2019.
  */
 public class Reservation {
 
