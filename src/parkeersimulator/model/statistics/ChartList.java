@@ -32,6 +32,7 @@ public class ChartList extends Model {
 
     /**
      * Adds one new chart to the ChartList.
+     *
      * @param id the id of the chart.
      * @param title the title of the chart.
      * @param xLabel the label that will be displayed on the x axis of the chart.
@@ -40,7 +41,7 @@ public class ChartList extends Model {
      * @param updateDaily makes the chart add a data point once every 24 hours instead of once every hour.
      */
     private void addChart(String id,String title, String xLabel, String yLabel,Statistic statistic, Boolean updateDaily) {
-        StatisticsChart chart = new StatisticsChart(title,xLabel,yLabel,updateDaily);
+        StatisticsChart chart = new StatisticsChart(title,xLabel,yLabel);
         charts.put(id, chart);
         if (updateDaily) {
             this.updateDaily.put(chart,statistic);
@@ -50,7 +51,41 @@ public class ChartList extends Model {
     }
 
     /**
+     * A method to add new charts to the simulation.
+     */
+    private void fillChartList()
+    {
+        addChart("profit.hourly","Hourly Profit","Hour", "Profit", statisticsList.getStatistic("profit.total"),false);
+        addChart("profit.daily","Daily Profit","Day","Profit", statisticsList.getStatistic("profit.total") ,true);
+    }
+
+    /**
+     * Adds a new data point to all the StatisticsCharts contained inside of updateHourly.
+     */
+    private void updateHourlyCharts()
+    {
+        for(Map.Entry<StatisticsChart,Statistic> entry : updateHourly.entrySet()) {
+            Statistic statistic = entry.getValue();
+            StatisticsChart chart = entry.getKey();
+            chart.addValue(clock.getHour(), statistic.getPastHour());
+        }
+    }
+
+    /**
+     * Adds a new data point to all the StatisticsCharts contained inside of updateDaily.
+     */
+    private void updateDailyCharts()
+    {
+        for(Map.Entry<StatisticsChart,Statistic> entry : updateDaily.entrySet()) {
+            Statistic statistic = entry.getValue();
+            StatisticsChart chart = entry.getKey();
+            chart.addValue(clock.getDay(), statistic.getPastDay());
+        }
+    }
+
+    /**
      * Returns the StatisticsChart with the given id.
+     *
      * @param id the id of the StatisticsChart.
      * @return the StatisticsChart linked to the given id.
      */
@@ -64,16 +99,10 @@ public class ChartList extends Model {
      */
     public void tick() {
         clock.advanceTime();
-        for (StatisticsChart chart : charts.values()) {
-            chart.tick();
-        }
         updateViews();
 
-        if (clock.getMinute() == 0) {
+        if (clock.getMinute() == 0 || clock.getMinute() % 10 == 0) {
             updateHourlyCharts();
-        }
-
-        if (clock.getHour() == 0 && clock.getMinute() == 0) {
             updateDailyCharts();
         }
     }
@@ -89,38 +118,5 @@ public class ChartList extends Model {
         updateHourly.clear();
         this.statisticsList = statisticsList;
         fillChartList();
-    }
-
-    /**
-     * A method to add new charts to the simulation.
-     */
-    private void fillChartList()
-    {
-        addChart("profit.hourly","Hourly Profit","Hour", "Profit",statisticsList.getStatistic("profit.total"),false);
-        addChart("profit.daily","Daily Profit","Day","Profit",statisticsList.getStatistic("profit.total") ,true);
-    }
-
-    /**
-     * Adds a new data point to all the StatisticsCharts contained inside of updateHourly.
-     */
-    private void updateHourlyCharts()
-    {
-        for(Map.Entry<StatisticsChart,Statistic> entry : updateHourly.entrySet()) {
-            Statistic statistic = entry.getValue();
-            StatisticsChart chart = entry.getKey();
-            chart.add(statistic.getPastHour());
-        }
-    }
-
-    /**
-     * Adds a new data point to all the StatisticsCharts contained inside of updateDaily.
-     */
-    private void updateDailyCharts()
-    {
-        for(Map.Entry<StatisticsChart,Statistic> entry : updateDaily.entrySet()) {
-            Statistic statistic = entry.getValue();
-            StatisticsChart chart = entry.getKey();
-            chart.add(statistic.getPastDay());
-        }
     }
 }

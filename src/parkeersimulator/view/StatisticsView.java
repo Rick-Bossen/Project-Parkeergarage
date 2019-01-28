@@ -61,7 +61,7 @@ public class StatisticsView extends GridBagView {
     private void generateLabels() {
         GridBagConstraints constraints;
 
-        JLabel totalLabel = generateLabel("Total: ");
+        JLabel totalLabel = generateLabel("Total profit: ");
         constraints = new GridBagConstraints();
         constraints.gridx = 1;
         constraints.gridy = 0;

@@ -63,6 +63,22 @@ class Statistic extends Model {
     }
 
     /**
+     * Calculates and returns the sum of all the values inside of a given ArrayList.
+     * @param arrayList the ArrayList containing all the values to calculate the sum of.
+     * @return the total sum of all the values inside of the ArrayList.
+     */
+    private int sum(ArrayList<Integer> arrayList)
+    {
+        int output = 0;
+        if (arrayList.size() > 0) {
+            for (int value : arrayList) {
+                output += value;
+            }
+        }
+        return output;
+    }
+
+    /**
      * Adds a given number to the total and to the total of this tick.
      * @param amount the given amount to add up to the total and total of this tick.
      */
@@ -92,19 +108,4 @@ class Statistic extends Model {
         return sum(pastDay);
     }
 
-    /**
-     * Calculates and returns the sum of all the values inside of a given ArrayList.
-     * @param arrayList the ArrayList containing all the values to calculate the sum of.
-     * @return the total sum of all the values inside of the ArrayList.
-     */
-    private int sum(ArrayList<Integer> arrayList)
-    {
-        int output = 0;
-        if (arrayList.size() > 0) {
-            for (int value : arrayList) {
-                output += value;
-            }
-        }
-        return output;
-    }
 }
