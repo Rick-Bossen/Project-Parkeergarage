@@ -8,7 +8,7 @@ import java.awt.*;
  * This class represents a car with no entry type,
  * Has the properties location and payment process of the customer.
  *
- * @version 13.01.2019
+ * @version 27.01.2019.
  */
 public abstract class Car extends Model {
 

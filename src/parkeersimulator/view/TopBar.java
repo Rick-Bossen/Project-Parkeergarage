@@ -10,7 +10,7 @@ import java.awt.*;
 /**
  * Top bar containing the title and name.
  *
- * @version 13.01.2019
+ * @version 13.01.2019.
  */
 public class TopBar extends GridBagView {
 

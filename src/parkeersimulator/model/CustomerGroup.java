@@ -8,6 +8,8 @@ import java.util.Random;
 /**
  * Customer group for one specific entry type.
  * Used types: ad hoc and parking pass.
+ *
+ * @version 27.01.2019.
  */
 public class CustomerGroup extends Model {
 
@@ -33,7 +35,7 @@ public class CustomerGroup extends Model {
     /**
      * Get the entrance queue used by these customers.
      *
-     * @return Car queue used by the customers
+     * @return Car queue used by the customers.
      */
     public CarQueue getEntranceCarQueue() {
         return entranceCarQueue;
@@ -49,18 +51,18 @@ public class CustomerGroup extends Model {
     }
 
     /**
-     * Set new weekday arrivals
+     * Set new weekday arrivals.
      *
-     * @param arrivals arrivals per weekday
+     * @param arrivals arrivals per weekday.
      */
     public void setWeekDayArrivals(int arrivals) {
         this.weekDayArrivals = arrivals;
     }
 
     /**
-     * Set new weekend arrivals
+     * Set new weekend arrivals.
      *
-     * @param arrivals arrivals per weekend
+     * @param arrivals arrivals per weekend.
      */
     public void setWeekendArrivals(int arrivals) {
         this.weekendArrivals = arrivals;
@@ -79,6 +81,12 @@ public class CustomerGroup extends Model {
         }
     }
 
+    /**
+     * Returns the number of car arrivals per hour depending on the day of the week and current events.
+     *
+     * @param clock the clock used to check the time.
+     * @return the number of car arrivals per hour.
+     */
     public int getNumberOfCars(Clock clock){
         int averageNumber;
         if(clock.getDayOfWeek() < 6){

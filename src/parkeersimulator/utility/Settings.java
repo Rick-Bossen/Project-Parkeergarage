@@ -30,7 +30,7 @@ public class Settings {
     /**
      * Return instance of the settings managers.
      *
-     * @return Settings
+     * @return Settings.
      */
     public static Settings getInstance() {
         return instance;
@@ -41,7 +41,7 @@ public class Settings {
      * If the key is not found return 0.
      *
      * @param key name of the setting.
-     * @return value of the setting
+     * @return value of the setting.
      */
     public static int get(String key) {
         String value = instance.properties.getProperty(key);
@@ -58,7 +58,7 @@ public class Settings {
     /**
      * Update a setting. Only allowed to update existing settings.
      *
-     * @param key   Key of the setting
+     * @param key   Key of the setting.
      * @param value Value of the configuration.
      */
     public static void set(String key, int value) {

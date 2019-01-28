@@ -11,7 +11,7 @@ import java.util.Random;
 /**
  * This class represents the whole car park containing the location of all cars and the statistics with it.
  *
- * @version 18.01.2019.
+ * @version 28.01.2019.
  */
 public class CarPark extends Model {
 

@@ -2,13 +2,18 @@ package parkeersimulator.framework;
 
 import javax.swing.*;
 
+/**
+ * Abstract class used by all views.
+ *
+ * @version 27.01.2019.
+ */
 public abstract class View extends JPanel {
 
     private Controller controller;
     private View eventView = this;
 
     /**
-     * Attach controller to view
+     * Attach controller to view.
      *
      * @param controller controller to use.
      */
@@ -20,9 +25,9 @@ public abstract class View extends JPanel {
     }
 
     /**
-     * Notify controller of event, called by subclasses (concrete views)
+     * Notify controller of event, called by subclasses (concrete views).
      *
-     * @param eventId id of event
+     * @param eventId id of event.
      */
     protected void sendEvent(int eventId) {
         if (controller == null) {
@@ -41,7 +46,7 @@ public abstract class View extends JPanel {
     }
 
     /**
-     * Update handler
+     * Update handler.
      *
      * @param model Model to use in the update.
      */

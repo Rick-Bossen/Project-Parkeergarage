@@ -18,6 +18,8 @@ import java.util.Map;
 
 /**
  * This class contains the whole settings page.
+ *
+ * @version 28.01.2019.
  */
 public class SettingView extends GridBagView {
 
@@ -67,10 +69,10 @@ public class SettingView extends GridBagView {
     }
 
     /**
-     * Add a new category label to the field
+     * Add a new category label to the field.
      *
-     * @param index    index of the location x
-     * @param category Category
+     * @param index    index of the location x.
+     * @param category Category.
      */
     private void addCategory(int index, SettingCategory category) {
         categories.put(category.getCategory(), category);
@@ -100,11 +102,11 @@ public class SettingView extends GridBagView {
     }
 
     /**
-     * Add a field to the view
+     * Add a field to the view.
      *
-     * @param index    location x of the items
-     * @param category Category of this item
-     * @param entry    Entry containing the name and label
+     * @param index    location x of the items.
+     * @param category Category of this item.
+     * @param entry    Entry containing the name and label.
      */
     private void addField(int index, SettingCategory category, Map.Entry entry) {
         GridBagConstraints constraints;

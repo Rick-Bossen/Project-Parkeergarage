@@ -6,8 +6,10 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 /**
- * Represents a queue of cars (customers)
+ * Represents a queue of cars (customers),
  * This contains all cars currently in the queue.
+ *
+ * @version 27.01.2019.
  */
 public class CarQueue extends Model {
 

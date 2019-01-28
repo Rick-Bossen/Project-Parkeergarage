@@ -11,7 +11,7 @@ import java.awt.*;
 /**
  * This class represents the view containing the controls to control the car park.
  *
- * @version 18.01.2019
+ * @version 18.01.2019.
  */
 public class SettingControls extends GridBagView {
 
@@ -25,7 +25,7 @@ public class SettingControls extends GridBagView {
     }
 
     /**
-     * Create the UI components used in the current view
+     * Create the UI components used in the current view.
      */
     private void setUIComponents() {
         GridBagConstraints constraints;
@@ -65,9 +65,9 @@ public class SettingControls extends GridBagView {
     }
 
     /**
-     * Generate a new [basic] button
+     * Generate a new [basic] button.
      *
-     * @return new button
+     * @return new button.
      */
     private JButton generateNewButton() {
         JButton button = new JButton();

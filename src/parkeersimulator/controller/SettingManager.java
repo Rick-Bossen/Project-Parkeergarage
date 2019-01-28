@@ -12,6 +12,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * This class represents the controller for the settings tab.
+ *
+ * @version 27.01.2019.
+ */
 public class SettingManager extends Controller {
 
     public static final int RESET_TO_DEFAULT = 1;
@@ -56,6 +61,11 @@ public class SettingManager extends Controller {
         }
     }
 
+    /**
+     * Handles all the different settings categories.
+     *
+     * @param update the category to handle.
+     */
     private void handleCategory(String update) {
         switch (update) {
             case "general":

@@ -6,7 +6,7 @@ import parkeersimulator.framework.Model;
  * This class represents the location of the car in the car park.
  * It is based on that the car park has multiple floors.
  *
- * @version 18.01.2019
+ * @version 19.01.2019
  */
 public class Location extends Model {
 
@@ -15,7 +15,7 @@ public class Location extends Model {
     private int place;
 
     /**
-     * Constructor for objects of class Location
+     * Constructor for objects of class Location.
      */
     public Location(int floor, int row, int place) {
         this.floor = floor;

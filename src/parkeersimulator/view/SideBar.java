@@ -9,9 +9,9 @@ import java.awt.*;
 import java.util.ArrayList;
 
 /**
- * Sidebar used to navigate the different views
+ * Sidebar used to navigate the different views.
  *
- * @version 13.01.2019
+ * @version 13.01.2019.
  */
 public class SideBar extends GridBagView {
 
@@ -29,7 +29,7 @@ public class SideBar extends GridBagView {
     /**
      * Add menu item to sidebar.
      *
-     * @param name label of the menu item
+     * @param name label of the menu item.
      */
     private void addMenuItem(int number, String name) {
         GridBagConstraints constraints = new GridBagConstraints();
@@ -64,6 +64,12 @@ public class SideBar extends GridBagView {
         menuLabel.addActionListener(e -> sendEvent(number));
     }
 
+    /**
+     * Returns the text from a JLabel at the given index.
+     *
+     * @param index the index of the JLabel.
+     * @return the text assigned to the JLabel.
+     */
     public String getMenuText(int index) {
         return menuLabels.get(index).getText();
     }

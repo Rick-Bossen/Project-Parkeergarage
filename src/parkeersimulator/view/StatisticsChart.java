@@ -21,7 +21,7 @@ public class StatisticsChart extends JPanel {
 
     private JFreeChart chart;
     private DefaultCategoryDataset dataset;
-    final StandardChartTheme chartTheme = (StandardChartTheme)org.jfree.chart.StandardChartTheme.createJFreeTheme();
+    private final StandardChartTheme chartTheme = (StandardChartTheme)org.jfree.chart.StandardChartTheme.createJFreeTheme();
 
     public StatisticsChart(String title, String xLabel, String yLabel)
     {

@@ -7,7 +7,7 @@ import java.util.Random;
  * This class represents a car which contains a customer that pays ad hoc,
  * Contains the color of the car.
  *
- * @version 13.01.2019
+ * @version 28.01.2019.
  */
 public class AdHocCar extends Car {
 
