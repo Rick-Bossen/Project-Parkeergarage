@@ -41,8 +41,8 @@ public class Event {
 
     /**
      * Return if the event is currently ongoing.
-     * @param clock clock
-     * @return if is ongoing
+     * @param clock clock.
+     * @return if is ongoing.
      */
     public boolean isOngoing(Clock clock){
         if(days.get(clock.getDayOfWeek()) != null){

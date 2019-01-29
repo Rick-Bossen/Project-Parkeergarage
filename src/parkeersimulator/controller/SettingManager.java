@@ -3,8 +3,14 @@ package parkeersimulator.controller;
 import parkeersimulator.framework.Controller;
 import parkeersimulator.framework.View;
 import parkeersimulator.model.*;
+import parkeersimulator.model.car.AdHocCar;
+import parkeersimulator.model.car.ParkingPassCar;
+import parkeersimulator.model.car.ReservedSpot;
+import parkeersimulator.model.carpark.CarPark;
+import parkeersimulator.model.carpark.CustomerGroup;
+import parkeersimulator.model.settings.SettingCategory;
 import parkeersimulator.utility.Settings;
-import parkeersimulator.view.SettingView;
+import parkeersimulator.view.settings.SettingView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,6 +18,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * This class represents the controller for the settings tab.
+ *
+ * @version 28.01.2019.
+ */
 public class SettingManager extends Controller {
 
     public static final int RESET_TO_DEFAULT = 1;
@@ -56,6 +67,11 @@ public class SettingManager extends Controller {
         }
     }
 
+    /**
+     * Handles all the different settings categories.
+     *
+     * @param update the category to handle.
+     */
     private void handleCategory(String update) {
         switch (update) {
             case "general":

@@ -1,4 +1,4 @@
-package parkeersimulator.view;
+package parkeersimulator.view.carpark;
 
 
 import parkeersimulator.controller.Simulator;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 /**
  * This class represents the view containing the controls to control the car park.
  *
- * @version 18.01.2019
+ * @version 28.01.2019.
  */
 public class CarParkControls extends GridBagView {
 
@@ -28,7 +28,7 @@ public class CarParkControls extends GridBagView {
     }
 
     /**
-     * Create the UI components used in the current view
+     * Create the UI components used in the current view.
      */
     private void setUIComponents() {
         GridBagConstraints constraints = new GridBagConstraints();
@@ -60,9 +60,9 @@ public class CarParkControls extends GridBagView {
     }
 
     /**
-     * Add controller to the view with a given label and event
+     * Add controller to the view with a given label and event.
      *
-     * @param gridX   Horizontal position of the button
+     * @param gridX   Horizontal position of the button.
      * @param label   Label of the button.
      * @param eventId Event id of the button. If event id = -1 no action will be bound.
      */

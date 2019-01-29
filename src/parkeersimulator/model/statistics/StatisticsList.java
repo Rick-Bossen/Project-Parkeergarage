@@ -7,7 +7,7 @@ import java.util.LinkedHashMap;
 /**
  * A class that contains a list of all the tracked statistics linked to an unique id.
  *
- * @version 27.01.2019
+ * @version 28.01.2019.
  */
 public class StatisticsList extends Model {
 

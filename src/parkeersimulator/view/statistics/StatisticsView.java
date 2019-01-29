@@ -1,9 +1,10 @@
-package parkeersimulator.view;
+package parkeersimulator.view.statistics;
 
 import parkeersimulator.framework.GridBagView;
 import parkeersimulator.framework.Model;
 import parkeersimulator.model.statistics.ChartList;
 import parkeersimulator.model.statistics.StatisticsList;
+import parkeersimulator.view.statistics.StatisticsChart;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -14,7 +15,7 @@ import java.awt.*;
 /**
  * This class contains the whole Statistics/Results page.
  *
- * @version 26.01.2019.
+ * @version 28.01.2019.
  */
 public class StatisticsView extends GridBagView {
 

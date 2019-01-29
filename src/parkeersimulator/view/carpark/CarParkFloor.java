@@ -1,17 +1,21 @@
-package parkeersimulator.view;
+package parkeersimulator.view.carpark;
 
 import parkeersimulator.model.*;
+import parkeersimulator.model.car.Car;
+import parkeersimulator.model.car.ParkingPassSpot;
+import parkeersimulator.model.car.ReservedSpot;
+import parkeersimulator.model.carpark.CarPark;
 import parkeersimulator.utility.Settings;
 
 import javax.swing.*;
 import java.awt.*;
 
 /**
- * This class represents one of the floors containing the parking
- * It has the ability to draw parking spots and cars accordingly
+ * This class represents one of the floors containing the parking,
+ * It has the ability to draw parking spots and cars accordingly.
  *
  * @author M. Visser
- * @version 14.01.2019
+ * @version 28.01.2019.
  */
 public class CarParkFloor extends JPanel {
 
@@ -28,7 +32,7 @@ public class CarParkFloor extends JPanel {
     private int[] drawLock = new int[3];
 
 
-    public CarParkFloor(CarPark carPark, int floor) {
+    CarParkFloor(CarPark carPark, int floor) {
         super();
 
         this.carPark = carPark;
@@ -41,29 +45,29 @@ public class CarParkFloor extends JPanel {
     }
 
     /**
-     * Get the calculated horizontal starting point of the object
+     * Get the calculated horizontal starting point of the object.
      *
-     * @param location Location of the car/place
-     * @return x starting point
+     * @param location Location of the car/place.
+     * @return x starting point.
      */
     private int getX(Location location) {
         return useFactor(((int) Math.floor(location.getRow() * 0.5)) * 75 + (location.getRow() % 2) * (CAR_WIDTH + 6));
     }
 
     /**
-     * Get the calculated vertical starting point of the object
+     * Get the calculated vertical starting point of the object.
      *
-     * @param location Location of the car/place
-     * @return y starting point
+     * @param location Location of the car/place.
+     * @return y starting point.
      */
     private int getY(Location location) {
         return 10 + useFactor(location.getPlace() * (CAR_HEIGHT - 1));
     }
 
     /**
-     * Get the calculated horizontal offset of the first car/object
+     * Get the calculated horizontal offset of the first car/object.
      *
-     * @return x offset
+     * @return x offset.
      */
     private int getOffsetX() {
         int fullWidth = getX(new Location(0, carPark.getNumberOfRows() - 1, 0)) + useFactor(CAR_WIDTH);
@@ -71,9 +75,9 @@ public class CarParkFloor extends JPanel {
     }
 
     /**
-     * Get the calculated vertical offset of the first car/object
+     * Get the calculated vertical offset of the first car/object.
      *
-     * @return y offset
+     * @return y offset.
      */
     private int getOffsetY() {
         int fullHeight = getY(new Location(0, 0, carPark.getNumberOfPlaces() - 1)) + useFactor(CAR_HEIGHT);
@@ -81,26 +85,26 @@ public class CarParkFloor extends JPanel {
     }
 
     /**
-     * Calculates the factor to scale the drawn images accordingly
+     * Calculates the factor to scale the drawn images accordingly.
      */
     private void setFactor() {
         factor = Math.min((double) (size.width - 20) / (PARK_WIDTH / 6 * carPark.getNumberOfRows()), (double) (size.height - 20) / (PARK_HEIGHT / 30 * carPark.getNumberOfPlaces()));
     }
 
     /**
-     * Short hand for casting the calculated int
+     * Short hand for casting the calculated int.
      *
-     * @param original original number
-     * @return resized number
+     * @param original original number.
+     * @return resized number.
      */
     private int useFactor(int original) {
         return (int) (original * factor);
     }
 
     /**
-     * Draw the base floor with a label
+     * Draw the base floor with a label.
      *
-     * @param graphics image graphics used to draw the image
+     * @param graphics image graphics used to draw the image.
      */
     private void drawBase(Graphics graphics) {
         int baseWidth = getX(new Location(0, carPark.getNumberOfRows() - 1, 0)) + useFactor(CAR_WIDTH) + 30;
@@ -133,8 +137,8 @@ public class CarParkFloor extends JPanel {
     /**
      * Paint a place on this car park view.
      *
-     * @param graphics image graphics used to draw the image
-     * @param location Location of the parking spot
+     * @param graphics image graphics used to draw the image.
+     * @param location Location of the parking spot.
      */
     private void drawPlace(Graphics graphics, Location location) {
         graphics.setColor(Color.white);
@@ -155,9 +159,9 @@ public class CarParkFloor extends JPanel {
     /**
      * Draw rectangle in the location of the car.
      *
-     * @param graphics Graphics to draw on
-     * @param location Location of the drawing
-     * @param color    Color of the rectangle
+     * @param graphics Graphics to draw on.
+     * @param location Location of the drawing.
+     * @param color    Color of the rectangle.
      */
     private void drawRectangle(Graphics graphics, Location location, Color color) {
         graphics.setColor(color);
@@ -176,8 +180,8 @@ public class CarParkFloor extends JPanel {
     /**
      * Paint a car on this car park in a given color.
      *
-     * @param graphics image graphics used to draw the image
-     * @param car      current car
+     * @param graphics image graphics used to draw the image.
+     * @param car      current car.
      */
     private void drawCar(Graphics graphics, Car car) {
         Color color = car.getColor();
@@ -243,7 +247,7 @@ public class CarParkFloor extends JPanel {
     /**
      * Draws the image on resize.
      *
-     * @param graphics image graphics used to draw the image
+     * @param graphics image graphics used to draw the image.
      */
     protected void paintComponent(Graphics graphics) {
         if (carParkImage == null) {
@@ -262,15 +266,16 @@ public class CarParkFloor extends JPanel {
     /**
      * Overridden. Tell the GUI manager how big we would like to be.
      */
+    @Override
     public Dimension getPreferredSize() {
         return new Dimension(Settings.get("width"), Settings.get("height"));
     }
 
     /**
-     * Update the view.
+     * Update the view,
      * Draws the base floor, parking spots and cars.
      */
-    public void updateView() {
+    void updateView() {
         // Create a new car park image if the size has changed.
         boolean shouldRedraw = false;
         if (!size.equals(getSize())) {

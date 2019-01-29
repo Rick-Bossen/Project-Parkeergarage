@@ -7,8 +7,10 @@ import java.time.format.TextStyle;
 import java.util.Locale;
 
 /**
- * This class represents a clock which keeps the time and day currently in the simulation.
+ * This class represents a clock which keeps the time and day currently in the simulation,
  * It has the ability to advance the time.
+ *
+ * @version 27.01.2019.
  */
 public class Clock extends Model {
 
@@ -34,7 +36,7 @@ public class Clock extends Model {
     }
 
     /**
-     * Get the current day
+     * Get the current day.
      *
      * @return Integer of the current day.
      */
@@ -56,7 +58,7 @@ public class Clock extends Model {
     }
 
     /**
-     * Get the current hour
+     * Get the current hour.
      *
      * @return Integer of the current hour.
      */
@@ -65,7 +67,7 @@ public class Clock extends Model {
     }
 
     /**
-     * Get the current minute
+     * Get the current minute.
      *
      * @return Integer of the current minute.
      */
@@ -74,7 +76,7 @@ public class Clock extends Model {
     }
 
     /**
-     * Reset the clock to it's initial state
+     * Reset the clock to it's initial state.
      */
     public void reset() {
         day = 1;

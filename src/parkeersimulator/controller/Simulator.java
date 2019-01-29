@@ -2,13 +2,13 @@ package parkeersimulator.controller;
 
 import parkeersimulator.framework.Controller;
 import parkeersimulator.framework.View;
-import parkeersimulator.model.CarPark;
+import parkeersimulator.model.carpark.CarPark;
 import parkeersimulator.model.Clock;
 import parkeersimulator.model.statistics.ChartList;
 import parkeersimulator.model.statistics.StatisticsList;
 import parkeersimulator.utility.Settings;
-import parkeersimulator.view.CarParkControls;
-import parkeersimulator.view.StatisticsView;
+import parkeersimulator.view.carpark.CarParkControls;
+import parkeersimulator.view.statistics.StatisticsView;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -17,12 +17,12 @@ import java.awt.event.ActionListener;
 /**
  * This class represents the simulation itself.
  * <p>
- * It contains the models: Clock
- * It contains the views: CarPark, TopBar, CarParkFloor and CarParkView
+ * It contains the models: Clock.
+ * It contains the views: CarPark, TopBar, CarParkFloor and CarParkView.
  * <p>
  * This class also handles if the simulation is currently running or is halted.
  *
- * @version 18.01.2019
+ * @version 28.01.2019.
  */
 public class Simulator extends Controller {
 
@@ -50,9 +50,9 @@ public class Simulator extends Controller {
     }
 
     /**
-     * Runs the simulation for the specified amount of ticks
+     * Runs the simulation for the specified amount of ticks.
      *
-     * @param ticks the total amount of ticks for the simulation to run
+     * @param ticks the total amount of ticks for the simulation to run.
      */
     private void run(CarParkControls controls, int ticks) {
         int tickspeed = Settings.get("tickspeed");
@@ -80,7 +80,7 @@ public class Simulator extends Controller {
     }
 
     /**
-     * Advances the entire simulation by one tick
+     * Advances the entire simulation by one tick.
      *
      * @param updateViews Should the floors be repainted.
      */
@@ -97,7 +97,7 @@ public class Simulator extends Controller {
     }
 
     /**
-     * Stop current simulation from running
+     * Stop current simulation from running.
      */
     private void stop() {
         if (isRunning) {
@@ -107,7 +107,7 @@ public class Simulator extends Controller {
     }
 
     /**
-     * Resets the entire simulation and initializes a new simulation in the same window
+     * Resets the entire simulation and initializes a new simulation in the same window.
      */
     private void reset() {
         clock.reset();

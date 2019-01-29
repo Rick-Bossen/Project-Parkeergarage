@@ -1,6 +1,7 @@
-package parkeersimulator.model;
+package parkeersimulator.model.car;
 
 import parkeersimulator.framework.Model;
+import parkeersimulator.model.Location;
 
 import java.awt.*;
 
@@ -8,7 +9,7 @@ import java.awt.*;
  * This class represents a car with no entry type,
  * Has the properties location and payment process of the customer.
  *
- * @version 13.01.2019
+ * @version 27.01.2019.
  */
 public abstract class Car extends Model {
 
@@ -86,7 +87,7 @@ public abstract class Car extends Model {
      *
      * @param hasToPay boolean if the customer has to pay.
      */
-    public void setHasToPay(boolean hasToPay) {
+    void setHasToPay(boolean hasToPay) {
         this.hasToPay = hasToPay;
     }
 

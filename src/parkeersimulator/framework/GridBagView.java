@@ -4,6 +4,8 @@ import java.awt.*;
 
 /**
  * Abstract class used by all views inside of a grid bag layout.
+ *
+ * @version 27.01.2019.
  */
 public abstract class GridBagView extends View {
 
@@ -19,8 +21,8 @@ public abstract class GridBagView extends View {
     /**
      * Set the position in the layout.
      *
-     * @param x Horizontal position
-     * @param y Vertical position
+     * @param x Horizontal position.
+     * @param y Vertical position.
      */
     protected void setPosition(int x, int y) {
         constraints.gridx = x;
@@ -48,7 +50,7 @@ public abstract class GridBagView extends View {
     /**
      * Set the priority this element should take horizontally.
      *
-     * @param priority Double representing the priority
+     * @param priority Double representing the priority.
      */
     protected void setHorizontalPriority(double priority) {
         constraints.weightx = priority;
@@ -57,7 +59,7 @@ public abstract class GridBagView extends View {
     /**
      * Set the priority this element should take vertically.
      *
-     * @param priority Double representing the priority
+     * @param priority Double representing the priority.
      */
     protected void setVerticalPriority(double priority) {
         constraints.weighty = priority;

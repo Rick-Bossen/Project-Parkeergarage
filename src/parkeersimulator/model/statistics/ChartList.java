@@ -2,7 +2,7 @@ package parkeersimulator.model.statistics;
 
 import parkeersimulator.framework.Model;
 import parkeersimulator.model.Clock;
-import parkeersimulator.view.StatisticsChart;
+import parkeersimulator.view.statistics.StatisticsChart;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -11,7 +11,7 @@ import java.util.Map;
 /**
  * This class represents a list of all the StatisticCharts and its corresponding Statistic.
  *
- * @version 28.01.2019
+ * @version 28.01.2019.
  */
 public class ChartList extends Model {
 

@@ -1,4 +1,4 @@
-package parkeersimulator.model;
+package parkeersimulator.model.settings;
 
 import parkeersimulator.framework.Model;
 
@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 /**
  * Index of all setting categories.
+ *
+ * @version 28.01.2019.
  */
 public class SettingList extends Model {
 
@@ -16,7 +18,7 @@ public class SettingList extends Model {
     }
 
     /**
-     * Will all categories with the information.
+     * Fill all categories with the information.
      */
     public void fillCategories() {
         SettingCategory generalCategory = new SettingCategory("general", "General");

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 /**
  * A class that represents a single numeral statistic and the hourly and daily total amount of added values.
  *
- * @version 26.01.2019
+ * @version 28.01.2019.
  */
 class Statistic extends Model {
 

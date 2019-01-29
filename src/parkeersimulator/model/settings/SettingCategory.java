@@ -1,4 +1,4 @@
-package parkeersimulator.model;
+package parkeersimulator.model.settings;
 
 import parkeersimulator.framework.Model;
 import parkeersimulator.utility.Settings;
@@ -7,6 +7,12 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * This class represents a settings category in which all the current settings are contained,
+ * current settings can be updated.
+ *
+ * @version 28.01.2019.
+ */
 public class SettingCategory extends Model {
 
     private String category;
@@ -15,7 +21,7 @@ public class SettingCategory extends Model {
     private HashMap<String, Integer> oldValues;
     private HashMap<String, Integer> newValues;
 
-    public SettingCategory(String categoryId, String category) {
+    SettingCategory(String categoryId, String category) {
         this.categoryId = categoryId;
         this.category = category;
         settings = new LinkedHashMap<>();
@@ -29,16 +35,16 @@ public class SettingCategory extends Model {
      * @param key   Key of the setting.
      * @param label Label of the setting.
      */
-    public void addSetting(String key, String label) {
+    void addSetting(String key, String label) {
         settings.put(key, label);
         oldValues.put(key, Settings.get(key));
     }
 
     /**
-     * Add a new value to this category
+     * Add a new value to this category.
      *
-     * @param key   Setting key
-     * @param value New value of the setting
+     * @param key   Setting key.
+     * @param value New value of the setting.
      */
     public void addValue(String key, int value) {
         if (settings.get(key) != null && oldValues.get(key) != value) {
@@ -47,36 +53,36 @@ public class SettingCategory extends Model {
     }
 
     /**
-     * Get category name
+     * Get category name.
      *
-     * @return name
+     * @return name.
      */
     public String getCategory() {
         return category;
     }
 
     /**
-     * Get category id
+     * Get category id.
      *
-     * @return name
+     * @return name.
      */
     public String getCategoryId() {
         return categoryId;
     }
 
     /**
-     * Get all settings of this category
+     * Get all settings of this category.
      *
-     * @return HashMap with all settings
+     * @return HashMap with all settings.
      */
     public HashMap<String, String> getSettings() {
         return settings;
     }
 
     /**
-     * Get all new values of this category
+     * Get all new values of this category.
      *
-     * @return HashMap with all changed values
+     * @return HashMap with all changed values.
      */
     public HashMap<String, Integer> getValues() {
         return newValues;

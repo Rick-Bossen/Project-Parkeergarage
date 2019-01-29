@@ -2,6 +2,11 @@ package parkeersimulator.framework;
 
 import java.util.ArrayList;
 
+/**
+ * Abstract class used by all models.
+ *
+ * @version 27.01.2019.
+ */
 public abstract class Model {
 
     private ArrayList<View> views = new ArrayList<>();
@@ -16,7 +21,8 @@ public abstract class Model {
     }
 
     /**
-     * Update views. Called by subclasses (concrete models)
+     * Update views.
+     * Called by subclasses (concrete models).
      */
     protected void updateViews() {
         for (View view : views) {

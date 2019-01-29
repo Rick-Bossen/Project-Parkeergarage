@@ -8,6 +8,11 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * List of all the views that will be displayed in the tab list.
+ *
+ * @version 27.01.2019.
+ */
 public class TabList extends Model {
 
     private String activeTab;
@@ -20,17 +25,17 @@ public class TabList extends Model {
     /**
      * Add menu item with multiple views.
      *
-     * @param name  Name of the menu item
-     * @param views Views of the tab
+     * @param name  Name of the menu item.
+     * @param views Views of the tab.
      */
     public void addTabList(String name, ArrayList<JComponent> views) {
         list.put(name, views);
     }
 
     /**
-     * Get a list of all menu items
+     * Get a list of all menu items.
      *
-     * @return list
+     * @return list.
      */
     public String[] getMenuItems() {
         String[] keys = new String[list.size()];
@@ -43,7 +48,9 @@ public class TabList extends Model {
     }
 
     /**
-     * @return active tab
+     * Returns the active tab.
+     *
+     * @return active tab.
      */
     public String getActiveTab() {
         return activeTab;

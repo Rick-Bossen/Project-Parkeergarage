@@ -3,14 +3,20 @@ package parkeersimulator.main;
 import parkeersimulator.controller.Navigation;
 import parkeersimulator.controller.SettingManager;
 import parkeersimulator.controller.Simulator;
-import parkeersimulator.model.CarPark;
+import parkeersimulator.model.carpark.CarPark;
 import parkeersimulator.model.Clock;
-import parkeersimulator.model.SettingList;
+import parkeersimulator.model.settings.SettingList;
 import parkeersimulator.model.TabList;
 import parkeersimulator.model.statistics.ChartList;
 import parkeersimulator.model.statistics.StatisticsList;
 import parkeersimulator.utility.Settings;
-import parkeersimulator.view.*;
+import parkeersimulator.view.carpark.CarParkControls;
+import parkeersimulator.view.carpark.CarParkView;
+import parkeersimulator.view.gui.SideBar;
+import parkeersimulator.view.gui.TopBar;
+import parkeersimulator.view.settings.SettingControls;
+import parkeersimulator.view.settings.SettingView;
+import parkeersimulator.view.statistics.StatisticsView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,7 +26,7 @@ import java.util.ArrayList;
  * This class represents the full parking simulation,
  * It creates the simulation and the other components.
  *
- * @version 28.01.2019
+ * @version 28.01.2019.
  */
 public class ParkingSimulation {
 
@@ -109,9 +115,9 @@ public class ParkingSimulation {
     }
 
     /**
-     * Start a new parking simulation
+     * Start a new parking simulation.
      *
-     * @param args String[] containing all running arguments
+     * @param args String[] containing all running arguments.
      */
     public static void main(String[] args) {
         new ParkingSimulation();

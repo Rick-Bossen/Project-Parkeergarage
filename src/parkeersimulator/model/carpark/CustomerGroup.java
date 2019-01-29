@@ -1,6 +1,10 @@
-package parkeersimulator.model;
+package parkeersimulator.model.carpark;
 
 import parkeersimulator.framework.Model;
+import parkeersimulator.model.Clock;
+import parkeersimulator.model.Event;
+import parkeersimulator.model.car.Car;
+import parkeersimulator.model.carpark.CarQueue;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -8,6 +12,8 @@ import java.util.Random;
 /**
  * Customer group for one specific entry type.
  * Used types: ad hoc and parking pass.
+ *
+ * @version 28.01.2019.
  */
 public class CustomerGroup extends Model {
 
@@ -19,21 +25,21 @@ public class CustomerGroup extends Model {
 
     private ArrayList<Event> events;
 
-    public CustomerGroup(Class carType, int weekDayArrivals, int weekendArrivals) {
+    CustomerGroup(Class carType, int weekDayArrivals, int weekendArrivals) {
         this.carType = carType;
         this.weekDayArrivals = weekDayArrivals;
         this.weekendArrivals = weekendArrivals;
         events = new ArrayList<>();
     }
 
-    public void setEvents(ArrayList<Event> events) {
+    void setEvents(ArrayList<Event> events) {
         this.events = events;
     }
 
     /**
      * Get the entrance queue used by these customers.
      *
-     * @return Car queue used by the customers
+     * @return Car queue used by the customers.
      */
     public CarQueue getEntranceCarQueue() {
         return entranceCarQueue;
@@ -44,23 +50,23 @@ public class CustomerGroup extends Model {
      *
      * @param queue Car queue the customers should use.
      */
-    public void setEntranceCarQueue(CarQueue queue) {
+    void setEntranceCarQueue(CarQueue queue) {
         this.entranceCarQueue = queue;
     }
 
     /**
-     * Set new weekday arrivals
+     * Set new weekday arrivals.
      *
-     * @param arrivals arrivals per weekday
+     * @param arrivals arrivals per weekday.
      */
     public void setWeekDayArrivals(int arrivals) {
         this.weekDayArrivals = arrivals;
     }
 
     /**
-     * Set new weekend arrivals
+     * Set new weekend arrivals.
      *
-     * @param arrivals arrivals per weekend
+     * @param arrivals arrivals per weekend.
      */
     public void setWeekendArrivals(int arrivals) {
         this.weekendArrivals = arrivals;
@@ -79,7 +85,13 @@ public class CustomerGroup extends Model {
         }
     }
 
-    public int getNumberOfCars(Clock clock){
+    /**
+     * Returns the number of car arrivals per hour depending on the day of the week and current events.
+     *
+     * @param clock the clock used to check the time.
+     * @return the number of car arrivals per hour.
+     */
+    int getNumberOfCars(Clock clock){
         int averageNumber;
         if(clock.getDayOfWeek() < 6){
             averageNumber = weekDayArrivals;
@@ -101,7 +113,7 @@ public class CustomerGroup extends Model {
      * @param day To simulate the correct amount per day.
      * @return Amount of cars that should enter.
      */
-    public int getNumberOfCars(int day) {
+    int getNumberOfCars(int day) {
         return calculateNumberOfCars(day < 6 ? weekDayArrivals : weekendArrivals);
     }
 

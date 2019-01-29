@@ -8,7 +8,7 @@ import java.util.Properties;
  * Class which represents all user editable settings.
  * Note. All used settings need to be of the type Integer.
  *
- * @version 18.01.2019
+ * @version 28.01.2019.
  */
 public class Settings {
 
@@ -30,18 +30,18 @@ public class Settings {
     /**
      * Return instance of the settings managers.
      *
-     * @return Settings
+     * @return Settings.
      */
     public static Settings getInstance() {
         return instance;
     }
 
     /**
-     * Get the integer value of a setting.
+     * Get the integer value of a setting,
      * If the key is not found return 0.
      *
      * @param key name of the setting.
-     * @return value of the setting
+     * @return value of the setting.
      */
     public static int get(String key) {
         String value = instance.properties.getProperty(key);
@@ -58,7 +58,7 @@ public class Settings {
     /**
      * Update a setting. Only allowed to update existing settings.
      *
-     * @param key   Key of the setting
+     * @param key   Key of the setting.
      * @param value Value of the configuration.
      */
     public static void set(String key, int value) {
@@ -68,7 +68,7 @@ public class Settings {
     }
 
     /**
-     * Loads all user config.
+     * Loads all user config,
      * Checks if the user config is present as default config and contains integer values.
      */
     private void loadUserConfig() {

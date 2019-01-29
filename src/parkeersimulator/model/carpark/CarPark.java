@@ -1,6 +1,8 @@
-package parkeersimulator.model;
+package parkeersimulator.model.carpark;
 
 import parkeersimulator.framework.Model;
+import parkeersimulator.model.*;
+import parkeersimulator.model.car.*;
 import parkeersimulator.model.statistics.StatisticsList;
 import parkeersimulator.utility.Settings;
 
@@ -11,7 +13,7 @@ import java.util.Random;
 /**
  * This class represents the whole car park containing the location of all cars and the statistics with it.
  *
- * @version 18.01.2019.
+ * @version 28.01.2019.
  */
 public class CarPark extends Model {
 
@@ -87,6 +89,11 @@ public class CarPark extends Model {
         }
     }
 
+    /**
+     * Adds new reservations to the simulation.
+     *
+     * @param day current day of the week.
+     */
     public void queueReservations(int day) {
         for (int i = 0; i < reservations.getNumberOfCars(day + 1); i++) {
             Reservation reservation = new Reservation();
@@ -176,11 +183,11 @@ public class CarPark extends Model {
     }
 
     /**
-     * Set the size of the car park
+     * Set the size of the car park.
      *
-     * @param numberOfFloors number of floors
-     * @param numberOfRows   number of rows
-     * @param numberOfPlaces number of places
+     * @param numberOfFloors number of floors.
+     * @param numberOfRows   number of rows.
+     * @param numberOfPlaces number of places.
      */
     public void setSize(int numberOfFloors, int numberOfRows, int numberOfPlaces, int numberOfParkingPassSpots) {
         this.numberOfFloors = numberOfFloors;
@@ -243,18 +250,18 @@ public class CarPark extends Model {
     }
 
     /**
-     * Return payment car queue
+     * Return payment car queue.
      *
-     * @return queue
+     * @return queue.
      */
     public CarQueue getPaymentCarQueue() {
         return paymentCarQueue;
     }
 
     /**
-     * Return payment car queue
+     * Return payment car queue.
      *
-     * @return queue
+     * @return queue.
      */
     public CarQueue getExitCarQueue() {
         return exitCarQueue;
@@ -272,7 +279,7 @@ public class CarPark extends Model {
     /**
      * Handle the entrance of all cars today.
      *
-     * @param clock clock of the current date/time
+     * @param clock clock of the current date/time.
      */
     public void handleEntrance(Clock clock) {
         carsArriving(clock);
@@ -291,9 +298,9 @@ public class CarPark extends Model {
     }
 
     /**
-     * Handle all arriving cars and add them to the entrance queue
+     * Handle all arriving cars and add them to the entrance queue.
      *
-     * @param clock Integer of the current day
+     * @param clock Integer of the current day.
      */
     private void carsArriving(Clock clock) {
         for (CustomerGroup group : customerGroups) {
@@ -309,7 +316,7 @@ public class CarPark extends Model {
     /**
      * Handle all cars entering the current queue and direct them to the correct parking spot.
      *
-     * @param queue Car queue which has cars entering
+     * @param queue Car queue which has cars entering.
      */
     private void carsEntering(CarQueue queue) {
         Random r = new Random();
@@ -377,7 +384,7 @@ public class CarPark extends Model {
     /**
      * Add a car in the car park if the location is available.
      *
-     * @param location New Location of the car
+     * @param location New Location of the car.
      * @param car      Car that is currently entering the car park.
      */
     private void setCarAt(Location location, Car car) {
@@ -467,7 +474,7 @@ public class CarPark extends Model {
 
         if (!reservationCarList.isEmpty()) {
             for (ReservedAdHocCar car : reservationCarList) {
-                car.incrementArrivalTime();
+                car.decrementArrivalTime();
             }
         }
 
