@@ -278,7 +278,9 @@ public class CarPark extends Model {
      * @return customer groups.
      */
     public ArrayList<CustomerGroup> getCustomerGroups() {
-        return customerGroups;
+        ArrayList<CustomerGroup> groups = (ArrayList<CustomerGroup>) customerGroups.clone();
+        groups.add(reservations);
+        return groups;
     }
 
     /**
