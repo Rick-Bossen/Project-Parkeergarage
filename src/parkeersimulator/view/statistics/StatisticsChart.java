@@ -7,6 +7,7 @@ import org.jfree.chart.StandardChartTheme;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.LineAndShapeRenderer;
+import org.jfree.chart.ui.HorizontalAlignment;
 import org.jfree.data.category.DefaultCategoryDataset;
 import parkeersimulator.enums.theme.ThemeFonts;
 
@@ -27,9 +28,11 @@ public class StatisticsChart extends JPanel {
     public StatisticsChart(String title, String xLabel, String yLabel, boolean doubleChart)
     {
         createTheme();
+        setOpaque(false);
         dataset = new DefaultCategoryDataset();
         chart = ChartFactory.createLineChart(title,xLabel,yLabel,dataset,PlotOrientation.VERTICAL,true,false,false);
         chartTheme.apply(chart);
+        chart.getPlot().setBackgroundPaint(new Color(195, 195, 195));
         CategoryPlot plot = chart.getCategoryPlot();
         LineAndShapeRenderer renderer = (LineAndShapeRenderer) plot.getRenderer();
         renderer.setDefaultShapesVisible(true);

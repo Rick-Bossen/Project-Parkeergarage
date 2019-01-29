@@ -90,6 +90,9 @@ public class ChartList extends Model {
         statistics.add(statisticsList.getStatistic("cars.entered.pass"));
         statistics.add(statisticsList.getStatistic("cars.entered.reserved"));
         addChart("entering.all", "Cars entering", "Day", "Cars", statistics,true, true);
+
+        updateHourlyCharts();
+        updateDailyCharts();
     }
 
     /**
