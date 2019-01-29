@@ -1,7 +1,5 @@
 package parkeersimulator.model.car;
 
-import parkeersimulator.model.car.Car;
-
 import java.awt.*;
 
 /**

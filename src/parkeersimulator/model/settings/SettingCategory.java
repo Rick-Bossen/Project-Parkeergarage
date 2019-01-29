@@ -1,5 +1,7 @@
 package parkeersimulator.model.settings;
 
+import parkeersimulator.enums.settings.SettingCategories;
+import parkeersimulator.enums.settings.SettingType;
 import parkeersimulator.framework.Model;
 import parkeersimulator.utility.Settings;
 
@@ -15,29 +17,21 @@ import java.util.Map;
  */
 public class SettingCategory extends Model {
 
-    private String category;
-    private String categoryId;
+    private SettingCategories categoryType;
     private HashMap<String, String> settings;
     private HashMap<String, Integer> oldValues;
     private HashMap<String, Integer> newValues;
 
-    SettingCategory(String categoryId, String category) {
-        this.categoryId = categoryId;
-        this.category = category;
+    SettingCategory(SettingCategories categoryType) {
+        this.categoryType = categoryType;
         settings = new LinkedHashMap<>();
         newValues = new HashMap<>();
         oldValues = new HashMap<>();
-    }
 
-    /**
-     * Add a setting to this category.
-     *
-     * @param key   Key of the setting.
-     * @param label Label of the setting.
-     */
-    void addSetting(String key, String label) {
-        settings.put(key, label);
-        oldValues.put(key, Settings.get(key));
+        for(SettingType settingType : categoryType.getSettings()){
+            settings.put(settingType.toString(), settingType.getLabel());
+            oldValues.put(settingType.toString(), Settings.get(settingType.toString()));
+        }
     }
 
     /**
@@ -58,7 +52,7 @@ public class SettingCategory extends Model {
      * @return name.
      */
     public String getCategory() {
-        return category;
+        return categoryType.getLabel();
     }
 
     /**
@@ -66,8 +60,8 @@ public class SettingCategory extends Model {
      *
      * @return name.
      */
-    public String getCategoryId() {
-        return categoryId;
+    public SettingCategories getCategoryType() {
+        return categoryType;
     }
 
     /**

@@ -1,5 +1,7 @@
 package parkeersimulator.utility;
 
+import parkeersimulator.enums.settings.SettingType;
+
 import java.io.*;
 import java.util.Enumeration;
 import java.util.Properties;
@@ -34,6 +36,17 @@ public class Settings {
      */
     public static Settings getInstance() {
         return instance;
+    }
+
+    /**
+     * Get the integer value of a setting based on the setting type.
+     * If the key is not found return 0.
+     *
+     * @param settingType name of the setting.
+     * @return value of the setting.
+     */
+    public static int get(SettingType settingType) {
+        return get(settingType.toString());
     }
 
     /**

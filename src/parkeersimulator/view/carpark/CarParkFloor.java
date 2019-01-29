@@ -1,11 +1,11 @@
 package parkeersimulator.view.carpark;
 
-import parkeersimulator.model.*;
+import parkeersimulator.enums.settings.GeneralSettings;
+import parkeersimulator.model.Location;
 import parkeersimulator.model.car.Car;
 import parkeersimulator.model.car.ParkingPassSpot;
 import parkeersimulator.model.car.ReservedSpot;
 import parkeersimulator.model.carpark.CarPark;
-import parkeersimulator.utility.Settings;
 
 import javax.swing.*;
 import java.awt.*;
@@ -268,7 +268,7 @@ public class CarParkFloor extends JPanel {
      */
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension(Settings.get("width"), Settings.get("height"));
+        return new Dimension(GeneralSettings.WIDTH.getValue(), GeneralSettings.HEIGHT.getValue());
     }
 
     /**

@@ -1,12 +1,12 @@
 package parkeersimulator.controller;
 
+import parkeersimulator.enums.settings.SimulationSettings;
 import parkeersimulator.framework.Controller;
 import parkeersimulator.framework.View;
-import parkeersimulator.model.carpark.CarPark;
 import parkeersimulator.model.Clock;
+import parkeersimulator.model.carpark.CarPark;
 import parkeersimulator.model.statistics.ChartList;
 import parkeersimulator.model.statistics.StatisticsList;
-import parkeersimulator.utility.Settings;
 import parkeersimulator.view.carpark.CarParkControls;
 import parkeersimulator.view.statistics.StatisticsView;
 
@@ -55,7 +55,7 @@ public class Simulator extends Controller {
      * @param ticks the total amount of ticks for the simulation to run.
      */
     private void run(CarParkControls controls, int ticks) {
-        int tickspeed = Settings.get("tickspeed");
+        int tickspeed = SimulationSettings.TICKSPEED.getValue();
         controls.setControlsEnabled(false);
         isRunning = true;
 

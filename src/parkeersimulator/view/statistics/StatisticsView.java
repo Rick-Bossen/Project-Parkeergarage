@@ -4,7 +4,6 @@ import parkeersimulator.framework.GridBagView;
 import parkeersimulator.framework.Model;
 import parkeersimulator.model.statistics.ChartList;
 import parkeersimulator.model.statistics.StatisticsList;
-import parkeersimulator.view.statistics.StatisticsChart;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

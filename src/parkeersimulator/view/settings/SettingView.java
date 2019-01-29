@@ -1,5 +1,6 @@
 package parkeersimulator.view.settings;
 
+import parkeersimulator.enums.settings.SettingCategories;
 import parkeersimulator.framework.GridBagView;
 import parkeersimulator.framework.Model;
 import parkeersimulator.model.settings.SettingCategory;
@@ -152,15 +153,15 @@ public class SettingView extends GridBagView {
     /**
      * Update all categories in the list.
      */
-    public ArrayList<String> updateCategories() {
-        ArrayList<String> updatedCategories = new ArrayList<>();
+    public ArrayList<SettingCategories> updateCategories() {
+        ArrayList<SettingCategories> updatedCategories = new ArrayList<>();
         for (Map.Entry<String, JFormattedTextField> entry : fields.entrySet()) {
             entry.getValue().setValue(Settings.get(entry.getKey()));
         }
         for (Map.Entry<String, SettingCategory> categoryEntry : categories.entrySet()) {
             SettingCategory category = categoryEntry.getValue();
             if (category.update()) {
-                updatedCategories.add(category.getCategoryId());
+                updatedCategories.add(category.getCategoryType());
             }
         }
         return updatedCategories;

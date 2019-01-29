@@ -1,7 +1,12 @@
 package parkeersimulator.model.carpark;
 
+import parkeersimulator.enums.settings.QueueSettings;
+import parkeersimulator.enums.settings.SimulationSettings;
 import parkeersimulator.framework.Model;
-import parkeersimulator.model.*;
+import parkeersimulator.model.Clock;
+import parkeersimulator.model.Event;
+import parkeersimulator.model.Location;
+import parkeersimulator.model.Reservation;
 import parkeersimulator.model.car.*;
 import parkeersimulator.model.statistics.StatisticsList;
 import parkeersimulator.utility.Settings;
@@ -36,8 +41,8 @@ public class CarPark extends Model {
 
 
     public CarPark(StatisticsList statistics) {
-        paymentCarQueue = new CarQueue(Settings.get("queue.payment.speed"));
-        exitCarQueue = new CarQueue(Settings.get("queue.exit.speed"));
+        paymentCarQueue = new CarQueue(QueueSettings.QUEUE_PAYMENT_SPEED.getValue());
+        exitCarQueue = new CarQueue(QueueSettings.QUEUE_EXIT_SPEED.getValue());
         reservationCarList = new ArrayList<>();
         reservationList = new ArrayList<>();
         this.statistics = statistics;
@@ -60,16 +65,16 @@ public class CarPark extends Model {
         events.add(lateOpening);
         this.customerGroups = new ArrayList<>();
 
-        CustomerGroup adHoc = new CustomerGroup(AdHocCar.class, Settings.get("adhoc.arrivals.weekday"), Settings.get("adhoc.arrivals.weekend"));
-        adHoc.setEntranceCarQueue(new CarQueue(Settings.get("queue.adhoc.speed")));
+        CustomerGroup adHoc = new CustomerGroup(AdHocCar.class, SimulationSettings.ADHOC_WEEKDAY.getValue(), SimulationSettings.ADHOC_WEEKEND.getValue());
+        adHoc.setEntranceCarQueue(new CarQueue(QueueSettings.QUEUE_ADHOC_SPEED.getValue()));
         adHoc.setEvents(events);
         customerGroups.add(adHoc);
 
-        CustomerGroup parkingPass = new CustomerGroup(ParkingPassCar.class, Settings.get("pass.arrivals.weekday"), Settings.get("pass.arrivals.weekend"));
-        parkingPass.setEntranceCarQueue(new CarQueue(Settings.get("queue.pass.speed")));
+        CustomerGroup parkingPass = new CustomerGroup(ParkingPassCar.class, SimulationSettings.PASSHOLDERS_WEEKDAY.getValue(), SimulationSettings.PASSHOLDERS_WEEKEND.getValue());
+        parkingPass.setEntranceCarQueue(new CarQueue(QueueSettings.QUEUE_PASSHOLDERS_SPEED.getValue()));
         customerGroups.add(parkingPass);
 
-        reservations = new CustomerGroup(ReservedSpot.class, Settings.get("reserved.arrivals.weekday"), Settings.get("reserved.arrivals.weekend"));
+        reservations = new CustomerGroup(ReservedSpot.class, SimulationSettings.RESERVATIONS_WEEKDAY.getValue(), SimulationSettings.PASSHOLDERS_WEEKEND.getValue());
     }
 
     /**

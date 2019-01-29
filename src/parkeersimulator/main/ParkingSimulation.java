@@ -3,13 +3,14 @@ package parkeersimulator.main;
 import parkeersimulator.controller.Navigation;
 import parkeersimulator.controller.SettingManager;
 import parkeersimulator.controller.Simulator;
-import parkeersimulator.model.carpark.CarPark;
+import parkeersimulator.enums.settings.GeneralSettings;
+import parkeersimulator.enums.settings.SimulationPresetSettings;
 import parkeersimulator.model.Clock;
-import parkeersimulator.model.settings.SettingList;
 import parkeersimulator.model.TabList;
+import parkeersimulator.model.carpark.CarPark;
+import parkeersimulator.model.settings.SettingList;
 import parkeersimulator.model.statistics.ChartList;
 import parkeersimulator.model.statistics.StatisticsList;
-import parkeersimulator.utility.Settings;
 import parkeersimulator.view.carpark.CarParkControls;
 import parkeersimulator.view.carpark.CarParkView;
 import parkeersimulator.view.gui.SideBar;
@@ -37,8 +38,8 @@ public class ParkingSimulation {
 
         JFrame window = new JFrame("Parking simulator");
         window.setLayout(new GridBagLayout());
-        window.setPreferredSize(new Dimension(Settings.get("width"), Settings.get("height")));
-        window.setLocation((Toolkit.getDefaultToolkit().getScreenSize().width - Settings.get("width")) / 2, (Toolkit.getDefaultToolkit().getScreenSize().height - Settings.get("height")) / 2);
+        window.setPreferredSize(new Dimension(GeneralSettings.WIDTH.getValue(), GeneralSettings.HEIGHT.getValue()));
+        window.setLocation((Toolkit.getDefaultToolkit().getScreenSize().width - GeneralSettings.WIDTH.getValue()) / 2, (Toolkit.getDefaultToolkit().getScreenSize().height - GeneralSettings.HEIGHT.getValue()) / 2);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Create the Models.
@@ -75,7 +76,12 @@ public class ParkingSimulation {
 
         // Set the size of the car park
         clock.reset();
-        carPark.setSize(Settings.get("carpark.floors"), Settings.get("carpark.rows"), Settings.get("carpark.places"), Settings.get("carpark.passPlaces"));
+        carPark.reset(
+                SimulationPresetSettings.CARPARK_FLOORS.getValue(),
+                SimulationPresetSettings.CARPARK_ROWS.getValue(),
+                SimulationPresetSettings.CARPARK_PLACES.getValue(),
+                SimulationPresetSettings.CARPARK_PASSHOLDER_PLACES.getValue()
+        );
         settingList.fillCategories();
 
         // Add the views to the window.
