@@ -11,6 +11,7 @@ import parkeersimulator.model.carpark.CarPark;
 import parkeersimulator.model.settings.SettingList;
 import parkeersimulator.model.statistics.ChartList;
 import parkeersimulator.model.statistics.StatisticsList;
+import parkeersimulator.view.about.AboutView;
 import parkeersimulator.view.carpark.CarParkControls;
 import parkeersimulator.view.carpark.CarParkView;
 import parkeersimulator.view.gui.SideBar;
@@ -58,6 +59,7 @@ public class ParkingSimulation {
         SettingView settingsView = new SettingView();
         SettingControls settingControls = new SettingControls(settingsView);
         StatisticsView statisticsView = new StatisticsView(chartList);
+        AboutView aboutView = new AboutView();
 
         // Create the Controllers.
         Navigation navigation = new Navigation(tabList);
@@ -92,6 +94,7 @@ public class ParkingSimulation {
         window.add(settingsView, settingsView.getConstraints());
         window.add(settingControls, settingControls.getConstraints());
         window.add(statisticsView, statisticsView.getConstraints());
+        window.add(aboutView, aboutView.getConstraints());
 
         // Add scrollbar for panels.
         JScrollPane scrollPane = new JScrollPane(settingsView, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -116,7 +119,12 @@ public class ParkingSimulation {
 
         ArrayList<JComponent> statisticsViews = new ArrayList<>();
         statisticsViews.add(statisticsView);
+        statisticsViews.add(scrollPaneStatistics);
         tabList.addTabList("Results", statisticsViews);
+
+        ArrayList<JComponent> aboutViews = new ArrayList<>();
+        aboutViews.add(aboutView);
+        tabList.addTabList("About", aboutViews);
 
         tabList.setActiveTab("Home");
 

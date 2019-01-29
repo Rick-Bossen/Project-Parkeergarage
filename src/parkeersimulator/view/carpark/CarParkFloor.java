@@ -16,7 +16,6 @@ import java.awt.*;
  * This class represents one of the floors containing the parking,
  * It has the ability to draw parking spots and cars accordingly.
  *
- * @author M. Visser
  * @version 28.01.2019.
  */
 public class CarParkFloor extends JPanel {
