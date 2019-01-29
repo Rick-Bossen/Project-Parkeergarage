@@ -4,7 +4,6 @@ import parkeersimulator.framework.Model;
 import parkeersimulator.model.Clock;
 import parkeersimulator.model.Event;
 import parkeersimulator.model.car.Car;
-import parkeersimulator.model.carpark.CarQueue;
 
 import java.util.ArrayList;
 import java.util.Random;

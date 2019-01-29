@@ -1,11 +1,13 @@
 package parkeersimulator.view.carpark;
 
-import parkeersimulator.model.*;
+import parkeersimulator.enums.settings.GeneralSettings;
+import parkeersimulator.enums.theme.ThemeColors;
+import parkeersimulator.enums.theme.ThemeFonts;
+import parkeersimulator.model.Location;
 import parkeersimulator.model.car.Car;
 import parkeersimulator.model.car.ParkingPassSpot;
 import parkeersimulator.model.car.ReservedSpot;
 import parkeersimulator.model.carpark.CarPark;
-import parkeersimulator.utility.Settings;
 
 import javax.swing.*;
 import java.awt.*;
@@ -121,7 +123,7 @@ public class CarParkFloor extends JPanel {
                 baseHeight
         );
 
-        graphics.setColor(new Color(45, 52, 54));
+        graphics.setColor(ThemeColors.BACKGROUND_DARK.getColor());
         graphics.drawRect(
                 getOffsetX() - 15,
                 getOffsetY() - 15,
@@ -129,7 +131,7 @@ public class CarParkFloor extends JPanel {
                 baseHeight
         );
 
-        graphics.setFont(new Font("Dubai Light", -1, 16));
+        graphics.setFont(ThemeFonts.LARGE_REGULAR.getFont());
         graphics.setColor(Color.white);
         graphics.drawString("Floor: " + floor, getOffsetX(), getOffsetY() + 2);
     }
@@ -268,7 +270,7 @@ public class CarParkFloor extends JPanel {
      */
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension(Settings.get("width"), Settings.get("height"));
+        return new Dimension(GeneralSettings.WIDTH.getValue(), GeneralSettings.HEIGHT.getValue());
     }
 
     /**

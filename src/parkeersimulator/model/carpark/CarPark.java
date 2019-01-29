@@ -1,7 +1,12 @@
 package parkeersimulator.model.carpark;
 
+import parkeersimulator.enums.settings.QueueSettings;
+import parkeersimulator.enums.settings.SimulationSettings;
 import parkeersimulator.framework.Model;
-import parkeersimulator.model.*;
+import parkeersimulator.model.Clock;
+import parkeersimulator.model.Event;
+import parkeersimulator.model.Location;
+import parkeersimulator.model.Reservation;
 import parkeersimulator.model.car.*;
 import parkeersimulator.model.statistics.StatisticsList;
 import parkeersimulator.utility.Settings;
@@ -36,8 +41,8 @@ public class CarPark extends Model {
 
 
     public CarPark(StatisticsList statistics) {
-        paymentCarQueue = new CarQueue(Settings.get("queue.payment.speed"));
-        exitCarQueue = new CarQueue(Settings.get("queue.exit.speed"));
+        paymentCarQueue = new CarQueue(QueueSettings.QUEUE_PAYMENT_SPEED.getValue());
+        exitCarQueue = new CarQueue(QueueSettings.QUEUE_EXIT_SPEED.getValue());
         reservationCarList = new ArrayList<>();
         reservationList = new ArrayList<>();
         this.statistics = statistics;
@@ -49,7 +54,7 @@ public class CarPark extends Model {
      */
     private void createGroups() {
         ArrayList<Event> events = new ArrayList<>();
-        Event theaterEvent = new Event(1000);
+        Event theaterEvent = new Event(800);
         theaterEvent.addDay(DayOfWeek.FRIDAY.getValue());
         theaterEvent.addDay(DayOfWeek.SATURDAY.getValue(), 18, 24);
         theaterEvent.addDay(DayOfWeek.SUNDAY.getValue(), 12, 18);
@@ -60,16 +65,16 @@ public class CarPark extends Model {
         events.add(lateOpening);
         this.customerGroups = new ArrayList<>();
 
-        CustomerGroup adHoc = new CustomerGroup(AdHocCar.class, Settings.get("adhoc.arrivals.weekday"), Settings.get("adhoc.arrivals.weekend"));
-        adHoc.setEntranceCarQueue(new CarQueue(Settings.get("queue.adhoc.speed")));
+        CustomerGroup adHoc = new CustomerGroup(AdHocCar.class, SimulationSettings.ADHOC_WEEKDAY.getValue(), SimulationSettings.ADHOC_WEEKEND.getValue());
+        adHoc.setEntranceCarQueue(new CarQueue(QueueSettings.QUEUE_ADHOC_SPEED.getValue()));
         adHoc.setEvents(events);
         customerGroups.add(adHoc);
 
-        CustomerGroup parkingPass = new CustomerGroup(ParkingPassCar.class, Settings.get("pass.arrivals.weekday"), Settings.get("pass.arrivals.weekend"));
-        parkingPass.setEntranceCarQueue(new CarQueue(Settings.get("queue.pass.speed")));
+        CustomerGroup parkingPass = new CustomerGroup(ParkingPassCar.class, SimulationSettings.PASSHOLDERS_WEEKDAY.getValue(), SimulationSettings.PASSHOLDERS_WEEKEND.getValue());
+        parkingPass.setEntranceCarQueue(new CarQueue(QueueSettings.QUEUE_PASSHOLDERS_SPEED.getValue()));
         customerGroups.add(parkingPass);
 
-        reservations = new CustomerGroup(ReservedSpot.class, Settings.get("reserved.arrivals.weekday"), Settings.get("reserved.arrivals.weekend"));
+        reservations = new CustomerGroup(ReservedSpot.class, SimulationSettings.RESERVATIONS_WEEKDAY.getValue(), SimulationSettings.PASSHOLDERS_WEEKEND.getValue());
     }
 
     /**
@@ -319,6 +324,7 @@ public class CarPark extends Model {
      * @param queue Car queue which has cars entering.
      */
     private void carsEntering(CarQueue queue) {
+        Random r = new Random();
         int i = 0;
         // Remove car from the front of the queue and assign to a parking space.
         while (queue.carsInQueue() > 0 && numberOfOpenSpots > 0 && i < queue.getSpeed()) {
@@ -342,13 +348,15 @@ public class CarPark extends Model {
                             setCarAt(car.getLocation(), car);
                             reservationList.remove(i);
                         } else {
-                            Random r = new Random();
                             if (r.nextFloat() > 0.5f) {
                                 Car newCar = new AdHocCar();
-                                newCar.setLocation(getFirstFreeLocation(newCar));
-                                newCar.setMinutesLeft(car.getMinutesLeft());
-                                setCarAt(newCar.getLocation(), newCar);
-                                reservationList.remove(i);
+                                Location firstFreeLocation = getFirstFreeLocation(newCar);
+                                if(firstFreeLocation != null) {
+                                    newCar.setLocation(firstFreeLocation);
+                                    newCar.setMinutesLeft(car.getMinutesLeft());
+                                    setCarAt(newCar.getLocation(), newCar);
+                                    reservationList.remove(i);
+                                }
                             } else {
                                 reservationList.remove(i);
                             }
@@ -356,6 +364,11 @@ public class CarPark extends Model {
                         found = true;
                     }
                 }
+            }
+
+            // Car leaves because of the queue length.
+            while (queue.carsInQueue() > 20 && r.nextFloat() > 0.6f) {
+                queue.removeCar();
             }
 
             i++;

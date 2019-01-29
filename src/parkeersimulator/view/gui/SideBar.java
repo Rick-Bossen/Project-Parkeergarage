@@ -1,5 +1,7 @@
 package parkeersimulator.view.gui;
 
+import parkeersimulator.enums.theme.ThemeColors;
+import parkeersimulator.enums.theme.ThemeFonts;
 import parkeersimulator.framework.GridBagView;
 import parkeersimulator.framework.Model;
 import parkeersimulator.model.TabList;
@@ -22,7 +24,7 @@ public class SideBar extends GridBagView {
         menuLabels = new ArrayList<>();
         setPosition(0, 1);
         setGridHeight(2);
-        setBackground(new Color(76, 83, 85));
+        setBackground(ThemeColors.BACKGROUND_MEDIUM.getColor());
         setLayout(new GridBagLayout());
     }
 
@@ -36,7 +38,7 @@ public class SideBar extends GridBagView {
         JButton menuLabel = new JButton();
         JPanel separator = new JPanel();
 
-        menuLabel.setFont(new Font("Dubai", -1, 14));
+        menuLabel.setFont(ThemeFonts.NORMAL_REGULAR.getFont());
         menuLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         menuLabel.setText(name);
         menuLabel.setFocusPainted(false);
@@ -51,7 +53,7 @@ public class SideBar extends GridBagView {
         add(menuLabel, constraints);
         menuLabels.add(menuLabel);
 
-        separator.setBackground(Color.white);
+        separator.setBackground(ThemeColors.BACKGROUND_LIGHT.getColor());
         separator.setPreferredSize(new Dimension(0, 1));
         constraints = new GridBagConstraints();
         constraints.gridx = 0;
@@ -95,9 +97,9 @@ public class SideBar extends GridBagView {
 
             for (JButton menuLabel : menuLabels) {
                 if (menuLabel.getText().equals(tabList.getActiveTab())) {
-                    menuLabel.setForeground(new Color(116, 185, 255));
+                    menuLabel.setForeground(ThemeColors.INTERACTION.getColor());
                 } else {
-                    menuLabel.setForeground(Color.white);
+                    menuLabel.setForeground(ThemeColors.FONT_LIGHT.getColor());
                 }
             }
         }

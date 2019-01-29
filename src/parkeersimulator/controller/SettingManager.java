@@ -1,8 +1,9 @@
 package parkeersimulator.controller;
 
+import parkeersimulator.enums.settings.*;
 import parkeersimulator.framework.Controller;
 import parkeersimulator.framework.View;
-import parkeersimulator.model.*;
+import parkeersimulator.model.Clock;
 import parkeersimulator.model.car.AdHocCar;
 import parkeersimulator.model.car.ParkingPassCar;
 import parkeersimulator.model.car.ReservedSpot;
@@ -41,7 +42,7 @@ public class SettingManager extends Controller {
     @Override
     protected void event(View view, int eventId) {
         Settings settings;
-        ArrayList<String> updatedCategories = new ArrayList<>();
+        ArrayList<SettingCategories> updatedCategories = new ArrayList<>();
         switch (eventId) {
             case RESET_TO_DEFAULT:
                 settings = Settings.getInstance();
@@ -62,7 +63,7 @@ public class SettingManager extends Controller {
                 break;
         }
 
-        for (String category : updatedCategories) {
+        for (SettingCategories category : updatedCategories) {
             handleCategory(category);
         }
     }
@@ -72,38 +73,45 @@ public class SettingManager extends Controller {
      *
      * @param update the category to handle.
      */
-    private void handleCategory(String update) {
+    private void handleCategory(SettingCategories update) {
         switch (update) {
-            case "general":
-                window.setSize(new Dimension(Settings.get("width"), Settings.get("height")));
-                window.setLocation((Toolkit.getDefaultToolkit().getScreenSize().width - Settings.get("width")) / 2, (Toolkit.getDefaultToolkit().getScreenSize().height - Settings.get("height")) / 2);
+            case GENERAL:
+                int width = GeneralSettings.WIDTH.getValue();
+                int height = GeneralSettings.HEIGHT.getValue();
+                window.setSize(new Dimension(width, height));
+                window.setLocation((Toolkit.getDefaultToolkit().getScreenSize().width - width) / 2, (Toolkit.getDefaultToolkit().getScreenSize().height - height) / 2);
                 break;
-            case "queue":
-                carPark.getPaymentCarQueue().setSpeed(Settings.get("queue.payment.speed"));
-                carPark.getExitCarQueue().setSpeed(Settings.get("queue.exit.speed"));
+            case QUEUE:
+                carPark.getPaymentCarQueue().setSpeed(QueueSettings.QUEUE_PAYMENT_SPEED.getValue());
+                carPark.getExitCarQueue().setSpeed(QueueSettings.QUEUE_EXIT_SPEED.getValue());
                 for (CustomerGroup group : carPark.getCustomerGroups()) {
                     if (group.getNewCar() instanceof AdHocCar) {
-                        group.getEntranceCarQueue().setSpeed(Settings.get("queue.adhoc.speed"));
+                        group.getEntranceCarQueue().setSpeed(QueueSettings.QUEUE_ADHOC_SPEED.getValue());
                     } else if (group.getNewCar() instanceof ParkingPassCar) {
-                        group.getEntranceCarQueue().setSpeed(Settings.get("queue.pass.speed"));
+                        group.getEntranceCarQueue().setSpeed(QueueSettings.QUEUE_PASSHOLDERS_SPEED.getValue());
                     }
                 }
                 break;
-            case "simulation.presets":
-                carPark.reset(Settings.get("carpark.floors"), Settings.get("carpark.rows"), Settings.get("carpark.places"), Settings.get("carpark.passPlaces"));
+            case SIMULATION_PRESETS:
+                carPark.reset(
+                        SimulationPresetSettings.CARPARK_FLOORS.getValue(),
+                        SimulationPresetSettings.CARPARK_ROWS.getValue(),
+                        SimulationPresetSettings.CARPARK_PLACES.getValue(),
+                        SimulationPresetSettings.CARPARK_PASSHOLDER_PLACES.getValue()
+                );
                 clock.reset();
                 break;
-            case "simulation":
+            case SIMULATION:
                 for (CustomerGroup group : carPark.getCustomerGroups()) {
                     if (group.getNewCar() instanceof AdHocCar) {
-                        group.setWeekDayArrivals(Settings.get("adhoc.arrivals.weekday"));
-                        group.setWeekendArrivals(Settings.get("adhoc.arrivals.weekend"));
+                        group.setWeekDayArrivals(SimulationSettings.ADHOC_WEEKDAY.getValue());
+                        group.setWeekendArrivals(SimulationSettings.ADHOC_WEEKEND.getValue());
                     } else if (group.getNewCar() instanceof ParkingPassCar) {
-                        group.setWeekDayArrivals(Settings.get("pass.arrivals.weekday"));
-                        group.setWeekendArrivals(Settings.get("pass.arrivals.weekend"));
+                        group.setWeekDayArrivals(SimulationSettings.PASSHOLDERS_WEEKDAY.getValue());
+                        group.setWeekendArrivals(SimulationSettings.PASSHOLDERS_WEEKEND.getValue());
                     } else if (group.getNewCar() instanceof ReservedSpot) {
-                        group.setWeekDayArrivals(Settings.get("reserved.arrivals.weekday"));
-                        group.setWeekendArrivals(Settings.get("reserved.arrivals.weekend"));
+                        group.setWeekDayArrivals(SimulationSettings.RESERVATIONS_WEEKDAY.getValue());
+                        group.setWeekendArrivals(SimulationSettings.RESERVATIONS_WEEKEND.getValue());
                     }
                 }
                 break;
