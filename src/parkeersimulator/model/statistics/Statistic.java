@@ -12,6 +12,7 @@ import java.util.ArrayList;
  */
 class Statistic extends Model {
 
+    private final String id;
     private int total;
     private ArrayList<Integer> pastHour;
     private ArrayList<Integer> pastDay;
@@ -20,7 +21,8 @@ class Statistic extends Model {
     private int ticks;
     private int lastTick;
 
-    Statistic() {
+    Statistic(String id) {
+        this.id = id;
         clock = new Clock();
         lastTick = 0;
         pastHour = new ArrayList<>();
@@ -114,6 +116,15 @@ class Statistic extends Model {
      */
     int getPastDay() {
         return sum(pastDay);
+    }
+
+    /**
+     * Return the id of the statistic.
+     *
+     * @return the id.
+     */
+    String getId(){
+        return id;
     }
 
 }

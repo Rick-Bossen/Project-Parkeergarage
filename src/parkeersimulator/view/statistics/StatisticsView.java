@@ -106,6 +106,7 @@ public class StatisticsView extends GridBagView {
         constraints = new GridBagConstraints();
         constraints.gridx = 2;
         constraints.gridy = 0;
+        constraints.anchor = GridBagConstraints.WEST;
         constraints.insets = new Insets(10, 15, 0, 20);
         add(total, constraints);
 
@@ -113,6 +114,7 @@ public class StatisticsView extends GridBagView {
         constraints = new GridBagConstraints();
         constraints.gridx = 2;
         constraints.gridy = 1;
+        constraints.anchor = GridBagConstraints.WEST;
         constraints.insets = new Insets(10, 15, 0, 20);
         add(hourly, constraints);
 
@@ -120,6 +122,7 @@ public class StatisticsView extends GridBagView {
         constraints = new GridBagConstraints();
         constraints.gridx = 2;
         constraints.gridy = 2;
+        constraints.anchor = GridBagConstraints.WEST;
         constraints.insets = new Insets(10, 15, 0, 20);
         add(daily, constraints);
     }
@@ -146,6 +149,14 @@ public class StatisticsView extends GridBagView {
         constraints.gridy = 3;
         constraints.insets = new Insets(10, 15, 0, 20);
         add(dailyProfit, constraints);
+
+        StatisticsChart dailyCars = charts.getChart("entering.all");
+        constraints = new GridBagConstraints();
+        constraints.gridx = 1;
+        constraints.gridy = 4;
+        constraints.gridwidth = 2;
+        constraints.insets = new Insets(10, 15, 0, 20);
+        add(dailyCars, constraints);
     }
 
     /**
@@ -164,9 +175,9 @@ public class StatisticsView extends GridBagView {
     protected void update(Model model) {
         if (model instanceof StatisticsList) {
             StatisticsList statisticsList = (StatisticsList) model;
-            total.setText(String.valueOf(statisticsList.getTotal("profit.total")));
-            hourly.setText(String.valueOf(statisticsList.getPastHour("profit.total")));
-            daily.setText(String.valueOf(statisticsList.getPastDay("profit.total")));
+            total.setText("€ " + statisticsList.getTotal("profit.total"));
+            hourly.setText("€ " + statisticsList.getPastHour("profit.total"));
+            daily.setText("€ " + statisticsList.getPastDay("profit.total"));
         }
     }
 }

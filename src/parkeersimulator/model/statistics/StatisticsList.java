@@ -24,7 +24,7 @@ public class StatisticsList extends Model {
      * @param id the id given to the new Statistic.
      */
     private void addStatistic(String id) {
-        Statistic statistic = new Statistic();
+        Statistic statistic = new Statistic(id);
         statistics.put(id, statistic);
     }
 
@@ -110,6 +110,9 @@ public class StatisticsList extends Model {
         addStatistic("profit.pass");
         addStatistic("profit.reserved");
         addStatistic("cars.entered");
+        addStatistic("cars.entered.adhoc");
+        addStatistic("cars.entered.pass");
+        addStatistic("cars.entered.reserved");
         addStatistic("cars.missed");
     }
 }

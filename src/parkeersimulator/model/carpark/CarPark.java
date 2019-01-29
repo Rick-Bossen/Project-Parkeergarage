@@ -329,6 +329,15 @@ public class CarPark extends Model {
         // Remove car from the front of the queue and assign to a parking space.
         while (queue.carsInQueue() > 0 && numberOfOpenSpots > 0 && i < queue.getSpeed()) {
             Car car = queue.removeCar();
+
+            if(car instanceof ReservedAdHocCar){
+                statistics.add("cars.entered.reserved", 1);
+            }else if(car instanceof AdHocCar){
+                statistics.add("cars.entered.adhoc", 1);
+            }else if(car instanceof ParkingPassCar){
+                statistics.add("cars.entered.pass", 1);
+            }
+
             if (!(car instanceof ReservedAdHocCar)) {
                 Location freeLocation = getFirstFreeLocation(car);
                 if (freeLocation != null) {

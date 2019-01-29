@@ -98,6 +98,10 @@ public class ParkingSimulation {
         scrollPane.getVerticalScrollBar().setUnitIncrement(16);
         window.add(scrollPane, settingsView.getConstraints());
 
+        JScrollPane scrollPaneStatistics = new JScrollPane(statisticsView, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollPaneStatistics.getVerticalScrollBar().setUnitIncrement(16);
+        window.add(scrollPaneStatistics, statisticsView.getConstraints());
+
         // Add the menu tabs
         ArrayList<JComponent> carParkViews = new ArrayList<>();
         carParkViews.add(carParkView);

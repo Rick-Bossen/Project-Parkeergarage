@@ -24,17 +24,17 @@ public class StatisticsChart extends JPanel {
     private DefaultCategoryDataset dataset;
     private final StandardChartTheme chartTheme = (StandardChartTheme)org.jfree.chart.StandardChartTheme.createJFreeTheme();
 
-    public StatisticsChart(String title, String xLabel, String yLabel)
+    public StatisticsChart(String title, String xLabel, String yLabel, boolean doubleChart)
     {
         createTheme();
         dataset = new DefaultCategoryDataset();
-        chart = ChartFactory.createLineChart(title,xLabel,yLabel,dataset,PlotOrientation.VERTICAL,false,false,false);
+        chart = ChartFactory.createLineChart(title,xLabel,yLabel,dataset,PlotOrientation.VERTICAL,true,false,false);
         chartTheme.apply(chart);
         CategoryPlot plot = chart.getCategoryPlot();
         LineAndShapeRenderer renderer = (LineAndShapeRenderer) plot.getRenderer();
         renderer.setDefaultShapesVisible(true);
         ChartPanel chartPanel = new ChartPanel(chart);
-        chartPanel.setPreferredSize(new Dimension(300,200));
+        chartPanel.setPreferredSize(new Dimension(doubleChart ? 650 : 300,300));
         add(chartPanel);
     }
 
@@ -56,11 +56,12 @@ public class StatisticsChart extends JPanel {
     /**
      * Add a value to the chart.
      *
+     * @param rowKey Statistic of the chart.
      * @param columnKey Column of the chart.
      * @param value Value of the column.
      */
-    public void addValue(int columnKey, int value) {
-        dataset.addValue(value, "default", Integer.toString(columnKey));
+    public void addValue(String rowKey, int columnKey, int value) {
+        dataset.addValue(value, rowKey, Integer.toString(columnKey));
         if(dataset.getColumnCount() > 10){
             dataset.removeColumn(0);
         }

@@ -4,6 +4,7 @@ import parkeersimulator.framework.Model;
 import parkeersimulator.model.Clock;
 import parkeersimulator.view.statistics.StatisticsChart;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -17,8 +18,8 @@ public class ChartList extends Model {
 
     private LinkedHashMap<String, StatisticsChart> charts;
     private StatisticsList statisticsList;
-    private HashMap<StatisticsChart,Statistic> updateDaily;
-    private HashMap<StatisticsChart,Statistic> updateHourly;
+    private HashMap<Statistic, StatisticsChart> updateDaily;
+    private HashMap<Statistic, StatisticsChart> updateHourly;
     private Clock clock;
 
     public ChartList(StatisticsList statisticsList) {
@@ -31,6 +32,31 @@ public class ChartList extends Model {
     }
 
     /**
+     * Adds one new chart to the ChartList with multiple statistics.
+     *
+     * @param id the id of the chart.
+     * @param title the title of the chart.
+     * @param xLabel the label that will be displayed on the x axis of the chart.
+     * @param yLabel the label that will be displayed on the y axis of the chart.
+     * @param statistics the Statistic object that will be linked to the chart.
+     * @param updateDaily makes the chart add a data point once every 24 hours instead of once every hour.
+     * @param doubleChart if the chart should have double width.
+     */
+    private void addChart(String id,String title, String xLabel, String yLabel, ArrayList<Statistic> statistics, Boolean updateDaily, boolean doubleChart) {
+        StatisticsChart chart = new StatisticsChart(title, xLabel, yLabel, doubleChart);
+        charts.put(id, chart);
+        if (updateDaily) {
+            for(Statistic statistic : statistics){
+                this.updateDaily.put(statistic, chart);
+            }
+        } else {
+            for(Statistic statistic : statistics){
+                this.updateHourly.put(statistic, chart);
+            }
+        }
+    }
+
+    /**
      * Adds one new chart to the ChartList.
      *
      * @param id the id of the chart.
@@ -39,14 +65,15 @@ public class ChartList extends Model {
      * @param yLabel the label that will be displayed on the y axis of the chart.
      * @param statistic the Statistic object that will be linked to the chart.
      * @param updateDaily makes the chart add a data point once every 24 hours instead of once every hour.
+     * @param doubleChart if the chart should have double width.
      */
-    private void addChart(String id,String title, String xLabel, String yLabel,Statistic statistic, Boolean updateDaily) {
-        StatisticsChart chart = new StatisticsChart(title,xLabel,yLabel);
+    private void addChart(String id,String title, String xLabel, String yLabel,Statistic statistic, Boolean updateDaily, boolean doubleChart) {
+        StatisticsChart chart = new StatisticsChart(title,xLabel,yLabel, doubleChart);
         charts.put(id, chart);
         if (updateDaily) {
-            this.updateDaily.put(chart,statistic);
+            this.updateDaily.put(statistic, chart);
         } else {
-            this.updateHourly.put(chart,statistic);
+            this.updateHourly.put(statistic, chart);
         }
     }
 
@@ -55,8 +82,14 @@ public class ChartList extends Model {
      */
     private void fillChartList()
     {
-        addChart("profit.hourly","Hourly Profit","Hour", "Profit", statisticsList.getStatistic("profit.total"),false);
-        addChart("profit.daily","Daily Profit","Day","Profit", statisticsList.getStatistic("profit.total") ,true);
+        addChart("profit.hourly","Hourly Profit","Hour", "Profit", statisticsList.getStatistic("profit.total"),false, false);
+        addChart("profit.daily","Daily Profit","Day","Profit", statisticsList.getStatistic("profit.total") ,true, false);
+
+        ArrayList<Statistic> statistics = new ArrayList<>();
+        statistics.add(statisticsList.getStatistic("cars.entered.adhoc"));
+        statistics.add(statisticsList.getStatistic("cars.entered.pass"));
+        statistics.add(statisticsList.getStatistic("cars.entered.reserved"));
+        addChart("entering.all", "Cars entering", "Day", "Cars", statistics,true, true);
     }
 
     /**
@@ -64,10 +97,10 @@ public class ChartList extends Model {
      */
     private void updateHourlyCharts()
     {
-        for(Map.Entry<StatisticsChart,Statistic> entry : updateHourly.entrySet()) {
-            Statistic statistic = entry.getValue();
-            StatisticsChart chart = entry.getKey();
-            chart.addValue(clock.getHour(), statistic.getPastHour());
+        for(Map.Entry<Statistic, StatisticsChart> entry : updateHourly.entrySet()) {
+            Statistic statistic = entry.getKey();
+            StatisticsChart chart = entry.getValue();
+            chart.addValue(statistic.getId(), clock.getHour(), statistic.getPastHour());
         }
     }
 
@@ -76,10 +109,10 @@ public class ChartList extends Model {
      */
     private void updateDailyCharts()
     {
-        for(Map.Entry<StatisticsChart,Statistic> entry : updateDaily.entrySet()) {
-            Statistic statistic = entry.getValue();
-            StatisticsChart chart = entry.getKey();
-            chart.addValue(clock.getDay(), statistic.getPastDay());
+        for(Map.Entry<Statistic, StatisticsChart> entry : updateDaily.entrySet()) {
+            Statistic statistic = entry.getKey();
+            StatisticsChart chart = entry.getValue();
+            chart.addValue(statistic.getId(), clock.getDay(), statistic.getPastDay());
         }
     }
 
