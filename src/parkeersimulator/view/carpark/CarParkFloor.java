@@ -18,7 +18,7 @@ import java.awt.*;
  *
  * @version 28.01.2019.
  */
-public class CarParkFloor extends JPanel {
+class CarParkFloor extends JPanel {
 
     private final int CAR_WIDTH = 24;
     private final int CAR_HEIGHT = 13;

@@ -23,7 +23,7 @@ public enum SettingCategories {
     }
 
     /**
-     * Return the label of the category
+     * Return the label of the category.
      *
      * @return category
      */

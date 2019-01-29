@@ -154,6 +154,8 @@ public class SettingView extends GridBagView {
 
     /**
      * Update all categories in the list.
+     *
+     * @return the updated categories.
      */
     public ArrayList<SettingCategories> updateCategories() {
         ArrayList<SettingCategories> updatedCategories = new ArrayList<>();

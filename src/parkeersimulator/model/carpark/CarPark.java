@@ -154,6 +154,8 @@ public class CarPark extends Model {
 
     /**
      * Handle a payment for the specified car type.
+     *
+     * @param id the id of the car type.
      */
     private void handlePayment(String id) {
         int price = Settings.get("price." + id);
@@ -192,8 +194,9 @@ public class CarPark extends Model {
      * @param numberOfFloors number of floors.
      * @param numberOfRows   number of rows.
      * @param numberOfPlaces number of places.
+     * @param numberOfParkingPassSpots number of parking pass spots.
      */
-    public void setSize(int numberOfFloors, int numberOfRows, int numberOfPlaces, int numberOfParkingPassSpots) {
+    private void setSize(int numberOfFloors, int numberOfRows, int numberOfPlaces, int numberOfParkingPassSpots) {
         this.numberOfFloors = numberOfFloors;
         this.numberOfRows = numberOfRows;
         this.numberOfPlaces = numberOfPlaces;
@@ -207,6 +210,11 @@ public class CarPark extends Model {
 
     /**
      * Reset the simulation with a set number of floors.
+     *
+     * @param numberOfFloors number of floors.
+     * @param numberOfRows number of rows.
+     * @param numberOfPlaces number of places.
+     * @param numberOfParkingPassSpots number of parking pass spots.
      */
     public void reset(int numberOfFloors, int numberOfRows, int numberOfPlaces, int numberOfParkingPassSpots) {
         paymentCarQueue.reset();
@@ -435,6 +443,7 @@ public class CarPark extends Model {
     /**
      * Get the first unused location in the car park.
      *
+     * @param car the car that needs a free Location.
      * @return Free Location in the car park if available.
      */
     private Location getFirstFreeLocation(Car car) {

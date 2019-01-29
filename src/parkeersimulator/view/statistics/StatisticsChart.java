@@ -7,7 +7,6 @@ import org.jfree.chart.StandardChartTheme;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.LineAndShapeRenderer;
-import org.jfree.chart.ui.HorizontalAlignment;
 import org.jfree.data.category.DefaultCategoryDataset;
 import parkeersimulator.enums.theme.ThemeFonts;
 

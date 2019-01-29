@@ -39,17 +39,6 @@ public class Settings {
     }
 
     /**
-     * Get the integer value of a setting based on the setting type.
-     * If the key is not found return 0.
-     *
-     * @param settingType name of the setting.
-     * @return value of the setting.
-     */
-    public static int get(SettingType settingType) {
-        return get(settingType.toString());
-    }
-
-    /**
      * Get the integer value of a setting,
      * If the key is not found return 0.
      *

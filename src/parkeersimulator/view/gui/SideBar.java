@@ -31,6 +31,7 @@ public class SideBar extends GridBagView {
     /**
      * Add menu item to sidebar.
      *
+     * @param number number of the menu item.
      * @param name label of the menu item.
      */
     private void addMenuItem(int number, String name) {

@@ -55,6 +55,7 @@ public class Event {
     /**
      * Return the amount of hourly arrivals.
      *
+     * @param dayOfWeek the number of the day of the week.
      * @return hourly amount.
      */
     public int getHourlyAmount(int dayOfWeek){

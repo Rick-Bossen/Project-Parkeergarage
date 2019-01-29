@@ -52,6 +52,7 @@ public class Simulator extends Controller {
     /**
      * Runs the simulation for the specified amount of ticks.
      *
+     * @param controls the controls for the carPark.
      * @param ticks the total amount of ticks for the simulation to run.
      */
     private void run(CarParkControls controls, int ticks) {

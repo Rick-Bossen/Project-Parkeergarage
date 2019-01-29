@@ -14,9 +14,7 @@ public class Location extends Model {
     private int row;
     private int place;
 
-    /**
-     * Constructor for objects of class Location.
-     */
+
     public Location(int floor, int row, int place) {
         this.floor = floor;
         this.row = row;

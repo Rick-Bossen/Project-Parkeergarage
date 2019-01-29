@@ -67,6 +67,7 @@ public class CarParkControls extends GridBagView {
      * @param gridX   Horizontal position of the button.
      * @param label   Label of the button.
      * @param eventId Event id of the button. If event id = -1 no action will be bound.
+     * @return returns a new JButton.
      */
     private JButton createButton(int gridX, String label, int eventId) {
         JButton button = new JButton();

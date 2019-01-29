@@ -30,7 +30,7 @@ import java.util.ArrayList;
  *
  * @version 28.01.2019.
  */
-public class ParkingSimulation {
+class ParkingSimulation {
 
     /**
      * Create a new Parking simulation and start it.

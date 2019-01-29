@@ -50,10 +50,10 @@ public class AboutView extends GridBagView {
     }
 
     /**
-     * Add an new about item
+     * Add an new about item.
      *
-     * @param gridY y position of the item
-     * @param color color of the item
+     * @param gridY y position of the item.
+     * @param color color of the item.
      * @param text text of the item.
      */
     private void addItem(int gridY, Color color, String text){
@@ -87,6 +87,8 @@ public class AboutView extends GridBagView {
     }
 
     /**
+     * Updates the model.
+     *
      * @param model Model to use in the update.
      */
     protected void update(Model model) {
