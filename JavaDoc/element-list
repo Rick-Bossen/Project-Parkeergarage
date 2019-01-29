@@ -1,0 +1,16 @@
+parkeersimulator.controller
+parkeersimulator.enums.settings
+parkeersimulator.enums.theme
+parkeersimulator.framework
+parkeersimulator.main
+parkeersimulator.model
+parkeersimulator.model.car
+parkeersimulator.model.carpark
+parkeersimulator.model.settings
+parkeersimulator.model.statistics
+parkeersimulator.utility
+parkeersimulator.view.about
+parkeersimulator.view.carpark
+parkeersimulator.view.gui
+parkeersimulator.view.settings
+parkeersimulator.view.statistics
