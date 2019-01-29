@@ -47,7 +47,7 @@ public class CarPark extends Model {
      */
     private void createGroups() {
         ArrayList<Event> events = new ArrayList<>();
-        Event theaterEvent = new Event(1000);
+        Event theaterEvent = new Event(800);
         theaterEvent.addDay(DayOfWeek.FRIDAY.getValue());
         theaterEvent.addDay(DayOfWeek.SATURDAY.getValue(), 18, 24);
         theaterEvent.addDay(DayOfWeek.SUNDAY.getValue(), 12, 18);
@@ -312,6 +312,7 @@ public class CarPark extends Model {
      * @param queue Car queue which has cars entering
      */
     private void carsEntering(CarQueue queue) {
+        Random r = new Random();
         int i = 0;
         // Remove car from the front of the queue and assign to a parking space.
         while (queue.carsInQueue() > 0 && numberOfOpenSpots > 0 && i < queue.getSpeed()) {
@@ -335,13 +336,15 @@ public class CarPark extends Model {
                             setCarAt(car.getLocation(), car);
                             reservationList.remove(i);
                         } else {
-                            Random r = new Random();
                             if (r.nextFloat() > 0.5f) {
                                 Car newCar = new AdHocCar();
-                                newCar.setLocation(getFirstFreeLocation(newCar));
-                                newCar.setMinutesLeft(car.getMinutesLeft());
-                                setCarAt(newCar.getLocation(), newCar);
-                                reservationList.remove(i);
+                                Location firstFreeLocation = getFirstFreeLocation(newCar);
+                                if(firstFreeLocation != null) {
+                                    newCar.setLocation(firstFreeLocation);
+                                    newCar.setMinutesLeft(car.getMinutesLeft());
+                                    setCarAt(newCar.getLocation(), newCar);
+                                    reservationList.remove(i);
+                                }
                             } else {
                                 reservationList.remove(i);
                             }
@@ -349,6 +352,11 @@ public class CarPark extends Model {
                         found = true;
                     }
                 }
+            }
+
+            // Car leaves because of the queue length.
+            while (queue.carsInQueue() > 20 && r.nextFloat() > 0.6f) {
+                queue.removeCar();
             }
 
             i++;
