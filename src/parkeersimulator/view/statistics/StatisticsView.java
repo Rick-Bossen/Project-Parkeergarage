@@ -10,6 +10,7 @@ import parkeersimulator.model.statistics.StatisticsList;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.util.HashMap;
 
 //TODO add more statistics
 
@@ -20,12 +21,11 @@ import java.awt.*;
  */
 public class StatisticsView extends GridBagView {
 
-    private JLabel total;
-    private JLabel daily;
-    private JLabel hourly;
+    private HashMap<String, JLabel> labels;
 
     public StatisticsView(ChartList charts) {
         super();
+        labels = new HashMap<>();
         setPosition(1, 1);
         setHorizontalPriority(1);
         setVerticalPriority(1);
@@ -76,55 +76,37 @@ public class StatisticsView extends GridBagView {
      * Generates all the JLabels on the the view.
      */
     private void generateLabels() {
-        GridBagConstraints constraints;
+        addStatisticField(0, "profit.total", "Total profit: ");
+        addStatisticField(1, "profit.hourly", "Past hour profit: ");
+        addStatisticField(2, "profit.daily", "Past day profit: ");
+        addStatisticField(3, "cars.entered", "Total entered cars: ");
+        addStatisticField(4, "cars.missed", "Total cars missed: ");
+    }
 
-        JLabel totalLabel = generateLabel("Total profit: ");
-        constraints = new GridBagConstraints();
+    /**
+     * Add a new field to the view.
+     * @param gridY y position of the field.
+     * @param id String containing the key of the field.
+     * @param label text of the label.
+     */
+    private void addStatisticField(int gridY, String id, String label){
+        JLabel textLabel = generateLabel(label);
+        GridBagConstraints constraints = new GridBagConstraints();
         constraints.gridx = 1;
-        constraints.gridy = 0;
+        constraints.gridy = gridY;
         constraints.insets = new Insets(10, 15, 0, 20);
         constraints.anchor = GridBagConstraints.WEST;
-        add(totalLabel, constraints);
+        add(textLabel, constraints);
 
-        JLabel hourlyLabel = generateLabel("Past hour profit: ");
-        constraints = new GridBagConstraints();
-        constraints.gridx = 1;
-        constraints.gridy = 1;
-        constraints.insets = new Insets(10, 15, 0, 20);
-        constraints.anchor = GridBagConstraints.WEST;
-        add(hourlyLabel, constraints);
-
-        JLabel dailyLabel = generateLabel("Past day profit: ");
-        constraints = new GridBagConstraints();
-        constraints.gridx = 1;
-        constraints.gridy = 2;
-        constraints.insets = new Insets(10, 15, 0, 20);
-        constraints.anchor = GridBagConstraints.WEST;
-        add(dailyLabel, constraints);
-
-        total = generateLabel("0");
+        JLabel field = generateLabel("0");
         constraints = new GridBagConstraints();
         constraints.gridx = 2;
-        constraints.gridy = 0;
+        constraints.gridy = gridY;
         constraints.anchor = GridBagConstraints.WEST;
         constraints.insets = new Insets(10, 15, 0, 20);
-        add(total, constraints);
+        add(field, constraints);
 
-        hourly = generateLabel("0");
-        constraints = new GridBagConstraints();
-        constraints.gridx = 2;
-        constraints.gridy = 1;
-        constraints.anchor = GridBagConstraints.WEST;
-        constraints.insets = new Insets(10, 15, 0, 20);
-        add(hourly, constraints);
-
-        daily = generateLabel("0");
-        constraints = new GridBagConstraints();
-        constraints.gridx = 2;
-        constraints.gridy = 2;
-        constraints.anchor = GridBagConstraints.WEST;
-        constraints.insets = new Insets(10, 15, 0, 20);
-        add(daily, constraints);
+        labels.put(id,field);
     }
 
     /**
@@ -139,21 +121,21 @@ public class StatisticsView extends GridBagView {
         StatisticsChart hourlyProfit = charts.getChart("profit.hourly");
         constraints = new GridBagConstraints();
         constraints.gridx = 1;
-        constraints.gridy = 3;
+        constraints.gridy = labels.size();
         constraints.insets = new Insets(10, 15, 0, 20);
         add(hourlyProfit, constraints);
 
         StatisticsChart dailyProfit = charts.getChart("profit.daily");
         constraints = new GridBagConstraints();
         constraints.gridx = 2;
-        constraints.gridy = 3;
+        constraints.gridy = labels.size();
         constraints.insets = new Insets(10, 15, 0, 20);
         add(dailyProfit, constraints);
 
         StatisticsChart dailyCars = charts.getChart("entering.all");
         constraints = new GridBagConstraints();
         constraints.gridx = 1;
-        constraints.gridy = 4;
+        constraints.gridy = labels.size() + 1;
         constraints.gridwidth = 2;
         constraints.insets = new Insets(10, 15, 0, 20);
         add(dailyCars, constraints);
@@ -175,9 +157,11 @@ public class StatisticsView extends GridBagView {
     protected void update(Model model) {
         if (model instanceof StatisticsList) {
             StatisticsList statisticsList = (StatisticsList) model;
-            total.setText("€ " + statisticsList.getTotal("profit.total"));
-            hourly.setText("€ " + statisticsList.getPastHour("profit.total"));
-            daily.setText("€ " + statisticsList.getPastDay("profit.total"));
+            labels.get("profit.total").setText("€ " + statisticsList.getTotal("profit.total"));
+            labels.get("profit.hourly").setText("€ " + statisticsList.getPastHour("profit.total"));
+            labels.get("profit.daily").setText("€ " + statisticsList.getPastDay("profit.total"));
+            labels.get("cars.entered").setText(Integer.toString(statisticsList.getTotal("cars.entered")));
+            labels.get("cars.missed").setText(Integer.toString(statisticsList.getTotal("cars.missed")));
         }
     }
 }

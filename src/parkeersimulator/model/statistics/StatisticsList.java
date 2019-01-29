@@ -106,9 +106,6 @@ public class StatisticsList extends Model {
      */
     private void fillStatisticsList() {
         addStatistic("profit.total");
-        addStatistic("profit.adhoc");
-        addStatistic("profit.pass");
-        addStatistic("profit.reserved");
         addStatistic("cars.entered");
         addStatistic("cars.entered.adhoc");
         addStatistic("cars.entered.pass");

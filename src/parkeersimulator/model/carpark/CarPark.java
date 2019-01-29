@@ -54,7 +54,7 @@ public class CarPark extends Model {
      */
     private void createGroups() {
         ArrayList<Event> events = new ArrayList<>();
-        Event theaterEvent = new Event(800);
+        Event theaterEvent = new Event(900);
         theaterEvent.addDay(DayOfWeek.FRIDAY.getValue());
         theaterEvent.addDay(DayOfWeek.SATURDAY.getValue(), 18, 24);
         theaterEvent.addDay(DayOfWeek.SUNDAY.getValue(), 12, 18);
@@ -157,7 +157,6 @@ public class CarPark extends Model {
      */
     private void handlePayment(String id) {
         int price = Settings.get("price." + id);
-        statistics.add("profit." + id, price);
         statistics.add("profit.total", price);
     }
 
@@ -334,10 +333,13 @@ public class CarPark extends Model {
 
             if(car instanceof ReservedAdHocCar){
                 statistics.add("cars.entered.reserved", 1);
+                statistics.add("cars.entered", 1);
             }else if(car instanceof AdHocCar){
                 statistics.add("cars.entered.adhoc", 1);
+                statistics.add("cars.entered", 1);
             }else if(car instanceof ParkingPassCar){
                 statistics.add("cars.entered.pass", 1);
+                statistics.add("cars.entered", 1);
             }
 
             if (!(car instanceof ReservedAdHocCar)) {
@@ -380,6 +382,7 @@ public class CarPark extends Model {
             // Car leaves because of the queue length.
             while (queue.carsInQueue() > 20 && r.nextFloat() > 0.6f) {
                 queue.removeCar();
+                statistics.add("cars.missed", 1);
             }
 
             i++;

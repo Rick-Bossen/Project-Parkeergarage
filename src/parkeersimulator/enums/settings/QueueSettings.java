@@ -9,8 +9,8 @@ import parkeersimulator.utility.Settings;
 public enum QueueSettings implements SettingType {
 
     QUEUE_PAYMENT_SPEED("queue.payment.speed", "Default entrance"),
-    QUEUE_EXIT_SPEED("queue.exit.speed", "Pass entrance"),
-    QUEUE_ADHOC_SPEED("queue.adhoc.speed", "Default exit"),
+    QUEUE_EXIT_SPEED("queue.exit.speed", "Default exit"),
+    QUEUE_ADHOC_SPEED("queue.adhoc.speed", "Pass entrance"),
     QUEUE_PASSHOLDERS_SPEED("queue.pass.speed", "Payments");
 
     private final String name;
