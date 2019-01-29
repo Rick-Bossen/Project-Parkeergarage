@@ -2,6 +2,8 @@ package parkeersimulator.view.settings;
 
 
 import parkeersimulator.controller.SettingManager;
+import parkeersimulator.enums.theme.ThemeColors;
+import parkeersimulator.enums.theme.ThemeFonts;
 import parkeersimulator.framework.GridBagView;
 import parkeersimulator.framework.Model;
 
@@ -19,7 +21,7 @@ public class SettingControls extends GridBagView {
         super();
         setEventView(settingView);
         setPosition(1, 2);
-        setBackground(new Color(45, 52, 54));
+        setBackground(ThemeColors.BACKGROUND_DARK.getColor());
         setLayout(new GridBagLayout());
         setUIComponents();
     }
@@ -71,9 +73,9 @@ public class SettingControls extends GridBagView {
      */
     private JButton generateNewButton() {
         JButton button = new JButton();
-        button.setFont(new Font("Dubai Light", -1, 14));
-        button.setForeground(Color.white);
-        button.setBackground(new Color(116, 185, 255));
+        button.setFont(ThemeFonts.NORMAL_REGULAR.getFont());
+        button.setForeground(ThemeColors.FONT_LIGHT.getColor());
+        button.setBackground(ThemeColors.INTERACTION.getColor());
         button.setBorderPainted(false);
         button.setFocusPainted(false);
         return button;

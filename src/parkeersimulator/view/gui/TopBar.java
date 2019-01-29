@@ -1,5 +1,7 @@
 package parkeersimulator.view.gui;
 
+import parkeersimulator.enums.theme.ThemeColors;
+import parkeersimulator.enums.theme.ThemeFonts;
 import parkeersimulator.framework.GridBagView;
 import parkeersimulator.framework.Model;
 import parkeersimulator.model.Clock;
@@ -19,7 +21,7 @@ public class TopBar extends GridBagView {
     public TopBar() {
         super();
         setGridWidth(2);
-        setBackground(new Color(45, 52, 54));
+        setBackground(ThemeColors.BACKGROUND_DARK.getColor());
 
         setLayout(new GridBagLayout());
         setUIComponents();
@@ -30,8 +32,8 @@ public class TopBar extends GridBagView {
      */
     private void setUIComponents() {
         JLabel titleLabel = new JLabel();
-        titleLabel.setFont(new Font("Dubai", Font.BOLD, 14));
-        titleLabel.setForeground(Color.white);
+        titleLabel.setFont(ThemeFonts.NORMAL_BOLD.getFont());
+        titleLabel.setForeground(ThemeColors.FONT_LIGHT.getColor());
         titleLabel.setText("Parking Simulator");
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.insets = new Insets(0, 15, 0, 0);
@@ -45,8 +47,8 @@ public class TopBar extends GridBagView {
         add(spacer, constraints);
 
         dateTimeLabel = new JLabel();
-        dateTimeLabel.setFont(new Font("Dubai Light", Font.BOLD, 14));
-        dateTimeLabel.setForeground(Color.white);
+        dateTimeLabel.setFont(ThemeFonts.NORMAL_REGULAR.getFont());
+        dateTimeLabel.setForeground(ThemeColors.FONT_LIGHT.getColor());
         constraints = new GridBagConstraints();
         constraints.insets = new Insets(0, 0, 0, 15);
         add(dateTimeLabel, constraints);

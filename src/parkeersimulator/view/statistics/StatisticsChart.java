@@ -8,6 +8,7 @@ import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.LineAndShapeRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
+import parkeersimulator.enums.theme.ThemeFonts;
 
 import javax.swing.*;
 import java.awt.*;
@@ -46,10 +47,10 @@ public class StatisticsChart extends JPanel {
         Font oldRegularFont = chartTheme.getRegularFont();
         Font oldSmallFont = chartTheme.getSmallFont();
 
-        chartTheme.setExtraLargeFont(new Font("Dubai", oldExtraLargeFont.getStyle(), oldExtraLargeFont.getSize()));
-        chartTheme.setLargeFont(new Font("Dubai", oldLargeFont.getStyle(), oldLargeFont.getSize()));
-        chartTheme.setRegularFont(new Font("Dubai", oldRegularFont.getStyle(), oldRegularFont.getSize()));
-        chartTheme.setSmallFont(new Font("Dubai", oldSmallFont.getStyle(), oldSmallFont.getSize()));
+        chartTheme.setExtraLargeFont(new Font(ThemeFonts.defaultFont, oldExtraLargeFont.getStyle(), oldExtraLargeFont.getSize()));
+        chartTheme.setLargeFont(new Font(ThemeFonts.defaultFont, oldLargeFont.getStyle(), oldLargeFont.getSize()));
+        chartTheme.setRegularFont(new Font(ThemeFonts.defaultFont, oldRegularFont.getStyle(), oldRegularFont.getSize()));
+        chartTheme.setSmallFont(new Font(ThemeFonts.defaultFont, oldSmallFont.getStyle(), oldSmallFont.getSize()));
     }
 
     /**

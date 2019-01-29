@@ -1,6 +1,8 @@
 package parkeersimulator.view.settings;
 
 import parkeersimulator.enums.settings.SettingCategories;
+import parkeersimulator.enums.theme.ThemeColors;
+import parkeersimulator.enums.theme.ThemeFonts;
 import parkeersimulator.framework.GridBagView;
 import parkeersimulator.framework.Model;
 import parkeersimulator.model.settings.SettingCategory;
@@ -37,7 +39,7 @@ public class SettingView extends GridBagView {
         setVerticalPriority(1);
         setGridHeight(1);
         setBorder(new EmptyBorder(20, 0, 40, 0));
-        setBackground(Color.white);
+        setBackground(ThemeColors.BACKGROUND_LIGHT.getColor());
 
         NumberFormat format = NumberFormat.getInstance();
         NumberFormatter formatter = new NumberFormatter(format);
@@ -79,8 +81,8 @@ public class SettingView extends GridBagView {
         categories.put(category.getCategory(), category);
         JLabel categoryLabel = new JLabel();
         categoryLabel.setText(category.getCategory());
-        categoryLabel.setFont(new Font("Dubai", Font.BOLD, 16));
-        categoryLabel.setForeground(new Color(45, 52, 54));
+        categoryLabel.setFont(ThemeFonts.LARGE_BOLD.getFont());
+        categoryLabel.setForeground(ThemeColors.FONT_DARK.getColor());
 
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.gridx = 1;
@@ -91,8 +93,8 @@ public class SettingView extends GridBagView {
         add(categoryLabel, constraints);
 
         JSeparator categorySeparator = new JSeparator(SwingConstants.HORIZONTAL);
-        categorySeparator.setBackground(new Color(45, 52, 54));
-        categorySeparator.setForeground(new Color(45, 52, 54));
+        categorySeparator.setBackground(ThemeColors.FONT_DARK.getColor());
+        categorySeparator.setForeground(ThemeColors.FONT_DARK.getColor());
         constraints = new GridBagConstraints();
         constraints.gridx = 1;
         constraints.gridy = index + 1;
@@ -116,8 +118,8 @@ public class SettingView extends GridBagView {
 
         JLabel settingsLabel = new JLabel();
         settingsLabel.setText(name + ": ");
-        settingsLabel.setFont(new Font("Dubai", Font.BOLD, 14));
-        settingsLabel.setForeground(new Color(45, 52, 54));
+        settingsLabel.setFont(ThemeFonts.NORMAL_BOLD.getFont());
+        settingsLabel.setForeground(ThemeColors.FONT_DARK.getColor());
 
         constraints = new GridBagConstraints();
         constraints.gridx = 1;
@@ -127,7 +129,7 @@ public class SettingView extends GridBagView {
         add(settingsLabel, constraints);
 
         JFormattedTextField settingsField = new JFormattedTextField(intFormatter);
-        settingsField.setFont(new Font("Dubai", Font.BOLD, 14));
+        settingsField.setFont(ThemeFonts.NORMAL_BOLD.getFont());
         settingsField.setValue(Settings.get(key));
         settingsField.setColumns(10);
         settingsField.addPropertyChangeListener(e -> categories.get(category.getCategory()).addValue(key, (int) settingsField.getValue()));

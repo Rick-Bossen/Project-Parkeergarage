@@ -2,6 +2,8 @@ package parkeersimulator.view.carpark;
 
 
 import parkeersimulator.controller.Simulator;
+import parkeersimulator.enums.theme.ThemeColors;
+import parkeersimulator.enums.theme.ThemeFonts;
 import parkeersimulator.framework.GridBagView;
 import parkeersimulator.framework.Model;
 
@@ -21,7 +23,7 @@ public class CarParkControls extends GridBagView {
     public CarParkControls() {
         super();
         setPosition(1, 2);
-        setBackground(new Color(45, 52, 54));
+        setBackground(ThemeColors.BACKGROUND_DARK.getColor());
         setLayout(new GridBagLayout());
         controls = new ArrayList<>();
         setUIComponents();
@@ -33,8 +35,8 @@ public class CarParkControls extends GridBagView {
     private void setUIComponents() {
         GridBagConstraints constraints = new GridBagConstraints();
         JLabel minutesLabel = new JLabel();
-        minutesLabel.setFont(new Font("Dubai", -1, 12));
-        minutesLabel.setForeground(Color.white);
+        minutesLabel.setFont(ThemeFonts.SMALL_REGULAR.getFont());
+        minutesLabel.setForeground(ThemeColors.FONT_LIGHT.getColor());
         minutesLabel.setText("Forward simulation:");
         constraints.gridx = 0;
         constraints.insets = new Insets(10, 20, 10, 10);
@@ -68,12 +70,12 @@ public class CarParkControls extends GridBagView {
      */
     private JButton createButton(int gridX, String label, int eventId) {
         JButton button = new JButton();
-        button.setFont(new Font("Dubai Light", -1, 14));
-        button.setForeground(Color.white);
+        button.setFont(ThemeFonts.NORMAL_REGULAR.getFont());
+        button.setForeground(ThemeColors.FONT_LIGHT.getColor());
         button.setBorderPainted(false);
         button.setFocusPainted(false);
         button.setText(label);
-        button.setBackground(new Color(116, 185, 255));
+        button.setBackground(ThemeColors.INTERACTION.getColor());
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.gridx = gridX;
         constraints.insets = new Insets(10, 10, 10, 10);

@@ -1,5 +1,7 @@
 package parkeersimulator.view.statistics;
 
+import parkeersimulator.enums.theme.ThemeColors;
+import parkeersimulator.enums.theme.ThemeFonts;
 import parkeersimulator.framework.GridBagView;
 import parkeersimulator.framework.Model;
 import parkeersimulator.model.statistics.ChartList;
@@ -29,7 +31,7 @@ public class StatisticsView extends GridBagView {
         setVerticalPriority(1);
         setGridHeight(1);
         setBorder(new EmptyBorder(20, 0, 40, 0));
-        setBackground(Color.white);
+        setBackground(ThemeColors.BACKGROUND_LIGHT.getColor());
 
         setLayout(new GridBagLayout());
 
@@ -64,8 +66,8 @@ public class StatisticsView extends GridBagView {
     private JLabel generateLabel(String text) {
         JLabel label = new JLabel();
         label.setText(text);
-        label.setFont(new Font("Dubai", Font.BOLD, 14));
-        label.setForeground(new Color(45, 52, 54));
+        label.setFont(ThemeFonts.NORMAL_BOLD.getFont());
+        label.setForeground(ThemeColors.FONT_DARK.getColor());
 
         return label;
     }
