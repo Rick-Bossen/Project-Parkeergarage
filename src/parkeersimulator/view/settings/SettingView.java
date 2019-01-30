@@ -83,6 +83,7 @@ public class SettingView extends GridBagView {
         categoryLabel.setText(category.getCategory());
         categoryLabel.setFont(ThemeFonts.LARGE_BOLD.getFont());
         categoryLabel.setForeground(ThemeColors.FONT_DARK.getColor());
+        categoryLabel.setPreferredSize(new Dimension(400, 25));
 
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.gridx = 1;

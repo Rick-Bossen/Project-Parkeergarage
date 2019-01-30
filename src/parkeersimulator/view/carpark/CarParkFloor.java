@@ -4,13 +4,16 @@ import parkeersimulator.enums.settings.GeneralSettings;
 import parkeersimulator.enums.theme.ThemeColors;
 import parkeersimulator.enums.theme.ThemeFonts;
 import parkeersimulator.model.Location;
-import parkeersimulator.model.car.Car;
-import parkeersimulator.model.car.ParkingPassSpot;
-import parkeersimulator.model.car.ReservedSpot;
+import parkeersimulator.model.car.*;
+import parkeersimulator.view.carpark.models.CarModel;
+import parkeersimulator.view.carpark.models.DefaultCarModel;
+import parkeersimulator.view.carpark.models.FancyCarModel;
 import parkeersimulator.model.carpark.CarPark;
+import parkeersimulator.view.carpark.models.RaceCarModel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Random;
 
 /**
  * This class represents one of the floors containing the parking,
@@ -199,6 +202,7 @@ class CarParkFloor extends JPanel {
      * @param car      current car.
      */
     private void drawCar(Graphics graphics, Car car) {
+        Random random = new Random();
         Color color = car.getColor();
         Location location = car.getLocation();
         boolean reverse = (location.getRow() + 1) % 2 == 0;
@@ -206,27 +210,17 @@ class CarParkFloor extends JPanel {
         if (factor < 1 || car instanceof ParkingPassSpot || car instanceof ReservedSpot) {
             drawRectangle(graphics, location, color);
         } else {
-            Color[] colors = new Color[]{
-                    null,
-                    color,
-                    color.darker(),
-                    Color.gray.darker(),
-                    Color.black,
-                    Color.red,
-                    Color.yellow,
-                    color.brighter()
-            };
-            int[][] mapping = new int[][]{
-                    new int[]{0, 0, 0, 0, 4, 4, 4, 4, 0, 0, 0, 0, 2, 4, 4, 4, 0, 0, 0, 0, 0},
-                    new int[]{0, 0, 0, 2, 1, 1, 1, 1, 7, 1, 4, 3, 4, 1, 1, 1, 1, 1, 2, 0, 0},
-                    new int[]{0, 0, 0, 5, 7, 2, 2, 1, 2, 1, 4, 3, 3, 4, 1, 1, 1, 2, 1, 2, 0},
-                    new int[]{0, 0, 0, 2, 7, 2, 2, 7, 2, 1, 4, 4, 3, 3, 7, 1, 1, 1, 2, 6, 0},
-                    new int[]{0, 0, 0, 2, 1, 2, 2, 1, 2, 1, 4, 3, 3, 3, 7, 1, 1, 1, 2, 2, 0},
-                    new int[]{0, 0, 0, 2, 7, 2, 2, 7, 2, 1, 4, 3, 3, 3, 7, 1, 1, 1, 2, 6, 0},
-                    new int[]{0, 0, 0, 5, 7, 2, 2, 1, 2, 1, 4, 3, 3, 4, 1, 1, 1, 2, 1, 2, 0},
-                    new int[]{0, 0, 0, 2, 1, 1, 1, 1, 7, 1, 4, 3, 4, 1, 1, 1, 1, 1, 2, 0, 0},
-                    new int[]{0, 0, 0, 0, 4, 4, 4, 4, 0, 0, 0, 0, 2, 4, 4, 4, 0, 0, 0, 0, 0},
-            };
+            CarModel model;
+            if(random.nextFloat() > 0.9f){
+                model = new FancyCarModel();
+            }else if(random.nextFloat() > 0.97f){
+                model = new RaceCarModel();
+            }else{
+                model = new DefaultCarModel();
+            }
+
+            Color[] colors = model.getColors(color);
+            int[][] mapping = model.getMapping();
             int startX = 1 + getOffsetX() + getX(location);
             int y = useFactor(2) + getOffsetY() + getY(location);
             int x, timesX, timesY;
