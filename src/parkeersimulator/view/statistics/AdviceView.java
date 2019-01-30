@@ -34,6 +34,9 @@ public class AdviceView extends GridBagView {
         createLabel("* Not enough data yet.", 0);
     }
 
+    /**
+     * Creates the "Current advice:" text in the Advice View
+     */
     private void createTopText()
     {
         JLabel label = new JLabel();

@@ -16,6 +16,8 @@ abstract public class CarModel {
 
     /**
      * Return the mapping of the car.
+     *
+     * @return the mapping of the car.
      */
     abstract public int[][] getMapping();
 

@@ -11,6 +11,7 @@ parkeersimulator.model.statistics
 parkeersimulator.utility
 parkeersimulator.view.about
 parkeersimulator.view.carpark
+parkeersimulator.view.carpark.models
 parkeersimulator.view.gui
 parkeersimulator.view.settings
 parkeersimulator.view.statistics

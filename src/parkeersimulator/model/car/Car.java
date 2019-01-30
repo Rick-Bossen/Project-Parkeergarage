@@ -102,6 +102,8 @@ public abstract class Car extends Model {
 
     /**
      * Set the background of the car.
+     *
+     * @param color the background color of the car.
      */
     protected void setBackground(Color color){
         this.background = color;
@@ -118,6 +120,8 @@ public abstract class Car extends Model {
 
     /**
      * Set the color of the car.
+     *
+     * @param color the color of the car.
      */
     protected void setColor(Color color){
         this.color = color;

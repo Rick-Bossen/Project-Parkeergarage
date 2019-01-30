@@ -18,7 +18,7 @@ import java.util.Random;
 /**
  * This class represents the whole car park containing the location of all cars and the statistics with it.
  *
- * @version 28.01.2019.
+ * @version 30.01.2019.
  */
 public class CarPark extends Model {
 
@@ -263,7 +263,7 @@ public class CarPark extends Model {
 
     /**
      * Get the total number of spots per floor.
-     * @param floor floor.
+     *
      * @return amount of spots.
      */
     public int getTotalNumberOfSpotsForFloor(){
@@ -272,6 +272,7 @@ public class CarPark extends Model {
 
     /**
      * Get the number of filled spots per floor.
+     *
      * @param floor floor.
      * @return amount of spots.
      */
