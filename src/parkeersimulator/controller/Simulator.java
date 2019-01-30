@@ -5,9 +5,11 @@ import parkeersimulator.framework.Controller;
 import parkeersimulator.framework.View;
 import parkeersimulator.model.Clock;
 import parkeersimulator.model.carpark.CarPark;
+import parkeersimulator.model.statistics.Advice;
 import parkeersimulator.model.statistics.ChartList;
 import parkeersimulator.model.statistics.StatisticsList;
 import parkeersimulator.view.carpark.CarParkControls;
+import parkeersimulator.view.statistics.AdvicePanel;
 import parkeersimulator.view.statistics.StatisticsView;
 
 import javax.swing.*;
@@ -38,15 +40,19 @@ public class Simulator extends Controller {
     private StatisticsList statisticsList;
     private ChartList chartList;
     private StatisticsView statisticsView;
+    private Advice advice;
+    private AdvicePanel advicePanel;
     private boolean halt = false;
     private boolean isRunning = false;
 
-    public Simulator(Clock clock, CarPark carPark, StatisticsList statisticsList, ChartList chartList, StatisticsView statisticsView) {
+    public Simulator(Clock clock, CarPark carPark, StatisticsList statisticsList, ChartList chartList, StatisticsView statisticsView, Advice advice, AdvicePanel advicePanel) {
         this.clock = clock;
         this.carPark = carPark;
         this.statisticsList = statisticsList;
         this.chartList = chartList;
         this.statisticsView = statisticsView;
+        this.advice = advice;
+        this.advicePanel = advicePanel;
     }
 
     /**
@@ -92,6 +98,7 @@ public class Simulator extends Controller {
         carPark.tick();
         carPark.queueReservations(clock.getDayOfWeek());
         carPark.handleEntrance(clock);
+        advice.tick();
         if (updateViews) {
             carPark.updateFloors();
         }
@@ -115,7 +122,8 @@ public class Simulator extends Controller {
         carPark.reset();
         statisticsList.reset();
         chartList.reset(statisticsList);
-        statisticsView.reset(chartList);
+        advice.reset(statisticsList);
+        statisticsView.reset(chartList,advicePanel);
         stop();
     }
 

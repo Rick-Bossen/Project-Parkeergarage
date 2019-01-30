@@ -23,7 +23,7 @@ public class StatisticsView extends GridBagView {
 
     private HashMap<String, JLabel> labels;
 
-    public StatisticsView(ChartList charts) {
+    public StatisticsView(ChartList charts, AdvicePanel advicePanel) {
         super();
         labels = new HashMap<>();
         setPosition(1, 1);
@@ -55,6 +55,7 @@ public class StatisticsView extends GridBagView {
 
         generateLabels();
         generateCharts(charts);
+        AddAdvicePanel(advicePanel);
     }
 
     /**
@@ -141,16 +142,29 @@ public class StatisticsView extends GridBagView {
         add(dailyCars, constraints);
     }
 
+    private void AddAdvicePanel(AdvicePanel advicePanel)
+    {
+        GridBagConstraints constraints;
+
+        constraints = new GridBagConstraints();
+        constraints.gridx = 1;
+        constraints.gridy = labels.size() + 2;
+        constraints.gridwidth = 2;
+        constraints.insets = new Insets(10, 15, 0, 20);
+        add(advicePanel, constraints);
+    }
+
     /**
      * Resets all the content of tie view and links a new ChartList to the charts.
      *
      * @param chartList the new ChartList to be used.
      */
-    public void reset(ChartList chartList)
+    public void reset(ChartList chartList, AdvicePanel advicePanel)
     {
         removeAll();
         generateLabels();
         generateCharts(chartList);
+        AddAdvicePanel(advicePanel);
     }
 
     @Override

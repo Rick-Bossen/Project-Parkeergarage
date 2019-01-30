@@ -9,6 +9,7 @@ import parkeersimulator.model.Clock;
 import parkeersimulator.model.TabList;
 import parkeersimulator.model.carpark.CarPark;
 import parkeersimulator.model.settings.SettingList;
+import parkeersimulator.model.statistics.Advice;
 import parkeersimulator.model.statistics.ChartList;
 import parkeersimulator.model.statistics.StatisticsList;
 import parkeersimulator.view.about.AboutView;
@@ -18,6 +19,7 @@ import parkeersimulator.view.gui.SideBar;
 import parkeersimulator.view.gui.TopBar;
 import parkeersimulator.view.settings.SettingControls;
 import parkeersimulator.view.settings.SettingView;
+import parkeersimulator.view.statistics.AdvicePanel;
 import parkeersimulator.view.statistics.StatisticsView;
 
 import javax.swing.*;
@@ -49,6 +51,7 @@ class ParkingSimulation {
         CarPark carPark = new CarPark(statistics);
         SettingList settingList = new SettingList();
         ChartList chartList = new ChartList(statistics);
+        Advice advice = new Advice(statistics);
 
         // Create the Views.
         TabList tabList = new TabList();
@@ -58,12 +61,13 @@ class ParkingSimulation {
         CarParkControls carParkControls = new CarParkControls();
         SettingView settingsView = new SettingView();
         SettingControls settingControls = new SettingControls(settingsView);
-        StatisticsView statisticsView = new StatisticsView(chartList);
+        AdvicePanel advicePanel = new AdvicePanel();
+        StatisticsView statisticsView = new StatisticsView(chartList,advicePanel);
         AboutView aboutView = new AboutView();
 
         // Create the Controllers.
         Navigation navigation = new Navigation(tabList);
-        Simulator simulator = new Simulator(clock, carPark, statistics, chartList,statisticsView);
+        Simulator simulator = new Simulator(clock, carPark, statistics, chartList, statisticsView, advice, advicePanel);
         SettingManager settingManager = new SettingManager(window, carPark, clock);
         carParkControls.setController(simulator);
         sideBar.setController(navigation);
@@ -75,6 +79,7 @@ class ParkingSimulation {
         tabList.addView(sideBar);
         settingList.addView(settingsView);
         statistics.addView(statisticsView);
+        advice.addView(advicePanel);
 
         // Set the size of the car park
         clock.reset();
