@@ -67,19 +67,19 @@ public class Advice extends Model {
 
             Statistic stat = statisticsList.getStatistic(id);
 
-            if (id.equals("profit.total") && stat.getPastDay() < 20000) {
-                advices.add("The profit of the last 24 hours is under €20000, you may want to " +
-                        "increase the prices.");
+            if (id.equals("profit.total") && (true || stat.getPastDay() < 20000)) {
+                advices.add("<html>* The profit of the last 24 hours is under €20000,<br> you may want to " +
+                        "increase the prices.</html>");
             }
 
-            if (id.equals("cars.missed") && stat.getPastHour() > 0) {
-                advices.add("People are leaving because of long queue times, you may want to increase " +
-                        "the queue speed or capacity.");
+            if (id.equals("cars.missed") && (true ||  stat.getPastHour() > 0)) {
+                advices.add("<html>* People are leaving because of long queue times,<br> you may want to increase " +
+                        "the queue speed or capacity.</html>");
             }
 
-            if (id.equals("cars.entered") && stat.getPastDay() < 2000) {
-                advices.add("The amount of cars we've had in the past 24 hours is low, you might " +
-                        "want to find a way to attract more customers.");
+            if (id.equals("cars.entered") && (true ||  stat.getPastDay() < 2000)) {
+                advices.add("<html>* The amount of cars we've had in the past 24 hours is low,<br> you might " +
+                        "want to find a way to attract more customers.</html>");
             }
         }
     }

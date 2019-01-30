@@ -15,29 +15,31 @@ import java.awt.*;
  *
  * @version 30.01.2019.
  */
-public class AdvicePanel extends GridBagView {
+public class AdviceView extends GridBagView {
 
-    public AdvicePanel()
+    public AdviceView()
     {
         super();
         setPosition(1, 1);
         setHorizontalPriority(1);
         setVerticalPriority(1);
-        setGridHeight(1);
+        setGridHeight(2);
         setBorder(new EmptyBorder(20, 0, 40, 0));
         setBackground(ThemeColors.BACKGROUND_LIGHT.getColor());
-        setPreferredSize(new Dimension(800,400));
+        setBackground(ThemeColors.INTERACTION.getColor());
+        setOpaque(true);
 
         setLayout(new GridBagLayout());
         createTopText();
+        createLabel("* Not enough data yet.", 0);
     }
 
     private void createTopText()
     {
         JLabel label = new JLabel();
-        label.setText("Current advices:");
-        label.setFont(ThemeFonts.NORMAL_BOLD.getFont());
-        label.setForeground(ThemeColors.FONT_DARK.getColor());
+        label.setText("Current advice:");
+        label.setFont(ThemeFonts.LARGE_BOLD.getFont());
+        label.setForeground(ThemeColors.FONT_LIGHT.getColor());
 
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.gridx = 1;
@@ -53,11 +55,11 @@ public class AdvicePanel extends GridBagView {
      * @param text the text of the advice.
      * @param index the index used for the y coordinates.
      */
-    private void CreateLabel(String text, int index) {
+    private void createLabel(String text, int index) {
         JLabel label = new JLabel();
-        label.setText("* " + text);
+        label.setText(text);
         label.setFont(ThemeFonts.NORMAL_BOLD.getFont());
-        label.setForeground(ThemeColors.FONT_DARK.getColor());
+        label.setForeground(ThemeColors.FONT_LIGHT.getColor());
 
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.gridx = 1;
@@ -65,7 +67,6 @@ public class AdvicePanel extends GridBagView {
         constraints.insets = new Insets(10, 15, 0, 20);
         constraints.anchor = GridBagConstraints.WEST;
         add(label, constraints);
-
     }
 
 
@@ -76,7 +77,7 @@ public class AdvicePanel extends GridBagView {
             createTopText();
             int i = 0;
             for (String advice : ((Advice) model).getAdvices()) {
-                CreateLabel(advice,i);
+                createLabel(advice,i);
                 i++;
             }
         }

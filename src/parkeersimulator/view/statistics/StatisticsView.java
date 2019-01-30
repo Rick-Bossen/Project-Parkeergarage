@@ -21,14 +21,14 @@ public class StatisticsView extends GridBagView {
 
     private HashMap<String, JLabel> labels;
 
-    public StatisticsView(ChartList charts, AdvicePanel advicePanel) {
+    public StatisticsView(ChartList charts) {
         super();
         labels = new HashMap<>();
         setPosition(1, 1);
         setHorizontalPriority(1);
         setVerticalPriority(1);
         setGridHeight(1);
-        setBorder(new EmptyBorder(20, 0, 40, 0));
+        setBorder(new EmptyBorder(0, 0, 40, 0));
         setBackground(ThemeColors.BACKGROUND_LIGHT.getColor());
 
         setLayout(new GridBagLayout());
@@ -40,6 +40,7 @@ public class StatisticsView extends GridBagView {
         constraints = new GridBagConstraints();
         constraints.weightx = 1;
         constraints.gridx = 0;
+        constraints.gridy = 1;
         constraints.fill = GridBagConstraints.HORIZONTAL;
         add(leftSpacer, constraints);
 
@@ -48,11 +49,11 @@ public class StatisticsView extends GridBagView {
         constraints = new GridBagConstraints();
         constraints.weightx = 1;
         constraints.gridx = 3;
+        constraints.gridy = 1;
         constraints.fill = GridBagConstraints.HORIZONTAL;
         add(rightSpacer, constraints);
 
         generateLabels();
-        addAdvicePanel(advicePanel);
         generateCharts(charts);
     }
 
@@ -75,11 +76,11 @@ public class StatisticsView extends GridBagView {
      * Generates all the JLabels on the the view.
      */
     private void generateLabels() {
-        addStatisticField(0, "profit.total", "Total profit: ");
-        addStatisticField(1, "profit.hourly", "Past hour profit: ");
-        addStatisticField(2, "profit.daily", "Past day profit: ");
-        addStatisticField(3, "cars.entered", "Total entered cars: ");
-        addStatisticField(4, "cars.missed", "Total cars missed: ");
+        addStatisticField(1, "profit.total", "Total profit: ");
+        addStatisticField(2, "profit.hourly", "Past hour profit: ");
+        addStatisticField(3, "profit.daily", "Past day profit: ");
+        addStatisticField(4, "cars.entered", "Total entered cars: ");
+        addStatisticField(5, "cars.missed", "Total cars missed: ");
     }
 
     /**
@@ -93,7 +94,7 @@ public class StatisticsView extends GridBagView {
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.gridx = 1;
         constraints.gridy = gridY;
-        constraints.insets = new Insets(10, 15, 0, 20);
+        constraints.insets = new Insets(10, 90, 0, 20);
         constraints.anchor = GridBagConstraints.WEST;
         add(textLabel, constraints);
 
@@ -141,33 +142,14 @@ public class StatisticsView extends GridBagView {
     }
 
     /**
-     * Adds an advice panel to the bottom of the view.
-     *
-     * @param advicePanel the AdvicePanel to be used.
-     */
-    private void addAdvicePanel(AdvicePanel advicePanel)
-    {
-        GridBagConstraints constraints;
-
-        constraints = new GridBagConstraints();
-        constraints.gridx = 1;
-        constraints.gridy = labels.size();
-        constraints.gridwidth = 2;
-        constraints.insets = new Insets(10, 15, 0, 20);
-        add(advicePanel, constraints);
-    }
-
-    /**
      * Resets all the content of tie view and links a new ChartList to the charts.
      *
      * @param chartList the new ChartList to be used.
-     * @param advicePanel the new AdvicePanel to be used.
      */
-    public void reset(ChartList chartList, AdvicePanel advicePanel)
+    public void reset(ChartList chartList)
     {
         removeAll();
         generateLabels();
-        addAdvicePanel(advicePanel);
         generateCharts(chartList);
     }
 

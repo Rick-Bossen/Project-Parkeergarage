@@ -9,7 +9,7 @@ import parkeersimulator.model.statistics.Advice;
 import parkeersimulator.model.statistics.ChartList;
 import parkeersimulator.model.statistics.StatisticsList;
 import parkeersimulator.view.carpark.CarParkControls;
-import parkeersimulator.view.statistics.AdvicePanel;
+import parkeersimulator.view.statistics.AdviceView;
 import parkeersimulator.view.statistics.StatisticsView;
 
 import javax.swing.*;
@@ -20,7 +20,7 @@ import java.awt.event.ActionListener;
  * This class represents the simulation itself.
  * <p>
  * It contains the models: Clock, CarPark, StatisticsList, ChartList and Advice.
- * It contains the views: TopBar, CarParkFloor, CarParkView, StatisticsView and AdvicePanel.
+ * It contains the views: TopBar, CarParkFloor, CarParkView, StatisticsView and AdviceView.
  * <p>
  * This class also handles if the simulation is currently running or is halted.
  *
@@ -41,18 +41,16 @@ public class Simulator extends Controller {
     private ChartList chartList;
     private StatisticsView statisticsView;
     private Advice advice;
-    private AdvicePanel advicePanel;
     private boolean halt = false;
     private boolean isRunning = false;
 
-    public Simulator(Clock clock, CarPark carPark, StatisticsList statisticsList, ChartList chartList, StatisticsView statisticsView, Advice advice, AdvicePanel advicePanel) {
+    public Simulator(Clock clock, CarPark carPark, StatisticsList statisticsList, ChartList chartList, StatisticsView statisticsView, Advice advice) {
         this.clock = clock;
         this.carPark = carPark;
         this.statisticsList = statisticsList;
         this.chartList = chartList;
         this.statisticsView = statisticsView;
         this.advice = advice;
-        this.advicePanel = advicePanel;
     }
 
     /**
@@ -123,7 +121,7 @@ public class Simulator extends Controller {
         statisticsList.reset();
         chartList.reset(statisticsList);
         advice.reset(statisticsList);
-        statisticsView.reset(chartList,advicePanel);
+        statisticsView.reset(chartList);
         stop();
     }
 
