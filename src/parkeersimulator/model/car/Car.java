@@ -18,6 +18,8 @@ public abstract class Car extends Model {
     private boolean isPaying;
     private boolean hasToPay;
     private boolean isFirstDraw = true;
+    private Color color = Color.white;
+    private Color background = new Color(195, 195, 195);
 
     /**
      * Return the location of the car.
@@ -99,11 +101,36 @@ public abstract class Car extends Model {
     }
 
     /**
+     * Set the background of the car.
+     */
+    protected void setBackground(Color color){
+        this.background = color;
+    }
+
+    /**
+     * Return the Background of the car.
+     *
+     * @return the Background of the car.
+     */
+    public Color getBackground(){
+        return background;
+    }
+
+    /**
+     * Set the color of the car.
+     */
+    protected void setColor(Color color){
+        this.color = color;
+    }
+
+    /**
      * Return the Color of the car.
      *
      * @return the Color of the car.
      */
-    public abstract Color getColor();
+    public Color getColor(){
+        return color;
+    }
 
     /**
      * Return if the car has been drawn before.

@@ -1,6 +1,7 @@
 package parkeersimulator.model.car;
 
-import java.awt.*;
+import parkeersimulator.enums.theme.ThemeColors;
+
 import java.util.Random;
 
 /**
@@ -11,17 +12,12 @@ import java.util.Random;
  */
 public class ParkingPassCar extends Car {
 
-    private static final Color COLOR = Color.blue;
-
     public ParkingPassCar() {
+        setColor(ThemeColors.CAR_PASSHOLDER.getColor());
+        setBackground(ThemeColors.CAR_PASSHOLDER_SPOT.getColor());
         Random random = new Random();
         int stayMinutes = (int) (15 + random.nextFloat() * 3 * 60);
         this.setMinutesLeft(stayMinutes);
         this.setHasToPay(false);
-    }
-
-    @Override
-    public Color getColor() {
-        return COLOR;
     }
 }

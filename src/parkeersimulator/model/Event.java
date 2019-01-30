@@ -1,4 +1,6 @@
 package parkeersimulator.model;
+import parkeersimulator.enums.settings.SettingType;
+
 import java.util.HashMap;
 
 /**
@@ -9,14 +11,14 @@ import java.util.HashMap;
 public class Event {
 
     private HashMap<Integer, Integer[]> days;
-    private int total;
+    private SettingType valueSetting;
 
     /** Create a new event.
      *
      * @param total total arrivals within the given timespan.
      */
-    public Event(int total) {
-        this.total = total;
+    public Event(SettingType total) {
+        this.valueSetting = total;
         days = new HashMap<>();
     }
 
@@ -55,15 +57,10 @@ public class Event {
     /**
      * Return the amount of hourly arrivals.
      *
-     * @param dayOfWeek the number of the day of the week.
      * @return hourly amount.
      */
-    public int getHourlyAmount(int dayOfWeek){
-        if(days.get(dayOfWeek) != null){
-            Integer[] hours = days.get(dayOfWeek);
-            return total / (hours[1] - hours[0] + 1);
-        }
-        return 0;
+    public int getHourlyAmount(){
+        return valueSetting.getValue();
     }
 
 

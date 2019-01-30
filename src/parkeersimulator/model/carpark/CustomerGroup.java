@@ -99,7 +99,7 @@ public class CustomerGroup extends Model {
         }
         for (Event event : events) {
             if(event.isOngoing(clock)){
-                averageNumber = event.getHourlyAmount(clock.getDayOfWeek());
+                averageNumber = event.getHourlyAmount();
             }
         }
         

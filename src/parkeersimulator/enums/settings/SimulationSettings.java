@@ -14,7 +14,9 @@ public enum SimulationSettings implements SettingType {
     PASSHOLDERS_WEEKDAY ("pass.arrivals.weekday", "Passholders/weekday"),
     PASSHOLDERS_WEEKEND ("pass.arrivals.weekend", "Passholders/weekend"),
     RESERVATIONS_WEEKDAY ("reserved.arrivals.weekday", "Reservations/weekday"),
-    RESERVATIONS_WEEKEND ("reserved.arrivals.weekend", "Reservations/weekend");
+    RESERVATIONS_WEEKEND ("reserved.arrivals.weekend", "Reservations/weekend"),
+    EVENT_THEATRE ("event.arrivals.theatre", "Event: Theatre"),
+    EVENT_LATE_OPENING ("event.arrivals.lateOpening", "Event: Late opening");
 
     private final String name;
     private final String label;

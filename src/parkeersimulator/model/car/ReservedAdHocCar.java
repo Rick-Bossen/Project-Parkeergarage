@@ -1,6 +1,7 @@
 package parkeersimulator.model.car;
 
-import java.awt.*;
+import parkeersimulator.enums.theme.ThemeColors;
+
 import java.util.Random;
 
 /**
@@ -11,18 +12,14 @@ import java.util.Random;
  */
 public class ReservedAdHocCar extends AdHocCar {
 
-    private static final Color COLOR = Color.magenta;
     private String id;
     private int timeUntilArrival;
 
     public ReservedAdHocCar() {
         super();
+        setColor(ThemeColors.CAR_RESERVATION.getColor());
+        setBackground(ThemeColors.CAR_RESERVATION_SPOT.getColor());
         this.setHasToPay(false);
-    }
-
-    @Override
-    public Color getColor() {
-        return COLOR;
     }
 
     /**

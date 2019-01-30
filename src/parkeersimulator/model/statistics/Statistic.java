@@ -3,6 +3,7 @@ package parkeersimulator.model.statistics;
 import parkeersimulator.framework.Model;
 import parkeersimulator.model.Clock;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 /**

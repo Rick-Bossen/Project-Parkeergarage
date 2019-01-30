@@ -1,6 +1,6 @@
 package parkeersimulator.model.car;
 
-import java.awt.*;
+import parkeersimulator.enums.theme.ThemeColors;
 
 /**
  * This class represents a car which contains a parking spot reserved for passholders only,
@@ -10,10 +10,8 @@ import java.awt.*;
  */
 public class ParkingPassSpot extends Car {
 
-    private static final Color COLOR = Color.ORANGE;
-
-    @Override
-    public Color getColor() {
-        return COLOR;
+    public ParkingPassSpot(){
+        setColor(ThemeColors.CAR_PASSHOLDER_SPOT.getColor());
     }
+
 }

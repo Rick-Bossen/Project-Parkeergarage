@@ -34,7 +34,7 @@ public class TopBar extends GridBagView {
         JLabel titleLabel = new JLabel();
         titleLabel.setFont(ThemeFonts.NORMAL_BOLD.getFont());
         titleLabel.setForeground(ThemeColors.FONT_LIGHT.getColor());
-        titleLabel.setText("Parking Simulator");
+        titleLabel.setText("City parking Groningen");
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.insets = new Insets(0, 15, 0, 0);
         add(titleLabel, constraints);

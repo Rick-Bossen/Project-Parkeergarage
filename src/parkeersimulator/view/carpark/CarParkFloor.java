@@ -130,9 +130,23 @@ class CarParkFloor extends JPanel {
                 baseHeight
         );
 
-        graphics.setFont(ThemeFonts.LARGE_REGULAR.getFont());
+        graphics.setFont(ThemeFonts.MONOSPACED_LARGE.getFont());
         graphics.setColor(Color.white);
         graphics.drawString("Floor: " + floor, getOffsetX(), getOffsetY() + 2);
+    }
+
+    /**
+     * Draw the amount of spots on the floor.
+     *
+     * @param graphics graphics to draw on.
+     */
+    private void drawSpotString(Graphics graphics){
+        graphics.setColor(new Color(195, 195, 195));
+        graphics.fillRect(getWidth() - getOffsetX() - 125, getOffsetY() - 11, 115, 18);
+        graphics.setFont(ThemeFonts.MONOSPACED_LARGE.getFont());
+        graphics.setColor(Color.white);
+        String spotString = String.format("Spots:%3d/%3d", carPark.getNumberOfFilledSpotsForFloor(floor), carPark.getTotalNumberOfSpotsForFloor());
+        graphics.drawString(spotString, getWidth() - getOffsetX() - 115, getOffsetY() + 2);
     }
 
     /**
@@ -214,7 +228,7 @@ class CarParkFloor extends JPanel {
                     new int[]{0, 0, 0, 0, 4, 4, 4, 4, 0, 0, 0, 0, 2, 4, 4, 4, 0, 0, 0, 0, 0},
             };
             int startX = 1 + getOffsetX() + getX(location);
-            int y = 2 + getOffsetY() + getY(location);
+            int y = useFactor(2) + getOffsetY() + getY(location);
             int x, timesX, timesY;
             for (int[] colorMap : mapping) {
                 timesY = 1;
@@ -297,13 +311,15 @@ class CarParkFloor extends JPanel {
             drawBase(graphics);
         }
 
+        drawSpotString(graphics);
+
         for (int row = 0; row < carPark.getNumberOfRows(); row++) {
             for (int place = 0; place < carPark.getNumberOfPlaces(); place++) {
                 Location location = new Location(floor, row, place);
                 Car car = carPark.getCarAt(location);
                 if (car != null) {
                     if (shouldRedraw || car.isFirstDraw()) {
-                        drawRectangle(graphics, location, new Color(195, 195, 195));
+                        drawRectangle(graphics, location, car.getBackground());
                         car.setFirstDraw(false);
                         drawCar(graphics, car);
                         drawPlace(graphics, location);

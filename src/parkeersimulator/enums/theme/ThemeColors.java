@@ -14,7 +14,13 @@ public enum ThemeColors {
     BACKGROUND_DARK (45, 52, 54),
 
     FONT_LIGHT (255, 255, 255),
-    FONT_DARK (45, 52, 54);
+    FONT_DARK (45, 52, 54),
+
+    CAR_PASSHOLDER (55, 66, 250),
+    CAR_PASSHOLDER_SPOT (112, 161, 255),
+    CAR_ADHOC (194, 54, 22),
+    CAR_RESERVATION (255, 168, 1),
+    CAR_RESERVATION_SPOT (52, 231, 228);
 
     private final Color color;
 

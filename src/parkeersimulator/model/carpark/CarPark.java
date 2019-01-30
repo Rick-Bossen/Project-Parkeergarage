@@ -54,13 +54,13 @@ public class CarPark extends Model {
      */
     private void createGroups() {
         ArrayList<Event> events = new ArrayList<>();
-        Event theaterEvent = new Event(900);
+        Event theaterEvent = new Event(SimulationSettings.EVENT_THEATRE);
         theaterEvent.addDay(DayOfWeek.FRIDAY.getValue());
         theaterEvent.addDay(DayOfWeek.SATURDAY.getValue(), 18, 24);
         theaterEvent.addDay(DayOfWeek.SUNDAY.getValue(), 12, 18);
         events.add(theaterEvent);
 
-        Event lateOpening = new Event(600);
+        Event lateOpening = new Event(SimulationSettings.EVENT_LATE_OPENING);
         lateOpening.addDay(DayOfWeek.THURSDAY.getValue(), 18, 24);
         events.add(lateOpening);
         this.customerGroups = new ArrayList<>();
@@ -259,6 +259,32 @@ public class CarPark extends Model {
      */
     public int getNumberOfPlaces() {
         return numberOfPlaces;
+    }
+
+    /**
+     * Get the total number of spots per floor.
+     * @param floor floor.
+     * @return amount of spots.
+     */
+    public int getTotalNumberOfSpotsForFloor(){
+        return numberOfPlaces * numberOfRows;
+    }
+
+    /**
+     * Get the number of filled spots per floor.
+     * @param floor floor.
+     * @return amount of spots.
+     */
+    public int getNumberOfFilledSpotsForFloor(int floor){
+        int count = 0;
+        for(Car[] rows : cars[floor]){
+            for(Car car : rows){
+                if(car != null && !(car instanceof ReservedSpot) && !(car instanceof ParkingPassSpot)){
+                    count++;
+                }
+            }
+        }
+        return count;
     }
 
     /**

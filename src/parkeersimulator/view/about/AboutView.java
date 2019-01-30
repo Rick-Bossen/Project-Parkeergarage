@@ -42,11 +42,11 @@ public class AboutView extends GridBagView {
         constraints.fill = GridBagConstraints.HORIZONTAL;
         add(rightSpacer, constraints);
 
-        addItem(0, Color.RED, "Normal customers car");
-        addItem(1, Color.BLUE, "Pass holder car");
-        addItem(2, Color.ORANGE, "Reserved spot for pass holder");
-        addItem(3, Color.YELLOW, "Reserved car");
-        addItem(4, Color.GREEN, "Reserved spot");
+        addItem(0, ThemeColors.CAR_ADHOC.getColor(), "Normal customers car");
+        addItem(1, ThemeColors.CAR_PASSHOLDER.getColor(), "Pass holder car");
+        addItem(2, ThemeColors.CAR_PASSHOLDER_SPOT.getColor(), "Reserved spot for pass holder");
+        addItem(3, ThemeColors.CAR_RESERVATION.getColor(), "Reserved car");
+        addItem(4, ThemeColors.CAR_RESERVATION_SPOT.getColor(), "Reserved spot");
     }
 
     /**

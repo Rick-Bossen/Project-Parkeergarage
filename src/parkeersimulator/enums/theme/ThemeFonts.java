@@ -11,7 +11,8 @@ public enum ThemeFonts {
     LARGE_BOLD (ThemeFonts.defaultFont, Font.BOLD, 16),
     NORMAL_REGULAR (ThemeFonts.defaultFont, Font.PLAIN, 14),
     NORMAL_BOLD (ThemeFonts.defaultFont, Font.BOLD, 14),
-    SMALL_REGULAR (ThemeFonts.defaultFont, Font.PLAIN, 12);
+    SMALL_REGULAR (ThemeFonts.defaultFont, Font.PLAIN, 12),
+    MONOSPACED_LARGE ("Courier New", Font.PLAIN, 15);
 
     private final Font font;
     public static final String defaultFont = "Dubai";
