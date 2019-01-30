@@ -4,7 +4,11 @@ import parkeersimulator.framework.Model;
 
 import java.util.ArrayList;
 
-
+/**
+ * Class that contains all the advices and the parameters to decide whether to display them or not.
+ *
+ * @version 30.01.2019.
+ */
 public class Advice extends Model {
 
     private StatisticsList statisticsList;
@@ -19,6 +23,10 @@ public class Advice extends Model {
         this.statisticsList = statisticsList;
     }
 
+    /**
+     * Increments the tickCounter by 1,
+     * checks if the tickCounter has reached 30 and updates the advices if this is the case.
+     */
     public void tick()
     {
         tickCounter++;
@@ -28,17 +36,31 @@ public class Advice extends Model {
         }
     }
 
+    /**
+     * Resets the advices and assigns a nre StatisticsList to track.
+     *
+     * @param statisticsList the new StatisticsList to track.
+     */
     public void reset(StatisticsList statisticsList)
     {
         advices.clear();
         this.statisticsList = statisticsList;
     }
 
+    /**
+     * Returns the ArrayList with all the advices.
+     *
+     * @return the ArrayList with all the advices.
+     */
     public ArrayList<String> getAdvices()
     {
         return advices;
     }
 
+    /**
+     * Checks for every advice whether it needs to be displayed or not,
+     * adds the advices that need to be displayed to the advices ArrayList.
+     */
     private void updateAdvice() {
         advices.clear();
         for (String id : idList) {

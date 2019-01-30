@@ -10,6 +10,11 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
+/**
+ * Class that represents a JPanel which displays all the current advices.
+ *
+ * @version 30.01.2019.
+ */
 public class AdvicePanel extends GridBagView {
 
     public AdvicePanel()
@@ -25,6 +30,12 @@ public class AdvicePanel extends GridBagView {
         setLayout(new GridBagLayout());
     }
 
+    /**
+     * Creates a new advice JLabel.
+     *
+     * @param text the text of the advice.
+     * @param index the index used for the y coordinates.
+     */
     private void CreateLabel(String text, int index) {
         JLabel label = new JLabel();
         label.setText("* " + text);

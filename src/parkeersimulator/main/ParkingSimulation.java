@@ -30,7 +30,7 @@ import java.util.ArrayList;
  * This class represents the full parking simulation,
  * It creates the simulation and the other components.
  *
- * @version 28.01.2019.
+ * @version 30.01.2019.
  */
 class ParkingSimulation {
 

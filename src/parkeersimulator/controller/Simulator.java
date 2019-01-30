@@ -19,12 +19,12 @@ import java.awt.event.ActionListener;
 /**
  * This class represents the simulation itself.
  * <p>
- * It contains the models: Clock.
- * It contains the views: CarPark, TopBar, CarParkFloor and CarParkView.
+ * It contains the models: Clock, CarPark, StatisticsList, ChartList and Advice.
+ * It contains the views: TopBar, CarParkFloor, CarParkView, StatisticsView and AdvicePanel.
  * <p>
  * This class also handles if the simulation is currently running or is halted.
  *
- * @version 28.01.2019.
+ * @version 30.01.2019.
  */
 public class Simulator extends Controller {
 

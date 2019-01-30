@@ -17,7 +17,7 @@ import java.util.HashMap;
 /**
  * This class contains the whole Statistics/Results page.
  *
- * @version 28.01.2019.
+ * @version 30.01.2019.
  */
 public class StatisticsView extends GridBagView {
 
@@ -55,7 +55,7 @@ public class StatisticsView extends GridBagView {
 
         generateLabels();
         generateCharts(charts);
-        AddAdvicePanel(advicePanel);
+        addAdvicePanel(advicePanel);
     }
 
     /**
@@ -142,7 +142,12 @@ public class StatisticsView extends GridBagView {
         add(dailyCars, constraints);
     }
 
-    private void AddAdvicePanel(AdvicePanel advicePanel)
+    /**
+     * Adds an advice panel to the bottom of the view.
+     *
+     * @param advicePanel the AdvicePanel to be used.
+     */
+    private void addAdvicePanel(AdvicePanel advicePanel)
     {
         GridBagConstraints constraints;
 
@@ -158,13 +163,14 @@ public class StatisticsView extends GridBagView {
      * Resets all the content of tie view and links a new ChartList to the charts.
      *
      * @param chartList the new ChartList to be used.
+     * @param advicePanel the new AdvicePanel to be used.
      */
     public void reset(ChartList chartList, AdvicePanel advicePanel)
     {
         removeAll();
         generateLabels();
         generateCharts(chartList);
-        AddAdvicePanel(advicePanel);
+        addAdvicePanel(advicePanel);
     }
 
     @Override
