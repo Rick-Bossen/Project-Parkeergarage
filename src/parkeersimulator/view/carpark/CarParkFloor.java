@@ -164,14 +164,13 @@ class CarParkFloor extends JPanel {
         int y = getOffsetY() + getY(location);
 
         boolean reverse = (location.getRow() + 1) % 2 == 0;
-        graphics.fillRect(x, y, useFactor(CAR_WIDTH), 1);
+        graphics.drawLine(x, y, x + useFactor(CAR_WIDTH) - (reverse ? 0 : 1), y);
         if (reverse) {
-            graphics.fillRect(x, y, 1, useFactor(CAR_HEIGHT));
+            graphics.drawLine(x, y, x, y + useFactor(CAR_HEIGHT));
         } else {
-            graphics.fillRect(x + useFactor(CAR_WIDTH) - 1, y, 1, useFactor(CAR_HEIGHT));
+            graphics.drawLine(x + useFactor(CAR_WIDTH) - 1, y, x + useFactor(CAR_WIDTH) - 1, y + useFactor(CAR_HEIGHT));
         }
-        graphics.fillRect(x, y + useFactor(CAR_HEIGHT) - 1, useFactor(CAR_WIDTH), 1);
-
+        graphics.drawLine(x, y + useFactor(CAR_HEIGHT) - 1, x + useFactor(CAR_WIDTH) - (reverse ? 0 : 1), y + useFactor(CAR_HEIGHT) - 1);
     }
 
     /**
@@ -218,38 +217,39 @@ class CarParkFloor extends JPanel {
             }else{
                 model = new DefaultCarModel();
             }
-
             Color[] colors = model.getColors(color);
             int[][] mapping = model.getMapping();
-            int startX = 1 + getOffsetX() + getX(location);
-            int y = useFactor(2) + getOffsetY() + getY(location);
-            int x, timesX, timesY;
+
+            Image carImage = createImage(mapping[0].length, mapping.length);
+            Graphics2D carGraphics = (Graphics2D) carImage.getGraphics();
+            carGraphics.setColor(car.getBackground());
+            carGraphics.drawRect(0, 0, carImage.getWidth(null), carImage.getHeight(null));
+
+            int x, y = 0;
             for (int[] colorMap : mapping) {
-                timesY = 1;
-                for (int currentY = 1; currentY <= useFactor(timesY) - useFactor((timesY - 1)); currentY++) {
-                    timesY++;
-                    x = startX;
-                    if (reverse) {
-                        x += useFactor(CAR_WIDTH) - 2;
-                    }
-                    timesX = 0;
-                    for (int colorNumber : colorMap) {
-                        timesX++;
-                        for (int currentX = 1; currentX <= useFactor(timesX) - useFactor((timesX - 1)); currentX++) {
-                            if (colorNumber > 0) {
-                                graphics.setColor(colors[colorNumber]);
-                                graphics.fillRect(x, y, 1, 1);
-                            }
-                            if (!reverse) {
-                                x++;
-                            } else {
-                                x--;
-                            }
-                        }
-                    }
-                    y++;
+                if (reverse) {
+                    x = mapping[0].length;
+                }else {
+                    x = 0;
                 }
+                for (int colorNumber : colorMap) {
+                    if(colorNumber > 0) {
+                        carGraphics.setColor(colors[colorNumber]);
+                    }else{
+                        carGraphics.setColor(car.getBackground());
+                    }
+                    carGraphics.fillRect(x, y, 1, 1);
+
+                    if (reverse) {
+                        x--;
+                    }else {
+                        x++;
+                    }
+                }
+                y++;
             }
+            carImage = carImage.getScaledInstance(useFactor(mapping[0].length), useFactor(mapping.length), 1);
+            graphics.drawImage(carImage, 1 + getOffsetX() + getX(location),useFactor(2) + getOffsetY() + getY(location), null);
         }
     }
 
