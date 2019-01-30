@@ -26,8 +26,25 @@ public class AdvicePanel extends GridBagView {
         setGridHeight(1);
         setBorder(new EmptyBorder(20, 0, 40, 0));
         setBackground(ThemeColors.BACKGROUND_LIGHT.getColor());
+        setPreferredSize(new Dimension(800,400));
 
         setLayout(new GridBagLayout());
+        createTopText();
+    }
+
+    private void createTopText()
+    {
+        JLabel label = new JLabel();
+        label.setText("Current advices:");
+        label.setFont(ThemeFonts.NORMAL_BOLD.getFont());
+        label.setForeground(ThemeColors.FONT_DARK.getColor());
+
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.gridx = 1;
+        constraints.gridy = 0;
+        constraints.insets = new Insets(10, 15, 0, 20);
+        constraints.anchor = GridBagConstraints.WEST;
+        add(label, constraints);
     }
 
     /**
@@ -44,7 +61,7 @@ public class AdvicePanel extends GridBagView {
 
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.gridx = 1;
-        constraints.gridy = index;
+        constraints.gridy = index + 1;
         constraints.insets = new Insets(10, 15, 0, 20);
         constraints.anchor = GridBagConstraints.WEST;
         add(label, constraints);
@@ -56,6 +73,7 @@ public class AdvicePanel extends GridBagView {
     protected void update(Model model) {
         if (model instanceof Advice) {
             removeAll();
+            createTopText();
             int i = 0;
             for (String advice : ((Advice) model).getAdvices()) {
                 CreateLabel(advice,i);

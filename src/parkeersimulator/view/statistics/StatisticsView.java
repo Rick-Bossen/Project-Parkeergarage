@@ -12,8 +12,6 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.util.HashMap;
 
-//TODO add more statistics
-
 /**
  * This class contains the whole Statistics/Results page.
  *
@@ -54,8 +52,8 @@ public class StatisticsView extends GridBagView {
         add(rightSpacer, constraints);
 
         generateLabels();
-        generateCharts(charts);
         addAdvicePanel(advicePanel);
+        generateCharts(charts);
     }
 
     /**
@@ -122,21 +120,21 @@ public class StatisticsView extends GridBagView {
         StatisticsChart hourlyProfit = charts.getChart("profit.hourly");
         constraints = new GridBagConstraints();
         constraints.gridx = 1;
-        constraints.gridy = labels.size();
+        constraints.gridy = labels.size() + 1;
         constraints.insets = new Insets(10, 15, 0, 20);
         add(hourlyProfit, constraints);
 
         StatisticsChart dailyProfit = charts.getChart("profit.daily");
         constraints = new GridBagConstraints();
         constraints.gridx = 2;
-        constraints.gridy = labels.size();
+        constraints.gridy = labels.size() + 1;
         constraints.insets = new Insets(10, 15, 0, 20);
         add(dailyProfit, constraints);
 
         StatisticsChart dailyCars = charts.getChart("entering.all");
         constraints = new GridBagConstraints();
         constraints.gridx = 1;
-        constraints.gridy = labels.size() + 1;
+        constraints.gridy = labels.size() + 2;
         constraints.gridwidth = 2;
         constraints.insets = new Insets(10, 15, 0, 20);
         add(dailyCars, constraints);
@@ -153,7 +151,7 @@ public class StatisticsView extends GridBagView {
 
         constraints = new GridBagConstraints();
         constraints.gridx = 1;
-        constraints.gridy = labels.size() + 2;
+        constraints.gridy = labels.size();
         constraints.gridwidth = 2;
         constraints.insets = new Insets(10, 15, 0, 20);
         add(advicePanel, constraints);
@@ -169,8 +167,8 @@ public class StatisticsView extends GridBagView {
     {
         removeAll();
         generateLabels();
-        generateCharts(chartList);
         addAdvicePanel(advicePanel);
+        generateCharts(chartList);
     }
 
     @Override
